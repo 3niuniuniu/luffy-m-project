@@ -19,7 +19,6 @@ npm run build
 
 ### 技术栈
 
-在此DEMO中使用了一下技术
 * vue2
 * vue-router2
 * vuex
@@ -47,7 +46,7 @@ npm run build
 │   ├── mock           // 模拟数据
 │   ├── pages          // 各页面
 │   ├── router         // 存放路由的文件夹
-│   ├── store	       // 状态管理store
+│   ├── store	         // 状态管理store
 │   ├── App.Vue        // 模板文件入口
 │   └── main.js        // Webpack 预编译入口
 │
