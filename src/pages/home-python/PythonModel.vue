@@ -22,39 +22,6 @@
 import Vue from 'vue'
 import { px2rem } from '../../assets/js/utils';
 
-// Vue.directive('haul',function(el){
-//   var oDiv = el;
-//   oDiv.addEventListener('touchstart', function(ev){
-//     var disX = ev.touches[0].clientX-oDiv.offsetLeft;
-//     var margin = Number($('.course').css("margin-right").replace(/px/g, ''))*3;
-//     var parentW = $('.course').width() * 3 + margin;
-//     var dragW = $('.dragbox').width();
-//     if (oDiv.className === 'bigbox'){
-//       document.addEventListener('touchmove', function(ev) {
-//           var l = ev.touches[0].clientX-disX;
-//           var marginRight = $('.course').css("margin-right").replace(/px/g, '');
-//           var r = document.documentElement.clientWidth - marginRight - parentW;
-//           if (l > 0) l = 0;
-//           if (l < r) l = r;
-//           oDiv.style.left=px2rem(l)+'rem';
-//           $('.haul').css('left', px2rem(-l)+'rem');
-//       }, { passive: true });
-//     } else if (oDiv.className === 'haul') {
-//       document.addEventListener('touchmove', function(ev) {
-//           var l = ev.touches[0].clientX-disX;
-//           var r = dragW - (oDiv.offsetWidth);
-//           if (l < 0) l = 0;
-//           if (l > r) l = r;
-//           oDiv.style.left = px2rem(l)+'rem';
-//           $('.bigbox').css('left', px2rem(-l)+'rem');
-//       }, { passive: true });
-//     }
-//     document.addEventListener('touchend', function(){
-//       document.onmousemove = null;
-//     }, { passive: true });
-//   }, { passive: true });
-// });
-
 export default {
  data () {
    return {

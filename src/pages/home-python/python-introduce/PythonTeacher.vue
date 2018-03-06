@@ -88,38 +88,6 @@ export default {
     }
   }
 };
-// Vue.directive('drag',function(el){
-//   var oDiv = el;
-//   oDiv.addEventListener('touchstart', function(ev){
-//     var disX = ev.touches[0].clientX-oDiv.offsetLeft;
-//     var margin = Number($('.module').css("margin-right").replace(/px/g, ''))*6;
-//     var parentW = $('.module').width() * 6 + margin;
-//     var dragW = $('.drag').width();
-//     if (oDiv.className === 'teacher'){
-//       document.addEventListener('touchmove', function(ev) {
-//           var l = ev.touches[0].clientX-disX;
-//           var marginRight = $('.module').css("margin-right").replace(/px/g, '');
-//           var r = document.documentElement.clientWidth - marginRight - parentW;
-//           if (l > 0) l = 0;
-//           if (l < r) l = r;
-//           oDiv.style.left=px2rem(l)+'rem';
-//           $('.plan').css('left', px2rem(-l/6.3)+'rem');
-//       }, { passive: true });
-//     } else if (oDiv.className === 'plan') {
-//       document.addEventListener('touchmove', function(ev) {
-//           var l = ev.touches[0].clientX-disX;
-//           var r = dragW - (oDiv.offsetWidth);
-//           if (l < 0) l = 0;
-//           if (l > r) l = r;
-//           oDiv.style.left = px2rem(l)+'rem';
-//           $('.teacher').css('left', px2rem(-l*6.3)+'rem');
-//       }, { passive: true });
-//     }
-//     document.addEventListener('touchend', function(){
-//       document.onmousemove = null;
-//     }, { passive: true });
-//   }, { passive: true });
-// });
 </script>
 
 <style lang="scss" scoped>
