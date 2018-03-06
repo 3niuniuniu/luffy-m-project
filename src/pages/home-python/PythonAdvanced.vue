@@ -25,6 +25,8 @@
     </python-introduce>
     <course-buy></course-buy>
     <python-catalog v-show="num == 1" :CourseList="CourseList"></python-catalog>
+    <python-comment v-show="num == 2"></python-comment>
+    <python-issue v-show="num == 3" :Issue="Issue"></python-issue>
   </div>
 </template>
 
@@ -35,6 +37,9 @@ import PythonIntroduce from './python-introduce/PythonIntroduce'
 import PythonCatalog from './python-catalog/PythonCatalog'
 import CourseBuy from '../courseitem/CourseBuy'
 import CourseList from '../../mock/python/courseAdvanced.json'
+import PythonComment from './python-comment/PythonComment'
+import PythonIssue from '../courseitem/Issue'
+import Issue from '../../mock/question/pythonIssue.json'
 import {Tab, TabItem} from 'vux'
 
 export default {
@@ -45,6 +50,8 @@ export default {
     PythonBanner,
     PythonIntroduce,//简介
     PythonCatalog,//目录
+    PythonComment,//评论
+    PythonIssue,//常见问题
     CourseBuy
   },
   data () {
@@ -81,6 +88,7 @@ export default {
         {name: '入学条件',cont: '掌握Python全栈开发(中级)必备技能'},
       ],
       CourseList: CourseList,
+      Issue: Issue,
       index: 0,
       num: ''
     }
