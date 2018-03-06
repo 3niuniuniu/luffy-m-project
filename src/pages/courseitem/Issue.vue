@@ -10,9 +10,6 @@
 <script>
 export default {
   props: ['Issue'],
-  mounted () {
-    console.log(this.Issue)
-  }
 }
 </script>
 
