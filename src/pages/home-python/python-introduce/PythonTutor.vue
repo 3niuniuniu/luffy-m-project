@@ -36,7 +36,11 @@
 
 <script>
 export default {
-
+  mounted () {
+    if (this.$route.name == 'python-advanced') {
+      $('.tutor').css('margin-bottom','.8rem')
+    }
+  }
 }
 </script>
 

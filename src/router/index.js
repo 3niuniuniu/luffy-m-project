@@ -42,7 +42,6 @@ const router = new Router({
     { path: '/home', name:'Home', component: Home, meta: { navShow: true } },
     { path: '/home/python-advanced', name:'python-advanced', component: PythonAdvanced, meta: { navShow: false }, components: { 'default': Home, 'subPage': PythonAdvanced} },
     { path: '/home/python-medium', name:'python-medium', component: PythonMedium, meta: { navShow: false }, components: { 'default': Home, 'subPage': PythonMedium} },
-
     { path: '/home/linux', name:'Linux', component: LinuxAdvanced, meta: { navShow: false }, components: { 'default': Home, 'subPage': LinuxAdvanced} },
     { path: '/course', name:'Course', component: Course, meta: { navShow: true } },
     { path: '/course/courseitem', name:'CourseItem', component: CourseItem, meta: { navShow: false, requireAuth: !Cookies.get('access_token') }, components: { 'default': Course, 'subPage': CourseItem} },

@@ -63,7 +63,7 @@ Vue.directive('drag',function(el){
           if (l > 0) l = 0;
           if (l < r) l = r;
           oDiv.style.left=px2rem(l)+'rem';
-          $('.plan').css('left', px2rem(-l)+'rem');
+          $('.plan').css('left', px2rem(-l/6.3)+'rem');
       }, { passive: true });
     } else if (oDiv.className === 'plan') {
       document.addEventListener('touchmove', function(ev) {
@@ -72,7 +72,7 @@ Vue.directive('drag',function(el){
           if (l < 0) l = 0;
           if (l > r) l = r;
           oDiv.style.left = px2rem(l)+'rem';
-          $('.teacher').css('left', px2rem(-l)+'rem');
+          $('.teacher').css('left', px2rem(-l*6.3)+'rem');
       }, { passive: true });
     }
     document.addEventListener('touchend', function(){

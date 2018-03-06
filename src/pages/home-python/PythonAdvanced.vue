@@ -24,14 +24,17 @@
     >
     </python-introduce>
     <course-buy></course-buy>
+    <python-catalog v-show="num == 1" :CourseList="CourseList"></python-catalog>
   </div>
 </template>
 
 <script>
 import HeaderItem from '@/components/header'
 import PythonBanner from './PythonBanner'
-import PythonIntroduce from './PythonIntroduce/PythonIntroduce'
+import PythonIntroduce from './python-introduce/PythonIntroduce'
+import PythonCatalog from './python-catalog/PythonCatalog'
 import CourseBuy from '../courseitem/CourseBuy'
+import CourseList from '../../mock/python/courseAdvanced.json'
 import {Tab, TabItem} from 'vux'
 
 export default {
@@ -40,7 +43,8 @@ export default {
     TabItem,
     HeaderItem,
     PythonBanner,
-    PythonIntroduce,
+    PythonIntroduce,//简介
+    PythonCatalog,//目录
     CourseBuy
   },
   data () {
@@ -76,6 +80,7 @@ export default {
         {name: '预计工资',cont: '15k+'},
         {name: '入学条件',cont: '掌握Python全栈开发(中级)必备技能'},
       ],
+      CourseList: CourseList,
       index: 0,
       num: ''
     }
@@ -93,7 +98,6 @@ export default {
     width: 100%;
     height: auto;
     padding-top: .44rem;
-    margin-bottom: .5rem;
     .banner {
       width: 100%;
       height: 2.1rem;

@@ -85,7 +85,7 @@ export default {
     width: 90%;
     height: auto;
     margin: 0 auto;
-    padding-bottom: .6rem;
+    padding-bottom: 1.2rem;
     .banner {
       width: 100%;
       height: .64rem;
@@ -101,7 +101,7 @@ export default {
     .box {
       width: 100%;
       height: auto;
-      margin-top: .16rem;
+      margin-top: .2rem;
       .bigbox {
         width: 9rem;
         display: flex;
@@ -141,7 +141,7 @@ export default {
         height: .05rem;
         position: relative;
         border-radius: .2rem;
-        margin-top: .23rem;
+        margin-top: .3rem;
         .haul {
           position: absolute;
           width: 1.12rem;
