@@ -45,6 +45,7 @@
 
 <script>
   import HeaderItem from '@/components/header'
+
   export default {
     components: {
       HeaderItem,
@@ -58,6 +59,20 @@
       this.$http.get('/api/v1/personal/').then(res => {
         this.userInfo = res.data.data
       })
+    },
+    methods: {
+      //  exit () {
+      //    this.$http.get('/api/v1/account/logout/')
+      //     .then((res) =>{
+      //       if(res.data.error_no == 0){
+      //       //退出参数 ，后台清除cookies
+      //         console.log(res)
+      //       }
+      //     })
+      //     .catch((res) => {
+      //       console.log('服务器正在打盹~')
+      //     })
+      //  }
     }
   }
 </script>

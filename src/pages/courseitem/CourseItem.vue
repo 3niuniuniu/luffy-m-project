@@ -46,7 +46,6 @@ export default {
   },
   data () {
     return {
-      tabs: ["简介", "目录","评价","常见问题"],
       list: [
 				{
           text: '简介',

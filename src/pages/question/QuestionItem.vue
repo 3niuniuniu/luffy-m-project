@@ -15,6 +15,7 @@
 
 <script>
 import HeaderItem from '@/components/header'
+import QuestionList from '../../mock/question/question.json'
 
 export default {
   components: {
@@ -22,32 +23,11 @@ export default {
   },
   data () {
     return {
-      QuestionList: [
-        {
-          headline: '购买观看课程',
-          question: [
-            {
-              name: '1、课程是否可以试听 ？',
-              cont: '可以试听,在课程章节目录中标记有"试看"的标签的课程为可以免费观看的课程视频。'
-            },
-            {
-              name: '2、如何选择最适合自己的课程 ？',
-              cont: '路飞学城的课程大致分为“初级”、“中级”和“高级”三类。<br>a;初级课程：一般适用于学科知识零基础或者基础薄弱的学员。<br>b;中级课程：适用于掌握了一定的基础学科知识，但是想要进一步提升进阶的学员。<br>c;高级课程：适用于计算机基础知识掌握扎实，对自身专业能力有更高要求的学员。<br>点击每个课程详情页面中都详细介绍了这门课程的先修要求，若不具备先修要求，可以选择推荐的先修课程进行学习。'
-            }
-          ],
-        },
-        {
-          headline: '使用&获取优惠劵',
-          question: [
-            {
-              name: '33333',
-              cont: '44444'
-            }
-          ],
-        }
-      ],
+      QuestionList: QuestionList
     }
   },
+  mounted () {
+  }
 }
 </script>
 

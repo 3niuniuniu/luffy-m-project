@@ -1,0 +1,105 @@
+<template>
+  <div class="python-course">
+    <!-- 高级 -->
+    <header-item message="路飞学城"></header-item>
+    <img src="../../assets/img/pageimgs/python-banner高级.png" alt="" class="banner">
+    <python-banner :bannerItem="bannerItem"></python-banner>
+    <tab
+      class="CourseTitle"
+      :line-width="2"
+      default-color="#84898E"
+      active-color="#72D9C2"
+      v-model="index">
+      <tab-item
+        v-for="(item,ind) in list"
+        :key="ind"
+        @click.native="tab(ind)">
+        {{item.text}}
+      </tab-item>
+    </tab>
+    <python-introduce v-show="num == 0"
+    :pirceNum="pirceNum"
+    :message="message"
+    :msgTab="msgTab"
+    >
+    </python-introduce>
+    <course-buy></course-buy>
+  </div>
+</template>
+
+<script>
+import HeaderItem from '@/components/header'
+import PythonBanner from './PythonBanner'
+import PythonIntroduce from './PythonIntroduce/PythonIntroduce'
+import CourseBuy from '../courseitem/CourseBuy'
+import {Tab, TabItem} from 'vux'
+
+export default {
+  components: {
+    Tab,
+    TabItem,
+    HeaderItem,
+    PythonBanner,
+    PythonIntroduce,
+    CourseBuy
+  },
+  data () {
+    return  {
+      list: [
+				{text: '简介'},
+				{text: '目录'},
+				{text: '评价'},
+        {text: '常见问题'},
+      ],
+      bannerItem: {
+        name: 'Python全栈开发（高级）',
+        time: '03月01号',
+        num: '50',
+        people: '3306'
+      },
+      pirceNum: {
+        name: 'Python全栈开发（高级）',
+        pirce: '￥ 7999',
+        cont: '学习数据分析、机器学习、无人驾驶等技术，掌握进入人工智能领域的必备技能',
+        difficulty: '高级',
+        period: '6个月',
+        pay: '15k'
+      },
+      message: {
+        contone: '跟随技术大牛，学习数据分析、机器学习、无人驾驶入门、自动化开发、GO语言开发等知识，成为互联网名企抢手的高端Python开发人才',
+        conttwo: '学完后能达到的能力：1. 掌握使用Python进行数据分析的技术<br>2、熟悉机器学习、图像识别算法技术原理，掌握OpenCV、TensorFlow等组件的应用<br>3、熟悉无人驾驶入门技术原理及实现<br>4、具备开发各种复杂的自动化工作、监控、CMDB、主机管理系统等的能力。<br>5、掌握GO语言开发基础；'
+      },
+      msgTab: [
+        {name: '基本信息',cont: 'Python开发中级  (4个阶段，共12章节)'},
+        {name: '学习时间',cont: '2-4个小时 / 天 (大约5~6个月)'},
+        {name: '难度',cont: '高级'},
+        {name: '预计工资',cont: '15k+'},
+        {name: '入学条件',cont: '掌握Python全栈开发(中级)必备技能'},
+      ],
+      index: 0,
+      num: ''
+    }
+  },
+  methods: {
+    tab(ind) {
+      this.num = ind
+    },
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .python-course {
+    width: 100%;
+    height: auto;
+    padding-top: .44rem;
+    margin-bottom: .5rem;
+    .banner {
+      width: 100%;
+      height: 2.1rem;
+      position: absolute;
+      left: 0;
+      top: .44rem;
+    }
+  }
+</style>

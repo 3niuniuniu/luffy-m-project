@@ -10,11 +10,11 @@
           <p>¥ 399.00</p>
         </dd>
       </dl>
-      <dl @click="goCourseItem">
+      <dl @click="goPythone">
         <dt><img src="../../assets/img/pageimgs/banner1.png" alt=""></dt>
         <dd>
-          <p>爬虫开发实战</p>
-          <p>解锁更多高级爬虫知识，爬取你想要解锁更多高级爬虫知识，爬取你想要</p>
+          <p>Python高级</p>
+          <p>1111111111</p>
           <p>难度：高级<span>专题</span></p>
           <p>¥ 399.00</p>
         </dd>
@@ -28,6 +28,9 @@ export default {
   methods: {
     goCourseItem () {
       this.$router.push('/course/courseitem')
+    },
+    goPythone () {
+      this.$router.push('/home/python-advanced')
     }
   }
 }

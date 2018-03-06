@@ -22,14 +22,16 @@ export default {
   data () {
     return {
       list: [
-        {question: '购买观看课程'},
-        {question: '使用&获取优惠劵'},
+        {question: '如何购买观看'},
+        {question: '优惠券介绍'},
         {question: '贝里介绍'},
-        {question: '1V1辅导导师'},
-        {question: '奖学金介绍'},
-        {question: '专题课程付费协议'},
-        {question: 'LuffyX学位课程培训协议'},
-        {question: '版本提升'},
+        {question: 'luffyX学位'},
+        {question: '导师介绍'},
+        {question: '奖学金制度'},
+        {question: '学位作业要求'},
+        {question: '版本提示'},
+        {question: '课程购买协议'},
+        {question: 'X学位购买协议'},
       ]
     }
   },

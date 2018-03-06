@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="335px" height="64px" viewBox="0 0 335 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>Rectangle 6</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="2.83402423%" y1="49.328826%" x2="97.470927%" y2="26.9162341%" id="linearGradient-1">
+            <stop stop-color="#06D4C2" offset="0%"></stop>
+            <stop stop-color="#4CA2E2" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Python中级" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-22.000000, -2638.000000)">
+        <polygon id="Rectangle-6" fill="url(#linearGradient-1)" points="22 2638 357 2638 357 2675.73712 22 2702"></polygon>
+    </g>
+</svg>

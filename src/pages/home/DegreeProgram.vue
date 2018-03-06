@@ -2,12 +2,12 @@
   <div class="degree">
     <p class="model">学位课程</p>
     <div class="box">
-      <div>
+      <div @click="goPython">
         <p>Python</p>
         <p>0基础6个月练成Python全栈开发大神</p>
         <p><span>¥366.00</span><img src="../../assets/img/pageimgs/pylogo.png" alt=""></p>
       </div>
-      <div>
+      <div @click="goLinux">
         <p>Linux</p>
         <p>0基础6个月练成Python全栈开发大神</p>
         <p><span>¥366.00</span><img src="../../assets/img/pageimgs/Linuxlogo.png" alt=""></p>
@@ -22,6 +22,14 @@ export default {
   data () {
     return {
 
+    }
+  },
+  methods: {
+    goPython () {
+      this.$router.push({path: '/home/python-medium'})
+    },
+    goLinux () {
+      this.$router.push({path: '/home/linux'})
     }
   }
 }

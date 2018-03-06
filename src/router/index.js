@@ -1,8 +1,15 @@
 import Vue from 'vue'
+import Cookies from '../assets/js/Cookie'
 import Router from 'vue-router'
 import Error from '@/components/404'
 import Hello from '@/components/Hello'
 import Home from '@/pages/home/Home'
+
+import PythonAdvanced from '@/pages/home-python/PythonAdvanced'
+import PythonMedium from '@/pages/home-python/PythonMedium'
+
+import LinuxAdvanced from '@/pages/home-linux/LinuxAdvanced'
+
 import Course from '@/pages/course/Course'
 import CourseItem from '@/pages/courseitem/CourseItem'
 
@@ -33,11 +40,15 @@ const router = new Router({
   routes: [
     { path: '/', name:'Home', component: Home, meta: { navShow: true } },
     { path: '/home', name:'Home', component: Home, meta: { navShow: true } },
+    { path: '/home/python-advanced', name:'python-advanced', component: PythonAdvanced, meta: { navShow: false }, components: { 'default': Home, 'subPage': PythonAdvanced} },
+    { path: '/home/python-medium', name:'python-medium', component: PythonMedium, meta: { navShow: false }, components: { 'default': Home, 'subPage': PythonMedium} },
+
+    { path: '/home/linux', name:'Linux', component: LinuxAdvanced, meta: { navShow: false }, components: { 'default': Home, 'subPage': LinuxAdvanced} },
     { path: '/course', name:'Course', component: Course, meta: { navShow: true } },
-    { path: '/course/courseitem', name:'CourseItem', component: CourseItem, meta: { navShow: false, requireAuth: true }, components: { 'default': Course, 'subPage': CourseItem} },
-    { path: '/study', name:'Study', component: Study, meta: { navShow: true, requireAuth: true } }, //requireAuth表示进入此路由需要登录
+    { path: '/course/courseitem', name:'CourseItem', component: CourseItem, meta: { navShow: false, requireAuth: !Cookies.get('access_token') }, components: { 'default': Course, 'subPage': CourseItem} },
+    { path: '/study', name:'Study', component: Study, meta: { navShow: true, requireAuth: !Cookies.get('access_token') } }, //requireAuth表示进入此路由需要登录
     { path: '/study/videocourse', name: 'VideoCourse', component: VideoCourse, meta: { navShow: false }, components: { 'default': Study, 'subPage': VideoCourse } },
-    { path: '/study/studylogin', name: 'StudyLogin', component: StudyLogin, meta: { navShow: false, requireAuth: true }, components: { 'default': Study, 'subPage': StudyLogin } },
+    { path: '/study/studylogin', name: 'StudyLogin', component: StudyLogin, meta: { navShow: false, requireAuth: !Cookies.get('access_token') }, components: { 'default': Study, 'subPage': StudyLogin } },
     { path: '/my', name:'My', component: My, meta: { navShow: true }},
     { path: '/my/information', name:'Information', component: Information, meta: { navShow: false }, components: {'default': My, 'subPage': Information } },
     { path: '/my/order', name:'Order', component: Order, meta: { navShow: false },components: { 'default': My,'subPage': Order}},
@@ -65,19 +76,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 })
-
-// router.beforeEach((to, from, next) => {
-//   // console.log(Cookie.get('access_token'))
-//   var userInfo=localStorage.getItem('token');//获取浏览器缓存的用户信息
-//   if(userInfo){//如果有就直接到首页咯
-//     next(to.fullPath);
-//   }else{
-//     if(to.path=='/login'){//如果是登录页面路径，就直接next()
-//       next();
-//     }else{//不然就跳转到登录；
-//       next('/login');
-//     }
-//   }
-// });
 
 export default router

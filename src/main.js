@@ -5,12 +5,10 @@ import store from './store/'
 import VueLazyLoad from 'vue-lazyload'
 import VueResource from 'vue-resource'
 import FastClick from 'fastclick'
-import Swiper from 'swiper'
-import 'swiper/dist/css/swiper.min.css'
 import './assets/js/rem'
 
 //懒加载的默认图片
-import def_lazy_img from './assets/images/loading.gif'
+import def_lazy_img from './assets/img/pageimgs/loading.gif'
 
 Vue.use(VueResource)
 

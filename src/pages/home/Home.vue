@@ -1,6 +1,6 @@
 <template>
 	<div class="home">
-    <header-item message="首页"></header-item>
+    <header-item message="路飞学城"></header-item>
     <slider></slider>
     <degree-program></degree-program>
     <subject-course></subject-course>
