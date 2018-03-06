@@ -29,7 +29,7 @@ export default {
       this.$router.push({path: '/home/python-medium'})
     },
     goLinux () {
-      this.$router.push({path: '/home/linux'})
+      this.$router.push({path: '/home/linux-medium'})
     }
   }
 }

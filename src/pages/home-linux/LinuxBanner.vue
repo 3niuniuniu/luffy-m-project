@@ -67,12 +67,13 @@ export default {
         display: flex;
         justify-content: space-between;
         padding: 0 .5rem;
-        span {
-          font-size: .18rem;
-          text-align: left;
-          padding-top: .12rem;
-          display: inline-block;
-          letter-spacing: 3px;
+        li p {
+          font-size: .14rem;
+          padding-bottom: .1rem;
+        }
+        li span {
+          font-size: .14rem;
+          letter-spacing: .02rem;
         }
       }
     }

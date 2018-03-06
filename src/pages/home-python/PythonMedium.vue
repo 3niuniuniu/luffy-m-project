@@ -59,18 +59,21 @@ export default {
   },
   data () {
     return  {
+      bannerItem: {
+        name: 'Python全栈开发（中级）',
+        titleOne: '本期开课时间',
+        time: '01月20号',
+        titleTwo: '本期限定席位',
+        num: '50',
+        titleThree: '课程预览人数',
+        people: '3306'
+      },
       list: [
 				{text: '简介'},
 				{text: '目录'},
 				{text: '评价'},
         {text: '常见问题'},
       ],
-      bannerItem: {
-        name: 'Python全栈开发（中级）',
-        time: '01月20号',
-        num: '50',
-        people: '3306'
-      },
       pirceNum: {
         name: 'Python全栈开发（中级）',
         pirce: '￥ 8999',

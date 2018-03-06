@@ -7,8 +7,8 @@ import Home from '@/pages/home/Home'
 
 import PythonAdvanced from '@/pages/home-python/PythonAdvanced'
 import PythonMedium from '@/pages/home-python/PythonMedium'
-
 import LinuxAdvanced from '@/pages/home-linux/LinuxAdvanced'
+import LinuxMedium from '@/pages/home-linux/LinuxMedium'
 
 import Course from '@/pages/course/Course'
 import CourseItem from '@/pages/courseitem/CourseItem'
@@ -42,6 +42,8 @@ const router = new Router({
     { path: '/home', name:'Home', component: Home, meta: { navShow: true } },
     { path: '/home/python-advanced', name:'python-advanced', component: PythonAdvanced, meta: { navShow: false }, components: { 'default': Home, 'subPage': PythonAdvanced} },
     { path: '/home/python-medium', name:'python-medium', component: PythonMedium, meta: { navShow: false }, components: { 'default': Home, 'subPage': PythonMedium} },
+    { path: '/home/linux-advanced', name:'linux-advanced', component: LinuxAdvanced, meta: { navShow: false }, components: { 'default': Home, 'subPage': LinuxAdvanced} },
+    { path: '/home/linux-medium', name:'linux-medium', component: LinuxMedium, meta: { navShow: false }, components: { 'default': Home, 'subPage': LinuxMedium} },
     { path: '/home/linux', name:'Linux', component: LinuxAdvanced, meta: { navShow: false }, components: { 'default': Home, 'subPage': LinuxAdvanced} },
     { path: '/course', name:'Course', component: Course, meta: { navShow: true } },
     { path: '/course/courseitem', name:'CourseItem', component: CourseItem, meta: { navShow: false, requireAuth: !Cookies.get('access_token') }, components: { 'default': Course, 'subPage': CourseItem} },
