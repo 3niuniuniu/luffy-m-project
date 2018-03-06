@@ -48,42 +48,78 @@ import Vue from 'vue'
 import { px2rem } from '../../../assets/js/utils';
 import { clearTimeout } from 'timers';
 
-Vue.directive('drag',function(el){
-  var oDiv = el;
-  oDiv.addEventListener('touchstart', function(ev){
-    var disX = ev.touches[0].clientX-oDiv.offsetLeft;
-    var margin = Number($('.module').css("margin-right").replace(/px/g, ''))*6;
-    var parentW = $('.module').width() * 6 + margin;
-    var dragW = $('.drag').width();
-    if (oDiv.className === 'teacher'){
-      document.addEventListener('touchmove', function(ev) {
-          var l = ev.touches[0].clientX-disX;
-          var marginRight = $('.module').css("margin-right").replace(/px/g, '');
-          var r = document.documentElement.clientWidth - marginRight - parentW;
-          if (l > 0) l = 0;
-          if (l < r) l = r;
-          oDiv.style.left=px2rem(l)+'rem';
-          $('.plan').css('left', px2rem(-l/6.3)+'rem');
-      }, { passive: true });
-    } else if (oDiv.className === 'plan') {
-      document.addEventListener('touchmove', function(ev) {
-          var l = ev.touches[0].clientX-disX;
-          var r = dragW - (oDiv.offsetWidth);
-          if (l < 0) l = 0;
-          if (l > r) l = r;
-          oDiv.style.left = px2rem(l)+'rem';
-          $('.teacher').css('left', px2rem(-l*6.3)+'rem');
-      }, { passive: true });
-    }
-    document.addEventListener('touchend', function(){
-      document.onmousemove = null;
-    }, { passive: true });
-  }, { passive: true });
-});
 
 export default {
-
-}
+  directives: {
+    drag: {
+      // 指令的定义
+      inserted: function (el) {
+        var oDiv = el;
+        oDiv.addEventListener('touchstart', function(ev){
+          var disX = ev.touches[0].clientX-oDiv.offsetLeft;
+          var margin = Number($('.module').css("margin-right").replace(/px/g, ''))*6;
+          var parentW = $('.module').width() * 6 + margin;
+          var dragW = $('.drag').width();
+          if (oDiv.className === 'teacher'){
+            oDiv.addEventListener('touchmove', function(ev) {
+                var l = ev.touches[0].clientX-disX;
+                var marginRight = $('.module').css("margin-right").replace(/px/g, '');
+                var r = document.documentElement.clientWidth - marginRight - parentW;
+                if (l > 0) l = 0;
+                if (l < r) l = r;
+                oDiv.style.left=px2rem(l)+'rem';
+                $('.plan').css('left', px2rem(-l/6.3)+'rem');
+            }, { passive: true });
+          } else if (oDiv.className === 'plan') {
+            oDiv.addEventListener('touchmove', function(ev) {
+                var l = ev.touches[0].clientX-disX;
+                var r = dragW - (oDiv.offsetWidth);
+                if (l < 0) l = 0;
+                if (l > r) l = r;
+                oDiv.style.left = px2rem(l)+'rem';
+                $('.teacher').css('left', px2rem(-l*6.3)+'rem');
+            }, { passive: true });
+          }
+          oDiv.addEventListener('touchend', function(){
+            oDiv.onmousemove = null;
+          }, { passive: true });
+        }, { passive: true });
+      }
+    }
+  }
+};
+// Vue.directive('drag',function(el){
+//   var oDiv = el;
+//   oDiv.addEventListener('touchstart', function(ev){
+//     var disX = ev.touches[0].clientX-oDiv.offsetLeft;
+//     var margin = Number($('.module').css("margin-right").replace(/px/g, ''))*6;
+//     var parentW = $('.module').width() * 6 + margin;
+//     var dragW = $('.drag').width();
+//     if (oDiv.className === 'teacher'){
+//       document.addEventListener('touchmove', function(ev) {
+//           var l = ev.touches[0].clientX-disX;
+//           var marginRight = $('.module').css("margin-right").replace(/px/g, '');
+//           var r = document.documentElement.clientWidth - marginRight - parentW;
+//           if (l > 0) l = 0;
+//           if (l < r) l = r;
+//           oDiv.style.left=px2rem(l)+'rem';
+//           $('.plan').css('left', px2rem(-l/6.3)+'rem');
+//       }, { passive: true });
+//     } else if (oDiv.className === 'plan') {
+//       document.addEventListener('touchmove', function(ev) {
+//           var l = ev.touches[0].clientX-disX;
+//           var r = dragW - (oDiv.offsetWidth);
+//           if (l < 0) l = 0;
+//           if (l > r) l = r;
+//           oDiv.style.left = px2rem(l)+'rem';
+//           $('.teacher').css('left', px2rem(-l*6.3)+'rem');
+//       }, { passive: true });
+//     }
+//     document.addEventListener('touchend', function(){
+//       document.onmousemove = null;
+//     }, { passive: true });
+//   }, { passive: true });
+// });
 </script>
 
 <style lang="scss" scoped>

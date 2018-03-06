@@ -15,11 +15,12 @@
     "vue-resource": "^1.4.0",
     "vue-router": "^2.2.0",
     "vuex": "^2.2.1",
-    "vux": "^2.7.7"
+    "vux": "^2.7.7",
+    "vux-loader": "^1.2.1"
   },
   "devDependencies": {
     "jedate": "^1.0.0",
-    "jquery" : "^2.2.3",
+    "jquery": "^2.2.3",
     "less": "^2.7.3",
     "less-loader": "^2.2.3",
     "autoprefixer": "^6.7.2",
