@@ -1,7 +1,7 @@
 <template>
   <div class="catalog">
     <div class="courselist" v-for="(item,index) in CourseList" :key="index">
-      <p class="StageTitle">{{item.phase}}</p>
+      <p class="StageTitle" :class="{advBac:advBac}">{{item.phase}}</p>
       <div class="StageList">
         <p class="Stagep1">第{{index + 1}}阶段 - 学习目标</p>
         <p class="Stagep2" v-html="item.studyTarget"></p>
@@ -24,11 +24,15 @@ export default {
   props: ['CourseList'],
   data () {
     return {
-
+      advBac: false
     }
   },
   mounted () {
-    console.log(this.CourseList)
+    if (this.$route.name == 'python-advanced') {
+      this.advBac = true
+    } else {
+      this.advBac = false
+    }
   },
   methods: {
     LookSection (e) {
@@ -67,6 +71,9 @@ export default {
         color: #FFFFFF;
         line-height: .48rem;
         padding-left: .2rem;
+      }
+      .advBac {
+        background: #E45A82;
       }
       .StageList {
         padding: .2rem;

@@ -25,6 +25,8 @@
     </python-introduce>
     <python-model v-show="num == 0"></python-model>
     <python-catalog v-show="num == 1" :CourseList="CourseList"></python-catalog>
+    <python-comment v-show="num == 2"></python-comment>
+    <python-issue v-show="num == 3" :Issue="Issue"></python-issue>
     <course-buy></course-buy>
   </div>
 </template>
@@ -36,6 +38,9 @@ import PythonIntroduce from './python-introduce/PythonIntroduce'
 import PythonModel from './PythonModel'
 import PythonCatalog from './python-catalog/PythonCatalog'
 import CourseList from '../../mock/python/courseMedium.json'
+import PythonComment from './python-comment/PythonComment'
+import PythonIssue from '../courseitem/Issue'
+import Issue from '../../mock/question/pythonIssue.json'
 import CourseBuy from '../courseitem/CourseBuy'
 import {Tab, TabItem} from 'vux'
 
@@ -48,6 +53,8 @@ export default {
     PythonIntroduce,//简介
     PythonModel,
     PythonCatalog,//目录
+    PythonComment,//评论
+    PythonIssue,//常见问题
     CourseBuy
   },
   data () {
@@ -84,6 +91,7 @@ export default {
         {name: '入学条件',cont: '掌握计算机日常使用，具备至少专科或以上学历'},
       ],
       CourseList: CourseList,
+      Issue: Issue,
       index: 0,
       num: ''
     }
