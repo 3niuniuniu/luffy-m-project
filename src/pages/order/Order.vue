@@ -1,7 +1,8 @@
 <template>
   <div class="order">
     <header-item message="我的订单"></header-item>
-      <div>
+      <loading v-show="loading" class="loading"></loading>
+      <div v-show="!loading">
         <div class="module" v-for="(item, index) in orderList" :key="index">
           <p class="orderNum">订单号：{{item.order_number}} <span>{{item.status}}</span></p>
           <dl v-for="(val,ind) in item.course_item" :key="ind">
@@ -19,28 +20,36 @@
           </div>
         </div>
       </div>
-      <empty-page v-if="orderList.length == 0" :empitCont="empitCont"></empty-page>
+      <empty-page :empitCont="empitCont" v-show="empty"></empty-page>
   </div>
 </template>
 
 <script>
   import HeaderItem from '@/components/header'
+  import Loading from '@/components/loading'
   import EmptyPage from '../emptyPage/emptyPage'
 
   export default {
     components: {
       HeaderItem,
-      EmptyPage
+      Loading,
+      EmptyPage,
     },
     data () {
       return {
         orderList: '',
-        empitCont: '暂无订单'
+        empitCont: '暂无订单',
+        loading: true,
+        empty: false,
       }
     },
     mounted () {
       this.$http.get('/api/v1/personal/my_orders/').then(res => {
+        this.loading = false
         this.orderList = res.data.data
+        if(this.orderList.length == 0) {
+          this.empty = true
+        }
       })
     }
   }
@@ -48,6 +57,9 @@
 
 <style lang="scss" scoped>
   .order{
+    .loading {
+      margin-top: .6rem;
+    }
     .module {
       background: #fff;
       margin-bottom: .2rem;

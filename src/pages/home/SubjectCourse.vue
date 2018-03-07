@@ -2,20 +2,12 @@
   <div class="subject">
     <p class="model">专题课程</p>
     <div class="list">
-      <dl>
-        <dt><img src="../../assets/img/pageimgs/banner1.png" alt=""></dt>
+      <dl v-for="(item,index) in HomeCourse" :key="index">
+        <dt><img :src="item.img" alt=""></dt>
         <dd>
-          <p>爬虫开发实战</p>
-          <p>难度：高级 · 专题课程</p>
-          <p>¥ 399.00</p>
-        </dd>
-      </dl>
-      <dl>
-        <dt><img src="../../assets/img/pageimgs/banner1.png" alt=""></dt>
-        <dd>
-          <p>CRM客户关系系统项目实战</p>
-          <p>难度：高级 · 专题课程</p>
-          <p>¥ 399.00</p>
+          <p>{{item.name}}</p>
+          <p>难度：{{item.level}}</p>
+          <p>¥ {{item.price}}</p>
         </dd>
       </dl>
     </div>
@@ -23,12 +15,14 @@
 </template>
 
 <script>
+import HomeCourse from '../../mock/home/HomeCourse.json'
 export default {
- name: 'subject',
  data () {
    return {
-
+     HomeCourse: HomeCourse
    }
+ },
+ mounted () {
  }
 }
 </script>

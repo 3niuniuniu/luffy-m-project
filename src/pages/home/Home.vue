@@ -4,7 +4,6 @@
     <slider></slider>
     <degree-program></degree-program>
     <subject-course></subject-course>
-    <subject-course></subject-course>
 	</div>
 </template>
 
@@ -20,7 +19,7 @@
       Slider,
       DegreeProgram,
       SubjectCourse
-		}
+    }
 	}
 </script>
 <style lang="scss" scoped>

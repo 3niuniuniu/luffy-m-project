@@ -1,15 +1,15 @@
 <template>
   <ul class="StudyData">
     <li>
-      <p>457</p>
+      <p>{{studyStatus.today_study}}</p>
       <p>今日学习</p>
     </li>
     <li>
-      <p>457</p>
+      <p>{{studyStatus.all_study}}</p>
       <p>累计学习</p>
     </li>
     <li>
-      <p>457</p>
+      <p>{{studyStatus.scholarship_balance}}</p>
       <p>奖学金余额</p>
     </li>
   </ul>
@@ -20,8 +20,13 @@ export default {
   name: 'StudyData',
   data () {
     return {
-
+      studyStatus: '',
     }
+  },
+  mounted () {
+    this.$http.get('/api/v1/learndata/').then(res => {
+      this.studyStatus = res.data.data
+    })
   }
 }
 </script>

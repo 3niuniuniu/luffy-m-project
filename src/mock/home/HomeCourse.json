@@ -1,0 +1,37 @@
+[
+  {
+      "id": "5",
+      "name": "Python开发21天入门必备",
+      "level": "初级",
+      "price": "9.9",
+      "img": "/static/frontend/course/5/Python21天入门必备_1509095274.4902391.png"
+  },
+  {
+      "id": "23",
+      "name": "Python数据分析与机器学习实战",
+      "level": "中级",
+      "price": "498.0",
+      "img": "/static/frontend/course/23/机器学习-根据自然语言分析预测票房走势_1512620916.6858256.png"
+  },
+  {
+      "id": "10",
+      "name": "算法入门",
+      "level": "初级",
+      "price": "299.0",
+      "img": "/static/frontend/course/10/算法入门_1509095337.4101667.png"
+  },
+  {
+      "id": "7",
+      "name": "金融量化分析入门",
+      "level": "中级",
+      "price": "399.0",
+      "img": "/static/frontend/course/7/金融量化自动化分析&简易入门_1509095407.2161531.png"
+  },
+  {
+      "id": "11",
+      "name": "网络编程入门&FTP服务开发实战",
+      "level": "中级",
+      "price": "99.0",
+      "img": "/static/frontend/course/11/网络编程入门&FTP服务开发实战_1509095352.918334.png"
+  }
+]

@@ -1,16 +1,16 @@
 <template>
-  <div class="StudyList">
-    <div class="list" @click="goVideo()">
-      <p class="title"><span>第一模块：Python全栈开发</span><span>完成</span></p>
+  <div class="StudyList" v-show="!loading">
+    <div class="list" @click="goVideo()" v-for="(item,index) in courseModule" :key="index">
+      <p class="title"><span>第{{index+1}}模块：{{item.course_module_name}}</span><span>{{item.status}}</span></p>
       <dl>
         <dt>
-          <img src="../../assets/img/pageimgs/banner2.png" alt="">
-          <p>已学习10%</p>
+          <img :src="item.course_module_img" alt="">
+          <p>{{item.progress}}</p>
           <p><span></span></p>
         </dt>
         <dd>
-          <p>学到：爬虫开发实战课程</p>
-          <p>用时47小时59分钟</p>
+          <p>{{item.last_study.current_study_record}}</p>
+          <p>{{item.study_time.usetime}}</p>
           <img src="../../assets/img/pageimgs/Shape2.png" alt="">
         </dd>
       </dl>
@@ -19,14 +19,12 @@
 </template>
 
 <script>
+import { LoadMore } from 'vux'
+
 export default {
-  data () {
-    return {
-
-    }
-  },
-  computed: {
-
+  props: ['courseModule','loading'],
+  components: {
+    LoadMore
   },
   methods: {
     goVideo () {
@@ -51,8 +49,10 @@ export default {
         box-shadow: 0 1px 0 0 rgba(0,0,0,0.10);
         padding: .1rem .12rem;
         span:nth-of-type(1) {
+          width: 2.8rem;
           font-size: .12rem;
           color: #4E4E4E;
+          display: inline-block;
         }
         span:nth-of-type(2) {
           float: right;
@@ -108,12 +108,20 @@ export default {
             margin-top: -.06rem;
           }
           p:nth-of-type(1) {
+            width: 2rem;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
             font-size: .14rem;
             padding-top: .05rem;
             padding-bottom: .11rem;
           }
           p:nth-of-type(2) {
             font-size: .12rem;
+            width: 2rem;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
           }
         }
       }
