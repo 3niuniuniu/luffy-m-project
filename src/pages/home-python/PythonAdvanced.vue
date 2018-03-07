@@ -21,16 +21,18 @@
     :pirceNum="pirceNum"
     :message="message"
     :msgTab="msgTab"
+    :TeacherList="TeacherList"
     >
     </python-introduce>
-    <course-buy></course-buy>
     <python-catalog v-show="num == 1" :CourseList="CourseList"></python-catalog>
     <python-comment v-show="num == 2"></python-comment>
     <python-issue v-show="num == 3" :Issue="Issue"></python-issue>
+    <course-buy></course-buy>
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import HeaderItem from '@/components/header'
 import PythonBanner from './PythonBanner'
 import PythonIntroduce from './python-introduce/PythonIntroduce'
@@ -91,10 +93,16 @@ export default {
         {name: '入学条件',cont: '掌握Python全栈开发(中级)必备技能'},
       ],
       CourseList: CourseList,
+      TeacherList: '',
       Issue: Issue,
       index: 0,
       num: ''
     }
+  },
+  mounted () {
+    this.$http.get('/api/v1/degree_course/4/').then(res => {
+      this.TeacherList = res.data.data.teacher_info.data
+    })
   },
   methods: {
     tab(ind) {

@@ -1,0 +1,44 @@
+[
+  {
+    "img": "/static/dataimg/teacher1.png",
+    "name": "Alex 金角大王",
+    "profession": "路飞学城 金牌讲师",
+    "introduce": "CrazyEye,MadKing,TriAquae三款开源软件作者，10多年运维+自动化开发经验，曾任职公安部、飞信、Nokia中国、汽车之家等公司，热爱技术、电影、音乐、旅游、妹子！"
+  },
+  {
+    "img": "/static/dataimg/teacher3.png",
+    "name": "武Sir 银角大王",
+    "profession": "路飞学城 金牌讲师",
+    "introduce": "多年开发实战经验，先后任职于汽车之家、好大夫在线等多家大型互联网公司。擅长C#,Python,PHP等一大堆语言开发，现任某大型互联网公司高级自动化开发工程师，已精读多个开源软件源码，自行开发过改进版的Tornado WEB框架，讲课风趣幽默，除了长的丑，没啥缺点。"
+  },
+  {
+    "img": "/static/dataimg/teacher2.png",
+    "name": "林海峰",
+    "profession": "路飞学城 高级讲师",
+    "introduce": "老男孩教育Python学科金牌讲师曾任某上市公司云计算部门主管多年一线运维和开发经验，追求极致的技术分享者，被技术耽误的相声演员。"
+  },
+  {
+    "img": "/static/dataimg/teacher4.png",
+    "name": "赵博士",
+    "profession": "路飞学城 高级讲师",
+    "introduce": "对各种高精尖算法有较深研究，精读Python源码，了解Python解释器底层技术实现。擅长领域：C/C++、Python、Java、金融分析、机器学习与人工智能等。曾获国家奖学金，2015年“甲骨文杯”全国Java程序设计大赛二等奖。计算机专业知识相当扎实，跟二进制一样严谨，擅长将枯燥的专业知识生动形象的表达出来，深入浅出，深受学员喜爱。"
+  },
+  {
+    "img": "/static/dataimg/teacher5.png",
+    "name": "唐宇迪",
+    "profession": "路飞学城 高级讲师",
+    "introduce": "计算机博士，专注于机器学习与计算机视觉领域，深度学习领域一线实战专家。参与多个国家级计算机视觉项目，多年数据领域培训经验，丰富的教学讲解经验，擅长最用简洁通俗的故事讲解晦涩难懂的算法原理。出品多套机器学习与深度学习系列课程，课程生动形象，风格通俗易懂"
+  },
+  {
+    "img": "/static/dataimg/teacher6.png",
+    "name": "Avrion(日天老师)",
+    "profession": "路飞学城 高级讲师",
+    "introduce": "路飞学城高级讲师闷骚IT屌丝，单身30年，语速可以和手速一样快擅长Python/Java/C语言开发/生物图像自动识别及处理技术，爱好看片"
+  },
+  {
+    "img": "/static/dataimg/teacher6.png",
+    "name": "Marin Ruan",
+    "profession": "路飞学城 高级讲师",
+    "introduce": "纽约大学计算机博士，擅长C/C++/Go/Python/Scala语言开发，在深度学习、图形识别、无人驾驶领域有较深的研究，曾任Uber无人驾驶团队开发工程师，负责路况数据分析、图像识别开发工作，现任Facebook人工智能部门高级开发工程师"
+  }
+]

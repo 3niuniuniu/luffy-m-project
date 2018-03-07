@@ -21,6 +21,7 @@
     :pirceNum="pirceNum"
     :message="message"
     :msgTab="msgTab"
+    :TeacherList="TeacherList"
     >
     </python-introduce>
     <python-model v-show="num == 0"></python-model>
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import HeaderItem from '@/components/header'
 import PythonBanner from './PythonBanner'
 import PythonIntroduce from './python-introduce/PythonIntroduce'
@@ -94,12 +96,16 @@ export default {
         {name: '入学条件',cont: '掌握计算机日常使用，具备至少专科或以上学历'},
       ],
       CourseList: CourseList,
+      TeacherList: '',
       Issue: Issue,
       index: 0,
       num: ''
     }
   },
   mounted () {
+    this.$http.get('/api/v1/degree_course/4/').then(res => {
+      this.TeacherList = res.data.data.teacher_info.data
+    })
   },
   methods: {
     tab(ind) {

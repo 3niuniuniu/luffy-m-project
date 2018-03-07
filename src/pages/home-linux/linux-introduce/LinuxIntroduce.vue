@@ -5,7 +5,7 @@
     <study-after-capacity></study-after-capacity>
     <study-process></study-process>
     <service></service>
-    <linux-teacher></linux-teacher>
+    <linux-teacher :TeacherList="TeacherList"></linux-teacher>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ import StudyAfterCapacity from './StudyAfterCapacity'
 import StudyProcess from './StudyProcess'
 import Service from './Service'
 import LinuxTeacher from '../../home-python/python-introduce/PythonTeacher'
+import TeacherList from '../../../mock/linux/linuxTeacher.json'
 
 export default {
   components: {
@@ -27,6 +28,11 @@ export default {
     LinuxTeacher
   },
   props: ['pirceNum','Summarize'],
+  data () {
+    return {
+      TeacherList: TeacherList
+    }
+  }
 }
 </script>
 

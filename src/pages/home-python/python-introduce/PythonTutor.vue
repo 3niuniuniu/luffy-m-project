@@ -1,6 +1,6 @@
 <template>
   <div class="tutor">
-    <p class="title"><span>讲师团队</span></p>
+    <p class="title"><span>导师团队</span></p>
     <div class="box">
       <dl>
         <dt><img src="../../../assets/img/pageimgs/teacher1.png" alt=""></dt>

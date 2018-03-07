@@ -2,41 +2,11 @@
   <div class="box">
     <p class="title"><span>讲师团队</span></p>
     <div class="teacher" v-drag>
-      <div class="module">
-        <img src="../../../assets/img/pageimgs/teacher1.png" alt="">
-        <p class="p1">老男孩</p>
-        <p class="p2">路飞学城讲师</p>
-        <p class="p3">老男孩，北京老男孩IT教育创始人，拥有十多年一线大规模网站集群运维架构实战经验及教学培训经验，曾主导了从几台到上千台规模集群运维架构的扩展，运维架构实战知识体系全面，擅长大规模集群架构部署调优、虚拟化、云计算、大数据、MySQL数据库等技术，是IT界资深的Linux集群架构实战专家。</p>
-      </div>
-      <div class="module">
-        <img src="../../../assets/img/pageimgs/teacher1.png" alt="">
-        <p class="p1">老男孩</p>
-        <p class="p2">路飞学城讲师</p>
-        <p class="p3">老男孩，北京老男孩IT教育创始人，拥有十多年一线大规模网站集群运维架构实战经验及教学培训经验，曾主导了从几台到上千台规模集群运维架构的扩展，运维架构实战知识体系全面，擅长大规模集群架构部署调优、虚拟化、云计算、大数据、MySQL数据库等技术，是IT界资深的Linux集群架构实战专家。</p>
-      </div>
-      <div class="module">
-        <img src="../../../assets/img/pageimgs/teacher1.png" alt="">
-        <p class="p1">老男孩</p>
-        <p class="p2">路飞学城讲师</p>
-        <p class="p3">老男孩，北京老男孩IT教育创始人，拥有十多年一线大规模网站集群运维架构实战经验及教学培训经验，曾主导了从几台到上千台规模集群运维架构的扩展，运维架构实战知识体系全面，擅长大规模集群架构部署调优、虚拟化、云计算、大数据、MySQL数据库等技术，是IT界资深的Linux集群架构实战专家。</p>
-      </div>
-      <div class="module">
-        <img src="../../../assets/img/pageimgs/teacher1.png" alt="">
-        <p class="p1">老男孩</p>
-        <p class="p2">路飞学城讲师</p>
-        <p class="p3">老男孩，北京老男孩IT教育创始人，拥有十多年一线大规模网站集群运维架构实战经验及教学培训经验，曾主导了从几台到上千台规模集群运维架构的扩展，运维架构实战知识体系全面，擅长大规模集群架构部署调优、虚拟化、云计算、大数据、MySQL数据库等技术，是IT界资深的Linux集群架构实战专家。</p>
-      </div>
-      <div class="module">
-        <img src="../../../assets/img/pageimgs/teacher1.png" alt="">
-        <p class="p1">老男孩</p>
-        <p class="p2">路飞学城讲师</p>
-        <p class="p3">老男孩，北京老男孩IT教育创始人，拥有十多年一线大规模网站集群运维架构实战经验及教学培训经验，曾主导了从几台到上千台规模集群运维架构的扩展，运维架构实战知识体系全面，擅长大规模集群架构部署调优、虚拟化、云计算、大数据、MySQL数据库等技术，是IT界资深的Linux集群架构实战专家。</p>
-      </div>
-      <div class="module">
-        <img src="../../../assets/img/pageimgs/teacher1.png" alt="">
-        <p class="p1">老男孩</p>
-        <p class="p2">路飞学城讲师</p>
-        <p class="p3">老男孩，北京老男孩IT教育创始人，拥有十多年一线大规模网站集群运维架构实战经验及教学培训经验，曾主导了从几台到上千台规模集群运维架构的扩展，运维架构实战知识体系全面，擅长大规模集群架构部署调优、虚拟化、云计算、大数据、MySQL数据库等技术，是IT界资深的Linux集群架构实战专家。</p>
+      <div class="module" v-for="(item,index) in TeacherList" :key="index">
+        <img :src="item.image" alt="">
+        <p class="p1">{{item.name}}</p>
+        <p class="p2">{{item.title}}</p>
+        <p class="p3">{{item.brief}}</p>
       </div>
     </div>
     <div class="drag"><div class="plan" v-drag></div></div>
@@ -48,8 +18,16 @@ import Vue from 'vue'
 import { px2rem } from '../../../assets/js/utils';
 import { clearTimeout } from 'timers';
 
-
 export default {
+  props: ['TeacherList'],
+  data () {
+    return {
+
+    }
+  },
+  mounted () {
+
+  },
   directives: {
     drag: {
       // 指令的定义
@@ -122,6 +100,8 @@ export default {
         margin-top: .45rem;
         text-align: center;
         img {
+          width: 1rem;
+          height: 1rem;
           margin-top: -.2rem;
           padding-bottom: .2rem;
         }
@@ -170,6 +150,9 @@ export default {
     border-top: 4px solid #08B3E3;
   }
   .teacher div:nth-of-type(2) {
+    border-top: 4px solid #61DED4;
+  }
+  .teacher div:nth-of-type(7) {
     border-top: 4px solid #61DED4;
   }
   .teacher div:nth-of-type(3) {

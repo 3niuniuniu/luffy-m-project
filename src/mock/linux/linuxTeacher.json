@@ -1,0 +1,38 @@
+[
+  {
+    "image": "/static/dataimg/teacher1.png",
+    "name": "老男孩",
+    "title": "路飞学城讲师",
+    "brief": "老男孩，北京老男孩IT教育创始人，拥有十多年一线大规模网站集群运维架构实战经验及教学培训经验，曾主导了从几台到上千台规模集群运维架构的扩展，运维架构实战知识体系全面，擅长大规模集群架构部署调优、虚拟化、云计算、大数据、MySQL数据库等技术，是IT界资深的Linux集群架构实战专家。"
+  },
+  {
+    "image": "/static/dataimg/teacher2.png",
+    "name": "李泳谊",
+    "title": "路飞学城讲师",
+    "brief": "Linux运维高级讲师 江湖人称：悠久之翼，李导。Linux一线实战经验及Linux教学经验，擅长以图形表达讲解抽象概念，善于用简单易懂的例子讲解重点难点，严肃不失幽默，著有《跟老男孩学Linux三剑客》一书。"
+  },
+  {
+    "image": "/static/dataimg/teacher3.png",
+    "name": "何清",
+    "title": "路飞学城讲师",
+    "brief": "老男孩教育Linux学科核心讲师CCIE认证专家，微软2008 MCITP认证专家；老男孩教育Linux学科核心讲师CCIE认证专家，微软2008 MCITP认证专家，多年项目集成与Linux运维工作经验，擅长大型Web集群架构，自动化运维管理。"
+  },
+  {
+    "image": "/static/dataimg/teacher4.png",
+    "name": "张耀",
+    "title": "路飞学城讲师",
+    "brief": "多年一线运维实战经验；多年一线运维实战经验，擅长Linux三剑客，Shell高级编程，自动化运维之kickstart/cobbler/rpm定制/yum仓库搭建/zabbix监控，目前任老男孩教育Linux运维讲师。"
+  },
+  {
+    "image": "/static/dataimg/teacher5.png",
+    "name": "郭宏泽",
+    "title": "路飞学城讲师",
+    "brief": "资深Linux运维专家级讲师，Oracle10g/11g OCP认证专家，MySQL 5.6 OCP认证专家，Oracle Goldengate 10G认证专家。精通IBM AIX操作系统、Redhat Linux操作系统、Vmware虚拟化产品、主流存储产品等。8年以上一线数据库及周边产品运维、开发工作经验。多年Oracle、MySQL、NoSQL培训教学经验"
+  },
+  {
+    "image": "/static/dataimg/teacher6.png",
+    "name": "周玉强",
+    "title": "路飞学城讲师",
+    "brief": "linux运维高级讲师，5年的互联网运维工作经验，擅长zabbix监控、kvm虚拟化技术、OpenStack云计算、docker容器等，曾维护2千台以上规模的集群架构，兴趣从硬件到操作系统，从网络到存储，从运维到开发都有涉及，热爱技术，热爱教学。"
+  }
+]

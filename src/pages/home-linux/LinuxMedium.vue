@@ -22,6 +22,9 @@
     :Summarize="Summarize"
     >
     </linux-introduce>
+    <linux-catalogue v-show="num == 1" :CatalogueList="CatalogueList"></linux-catalogue>
+    <linux-comment v-show="num == 2"></linux-comment>
+    <linux-issue v-show="num == 3" :Issue="Issue"></linux-issue>
     <course-buy></course-buy>
   </div>
 </template>
@@ -30,6 +33,11 @@
 import HeaderItem from '@/components/header'
 import LinuxBanner from './LinuxBanner'
 import LinuxIntroduce from './linux-introduce/LinuxIntroduce'
+import LinuxCatalogue from './linux-catalogue/LinuxCatalogue'
+import CatalogueList from '../../mock/linux/catalogueMedium.json'
+import LinuxComment from '../home-python/python-comment/PythonComment'
+import LinuxIssue from '../courseitem/Issue'
+import Issue from '../../mock/linux/linuxIssue.json'
 import CourseBuy from '../courseitem/CourseBuy'
 import {Tab, TabItem} from 'vux'
 
@@ -39,7 +47,10 @@ export default {
     TabItem,
     HeaderItem,
     LinuxBanner,
-    LinuxIntroduce,
+    LinuxIntroduce,//简介
+    LinuxCatalogue,//目录
+    LinuxComment,//评价
+    LinuxIssue,//问题
     CourseBuy
   },
   data () {
@@ -75,9 +86,13 @@ export default {
         money: '8～15K',
         condition: '掌握计算机日常使用具备至少专科或以上学历'
       },
+      CatalogueList: CatalogueList,
+      Issue: Issue,
       index: 0,
       num: ''
     }
+  },
+  mounted () {
   },
   methods: {
     tab(ind) {

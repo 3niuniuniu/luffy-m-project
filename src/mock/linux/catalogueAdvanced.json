@@ -1,0 +1,128 @@
+[
+  {
+    "title": "DevOps之持续集成实战",
+    "list": [
+      "1、DevOps基础（1天）",
+      "2、DevOPS、持续集成、持续交付、持续部署介绍",
+      "3、SVN和Git代码托管平台实战",
+      "4、Jenkins介绍、工作原理及安装配置",
+      "5、Jenkins配置、使用优化",
+      "6、Jenkins自动部署测试代码",
+      "7、Jenkins集成Gitlab（GitHub）代码仓库",
+      "8、Jenkins实现项目开发、测试、部署流水线实战",
+      "9、企业级案例3：Svn/Git+Jenkins+GitLab大规模自动化代码发布（独家）"
+    ]
+  },
+  {
+    "title": "ELKStack分布式日志平台实战",
+    "list": [
+      "1、Elastic Stack介绍",
+      "2、Elasticsearch详解",
+      "3、LogStash实战入门-3.2 LogStash收集PHP错误日志",
+      "4、LogStash收集Java日志",
+      "5、LogStash收集Nginx访问日志",
+      "6、LogStash收集Apache访问日志",
+      "7、LogStash收集MySQL Slow日志",
+      "8、LogStash收集Rsyslog日志",
+      "9、架构解耦之消息队列",
+      "10、使用Kafka实现消息投递",
+      "11、Kibana详解（Area chart 区块图l Line chart折线图l Pie chart饼图等）"
+    ]
+  },
+  {
+    "title": "Docker容器技术企业级实战",
+    "list": [
+      "1、docker核心原理讲解，NameSpace、CGroup、Device等相关术语及功能讲解",
+      "2、docker相关组件：docker deamon、docker client、image",
+      "3、repository、docker container、docker link、docker volume等全面深入讲解",
+      "4、docker常用命令：环境信息、系统维护、日志信息、Docker hub",
+      "5、docker安装与配置、配置三方仓库",
+      "6、docker镜像、容器器和仓库管理理、容器器启动方法、数据卷使用、备份和恢复",
+      "7、网络模型、容器器间的依赖关系、容器资源限制、docker监控命令",
+      "8、docker网络访问、容器端口映射、容器互联、高级网络功能",
+      "9、docker虚拟化网络及应用、数据管理、自定义网桥",
+      "10、Docker数据管理、数据卷、数据卷容器、利用数据卷来迁移数据",
+      "11、Dockerfile工作机制、原理、指令、命令、语法",
+      "12、Docker镜像构建和Dockerfile、Docker Registry实践",
+      "13、docker跨主机容器互通、固定ip实现、安全加固等详解",
+      "14、Docker单机编排compose",
+      "15、自建docker私有仓库、生产环境部署和实战",
+      "16、Docker集群介绍，k8s等集群实现介绍"
+    ]
+  },
+  {
+    "title": "Openstack云计算企业级实战一",
+    "list": [
+      "1、云计算的相关介绍和在企业中的应用",
+      "2、详细对比说明IaaS、PaaS和SaaS云平台功能及常见实现方式",
+      "3、全面介绍OpenStack(最新版）概念架构模型",
+      "4、常用组件介绍Keystone、Glance、Nova、Neutron、Cinder、Heat、Ceilometer、Swift及Horizon等",
+      "5、生产环境部署模型及实验模型、OpenStack部署硬件需求及注意事项",
+      "6、系统环境准备，主机规划、openstack实战部署",
+      "7、详解OpenStack各服务的组件概念及功功能，以及各服务间的逻辑关系、协作原理",
+      "8、openstack架构逻辑、工作原理解剖全面讲解",
+      "9、基础软件配置（Apache/MySQL/PHP/消息队列）等",
+      "10、认证服务Keystone原理及手把手实践",
+      "11、镜像服务Glance原理及手把手实践",
+      "12、计算服务Nova原理及手把手实践",
+      "13、网络服务Neutron原理及手把手实践",
+      "14、Dashboard(Horizon)原理及手把手实践",
+      "15、配置openstack并实现创建一个云主机",
+      "16、openstack各组件逻辑协作原理回顾精讲、云主机的创建流程及企业级案例排错思路"
+    ]
+  },
+  {
+    "title": "Openstack云计算企业级实战二",
+    "list": [
+      "1、企业级案例1：全自动化安装openstack",
+      "2、块存储cinder原理及手把手实践",
+      "3、openstack三层网络vlan原理及手把手实践",
+      "4、openstack镜像制作原理及手把手实践",
+      "5、企业级案例:Openstack需求分析、方案设计、上线方案详解"
+    ]
+  },
+  {
+    "title": "企业阿里云云计算集群实战精讲",
+    "list": [
+      "1、DNS 阿里云域名智能解析服务Domain Name System讲解",
+      "2、ECS 阿里云云服务器 Elastic Compute Service 基础云计算服务讲解",
+      "3、SLB 阿里云负载均衡Server Load Balancer ECS 的流量分发控制服务讲解",
+      "4、RDS 阿里云关系型数据库 RDS Relational Database Service For MySQL讲解",
+      "5、OSS 阿里云对象存储服务 Object Storage Service讲解",
+      "6、NAS 阿里云文件存储Network Attached Storage",
+      "7、ESS 阿里云弹性伸缩服务Elastic Scaling Service讲解",
+      "8、VPC 阿里云专有网络 Virtual Private Cloud讲解",
+      "9、CDN 阿里云内容分发网络Content Delivery Network服务讲解",
+      "10、CMS 阿里云云监控CloudMonitor服务服务讲解",
+      "11、CLI 阿里云命令行工具 CLI Alibaba Cloud CLI 讲解",
+      "12、利用阿里云产品搭建30-50台规模集群手把手实战"
+    ]
+  },
+  {
+    "title": "Mongodb核心及集群精讲(独家王牌课程)",
+    "list": [
+      "1、Mongodb的结构及核心特性原理、CRUD介绍及操作、数据一致性实现等核心原理",
+      "2、MongoDB复制集介绍、核心架构详解、复制集技术实战案例",
+      "3、MongoDB分片（Sharding）技术、目的、应用场景、分片集群架构",
+      "4、数据分布（chunk）简介及chunksize的选择、数据路由及平衡",
+      "5、分片键简介及选择、集群数据保护——分片+副本集、分片集群备份思路实践",
+      "6、Mongodb备份与恢复、备份方式介绍、mongodump&mongorestore",
+      "7、Mongodb备份与恢复、mongoexport&mongoimport详解",
+      "8、MongoDB安全、监控及优化、监控重要性、MongoDB集群监控方式 高级工具使用",
+      "9、企业案例1：MongoDB集群性能优化方案例、Mongodb企业案例",
+      "10、企业案例2：Mongodb百度地图系统案例",
+      "11、企业案例3：某人寿保险核心分布式系统解决方案",
+      "12、企业案例4：阿里云Mongodb分片集群备份方案案例"
+    ]
+  },
+  {
+    "title": "Python自动化开发基础",
+    "list": [
+      "1、Python语言介绍、环境安装、基本语法、基本数据类型、二进制运算、流程控制",
+      "2、字符编码、文件处理、数据类型、用户认证、三级菜单程序、购物车程序开发",
+      "3、函数、内置方法、递归、迭代器、装饰器、内置方法、员工信息表开发",
+      "4、模块的跨目录导入、常用标准库学习, 软件开发规范学习",
+      "5、实战案例：计算器程序、ATM程序开发、主机管理程序开发"
+    ]
+  }
+]

@@ -3,7 +3,7 @@
     <python-pirce :pirceNum="pirceNum"></python-pirce>
     <python-message :message="message" :msgTab="msgTab"></python-message>
     <python-service></python-service>
-    <python-teacher></python-teacher>
+    <python-teacher :TeacherList="TeacherList"></python-teacher>
     <python-tutor></python-tutor>
   </div>
 </template>
@@ -23,7 +23,7 @@ export default {
     PythonTeacher,
     PythonTutor
   },
-  props: ['pirceNum','message','msgTab'],
+  props: ['pirceNum','message','msgTab','TeacherList'],
   data () {
     return {
 
