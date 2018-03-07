@@ -2,32 +2,11 @@
   <div class="tutor">
     <p class="title"><span>导师团队</span></p>
     <div class="box">
-      <dl>
-        <dt><img src="../../../assets/img/pageimgs/teacher1.png" alt=""></dt>
+      <dl v-for="(item,index) in TutorList" :key="index">
+        <dt><img :src="item.image" alt=""></dt>
         <dd>
-          <p>Alex</p>
-          <p>路飞学城导师</p>
-        </dd>
-      </dl>
-      <dl>
-        <dt><img src="../../../assets/img/pageimgs/teacher1.png" alt=""></dt>
-        <dd>
-          <p>Alex</p>
-          <p>路飞学城导师</p>
-        </dd>
-      </dl>
-      <dl>
-        <dt><img src="../../../assets/img/pageimgs/teacher1.png" alt=""></dt>
-        <dd>
-          <p>Alex</p>
-          <p>路飞学城导师</p>
-        </dd>
-      </dl>
-      <dl>
-        <dt><img src="../../../assets/img/pageimgs/teacher1.png" alt=""></dt>
-        <dd>
-          <p>Alex</p>
-          <p>路飞学城导师</p>
+          <p>{{item.name}}</p>
+          <p>{{item.title}}</p>
         </dd>
       </dl>
     </div>
@@ -36,6 +15,7 @@
 
 <script>
 export default {
+  props: ['TutorList'],
   mounted () {
     if (this.$route.name == 'python-advanced') {
       $('.tutor').css('margin-bottom','.8rem')

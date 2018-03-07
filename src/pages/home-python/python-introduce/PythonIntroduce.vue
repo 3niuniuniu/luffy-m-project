@@ -4,7 +4,7 @@
     <python-message :message="message" :msgTab="msgTab"></python-message>
     <python-service></python-service>
     <python-teacher :TeacherList="TeacherList"></python-teacher>
-    <python-tutor></python-tutor>
+    <python-tutor :TutorList="TutorList"></python-tutor>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
     PythonTeacher,
     PythonTutor
   },
-  props: ['pirceNum','message','msgTab','TeacherList'],
+  props: ['pirceNum','message','msgTab','TeacherList','TutorList'],
   data () {
     return {
 

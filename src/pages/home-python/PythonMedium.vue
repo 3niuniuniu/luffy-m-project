@@ -22,6 +22,7 @@
     :message="message"
     :msgTab="msgTab"
     :TeacherList="TeacherList"
+    :TutorList="TutorList"
     >
     </python-introduce>
     <python-model v-show="num == 0"></python-model>
@@ -97,6 +98,7 @@ export default {
       ],
       CourseList: CourseList,
       TeacherList: '',
+      TutorList: '',
       Issue: Issue,
       index: 0,
       num: ''
@@ -105,6 +107,7 @@ export default {
   mounted () {
     this.$http.get('/api/v1/degree_course/4/').then(res => {
       this.TeacherList = res.data.data.teacher_info.data
+      this.TutorList = res.data.data.mentor_info.data
     })
   },
   methods: {
