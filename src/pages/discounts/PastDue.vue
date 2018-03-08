@@ -11,18 +11,18 @@
         <p>有效期：{{item.valid_date_from}} 至 {{item.valid_date_to}}</p>
       </div>
     </div>
-    <empty-page v-if="CouponExpire.count == 0" :empitCont="empitCont"></empty-page>
+    <empty v-if="CouponExpire.count == 0" :emptyCont="emptyCont"></empty>
   </div>
 </template>
 
 <script>
-import EmptyPage from '../emptyPage/emptyPage'
+import Empty from '@/components/empty'
 
 export default {
   props: ['CouponExpire'],
   data () {
     return {
-      empitCont: '暂无过期优惠券哦'
+      emptyCont: '暂无过期优惠券'
     }
   }
 }

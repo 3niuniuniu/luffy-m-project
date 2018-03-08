@@ -1,16 +1,16 @@
 <template>
-  <div class="python">
-    <div>
-      <dl @click="goCourseItem">
-        <dt><img src="../../assets/img/pageimgs/banner1.png" alt=""></dt>
+  <div class="box">
+    <div class="list">
+      <dl @click="goCourseItem(item.id)" v-for="(item,index) in courseList" :key="index">
+        <dt><img :src="item.course_img" alt=""></dt>
         <dd>
-          <p>爬虫开发实战</p>
-          <p>解锁更多高级爬虫知识，爬取你想要解锁更多高级爬虫知识，爬取你想要</p>
-          <p>难度：高级<span>专题</span></p>
-          <p>¥ 399.00</p>
+          <p>{{item.name}}</p>
+          <p>{{item.brief}}</p>
+          <p>难度：{{item.level}}<span>专题</span></p>
+          <p>¥ {{item.price}}</p>
         </dd>
       </dl>
-      <dl @click="goPythone">
+      <!-- <dl @click="goPythone">
         <dt><img src="../../assets/img/pageimgs/banner1.png" alt=""></dt>
         <dd>
           <p>Python高级</p>
@@ -18,16 +18,17 @@
           <p>难度：高级<span>专题</span></p>
           <p>¥ 399.00</p>
         </dd>
-      </dl>
+      </dl> -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['courseList'],
   methods: {
-    goCourseItem () {
-      this.$router.push('/course/courseitem')
+    goCourseItem (id) {
+      this.$router.push({path:'/course/courseitem', query:{id: id}})
     },
     goPythone () {
       this.$router.push('/home/python-advanced')
@@ -37,17 +38,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .python {
+  .box {
     width: 100%;
     height: 100%;
     background: #fff;
-    div {
+    .list {
       padding-left: .2rem;
       padding-right: .2rem;
       padding-top: 1rem;
-    }
-    dl:last-child {
-      border: none;
     }
     dl {
       width: 100%;
@@ -68,9 +66,6 @@ export default {
       dd {
         flex: 1;
         padding-left: .1rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
         p:nth-of-type(1) {
           font-size: .15rem;
           color: #131F3C;
@@ -78,6 +73,10 @@ export default {
           padding-bottom: .07rem;
         }
         p:nth-of-type(2) {
+          width: 2.2rem;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
           font-size: .12rem;
           color: #909CB7;
           padding-bottom: .05rem;
@@ -101,6 +100,10 @@ export default {
           color: #FA6240;
         }
       }
+    }
+    dl:last-child {
+      border: none;
+      padding-bottom: 0;
     }
   }
 </style>

@@ -1,57 +1,41 @@
 <template>
   <div class="evaluate">
-    <div class="grade">
+    <empty :emptyCont="emptyCont" v-if="this.ItemComment.review_info.count == 0"></empty>
+    <div class="grade" v-else>
       <div>
         <p class="starlevel">
           <span>综合评分</span>
-          <span>10.0
-            <img src="../../assets/img/icon/xingxing.png" alt="">
-            <img src="../../assets/img/icon/xingxing.png" alt="">
-            <img src="../../assets/img/icon/xingxing.png" alt="">
-            <img src="../../assets/img/icon/xingxing.png" alt="">
-            <img src="../../assets/img/icon/xingxing.png" alt="">
+          <span>{{ItemComment.score.synthesisscore}}
+            <img src="../../assets/img/icon/xingxing.png" alt="" v-for="(item,index) in ItemComment.score.synthesisscore/2" :key="index">
           </span>
-          <span>30人评价</span>
+          <span>{{ItemComment.review_info.count}}人评价</span>
         </p>
         <ul>
           <li>
             <p>通俗易通</p>
-            <p>10分</p>
+            <p>{{ItemComment.score.about_video}}分</p>
           </li>
           <li>
             <p>内容实用</p>
-            <p>10分</p>
+            <p>{{ItemComment.score.about_course}}分</p>
           </li>
           <li>
             <p>讲解清晰</p>
-            <p>10分</p>
+            <p>{{ItemComment.score.about_teacher}}分</p>
           </li>
         </ul>
       </div>
     </div>
     <div class="comment">
-      <div class="commList">
+      <div class="commList" v-for="(item,index) in ItemComment.review_info.result" :key="index">
         <dl>
-          <dt><img src="../../assets/img/pageimgs/Close.png" alt=""></dt>
+          <dt><img :src="item.userinfo.headimg" alt=""></dt>
           <dd>
-            <p>WYN289让5789575-</p>
-            <p>评论具体内容评论具体内容评论一二三四五六七八九</p>
-            <p>30天前</p>
-            <div class="reply">
-              <p><span>[讲师回复]：</span>感谢对我们的支持，希望学完之后能达到</p>
-            </div>
-          </dd>
-        </dl>
-      </div>
-      <div class="commList">
-        <dl>
-          <dt><img src="../../assets/img/pageimgs/Close.png" alt=""></dt>
-          <dd>
-            <p>WYN289让5789575-</p>
-            <p>评论具体内容评论具体内容评论一二三四五六七八九</p>
-            <p>30天前</p>
-            <div class="reply">
-              <p><span>[讲师回复]：</span>感谢对我们的支持，希望学完之后能达到</p>
+            <p>{{item.userinfo.username}}</p>
+            <p>{{item.review}}</p>
+            <p>{{item.date}}</p>
+            <div class="reply" v-if="item.reply != null">
+              <p><span>[讲师回复]：</span>{{item.reply.content}}</p>
             </div>
           </dd>
         </dl>
@@ -61,8 +45,18 @@
 </template>
 
 <script>
-export default {
+import Empty from '@/components/empty'
 
+export default {
+  props: ['ItemComment'],
+  components: {
+    Empty
+  },
+  data () {
+    return {
+      emptyCont: '暂无评价'
+    }
+  }
 }
 </script>
 
@@ -100,8 +94,8 @@ export default {
               width: .1rem;
               height: .1rem;
               margin-bottom: .02rem;
-              margin-right: .01rem;
-              margin-left: .02rem;
+              margin-right: .04rem;
+              margin-left: .04rem;
             }
           }
           span:nth-of-type(3) {
@@ -177,6 +171,7 @@ export default {
               height: auto;
               background: #F3F5F7;
               padding: .08rem;
+              box-sizing: border-box;
               span {
                 color: #FA6240;
               }

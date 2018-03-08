@@ -54,7 +54,7 @@ const router = new Router({
     { path: '/my/order', name:'Order', component: Order, meta: { navShow: false },components: { 'default': My,'subPage': Order}},
     { path: '/my/discounts', name: 'Discounts', component: Discounts, meta: { navShow: false }, components: { 'default': My, 'subPage': Discounts } },
     { path: '/my/question', name: 'Question', component: Question, meta: { navShow: false }, components: { 'default': My, 'subPage': Question } },
-    { path: '/my/question/questionitem/:id', name: 'QuestionItem', component: QuestionItem, meta: { navShow: false }, components: { 'default': My, 'subPage': QuestionItem } },
+    { path: '/my/question/questionitem', name: 'QuestionItem', component: QuestionItem, meta: { navShow: false }, components: { 'default': My, 'subPage': QuestionItem } },
     { path: '/buy', name: 'Buy', component: Buy, meta: {navShow: false} },
     { path: '/buysucceed', name: 'BuySucceed', component: BuySucceed, meta: { navShow: false } },
     { path: '/selectcoupon', name: 'SelectCoupon', component: SelectCoupon, meta: { navShow: false }, components: { 'default': Buy, 'subPage': SelectCoupon } },
@@ -65,16 +65,16 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.meta.requireAuth) {
-    next({
-      path: '/login',
-      query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
-    })
-  }
-  else {
-    next();
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.requireAuth) {
+//     next({
+//       path: '/login',
+//       query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由
+//     })
+//   }
+//   else {
+//     next();
+//   }
+// })
 
 export default router

@@ -1,11 +1,11 @@
 <template>
   <div class="catalog">
-    <div class="chapter">
-      <p class="num">11111</p>
+    <div class="chapter" v-for="(item,index) in courseItem" :key="index">
+      <p class="num">{{courseItem[index].name}}</p>
       <ul class="list">
-        <li>
-          <p>1111</p>
-          <p><span>111111</span></p>
+        <li v-for="(itm,ind) in item.coursesections" :key="ind">
+          <p>{{itm.name}}</p>
+          <p><span>{{itm.video_time}}</span></p>
         </li>
       </ul>
       <div class="more" @click="More($event)">点击查看更多</div>
@@ -14,18 +14,15 @@
 </template>
 
 <script>
-import { ViewBox } from 'vux'
-
 export default {
+  props: ['courseItem'],
   data () {
     return {
       allH: false,
     }
   },
-  components: {
-    ViewBox
-  },
   mounted () {
+
   },
   methods: {
     More (e) {
@@ -47,7 +44,6 @@ export default {
 <style lang="scss" scoped>
   .catalog {
     height: auto;
-    // background: #f3f5f7;
     .chapter {
       margin-bottom: .2rem;
       background: #fff;
@@ -107,8 +103,16 @@ export default {
         color: #9B9B9B;
       }
     }
+    .chapter:last-child {
+      margin-bottom: 0;
+    }
+    .chapter:first-child {
+      .num {
+        padding-top: .3rem;
+      }
+    }
   }
-  .chapter:last-child {
-    margin-bottom: 0;
+  .empty {
+    padding-top: .8rem !important;
   }
 </style>

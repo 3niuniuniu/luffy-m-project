@@ -8,63 +8,65 @@
 			<tab-item
 				v-for="(item,ind) in list"
         :key="ind"
-				@click.native="tab(ind)">
+				@click.native="tab(ind, item.sub_category)">
 				{{item.text}}
 			</tab-item>
 		</tab>
 
-    <div class="cont">
-      <python v-show="num == 0"></python>
-      <linux v-show="num == 1"></linux>
-      <luffy v-show="num == 2"></luffy>
+    <loading v-show="loading" class="loading"></loading>
+    <div class="cont" v-show="!loading">
+      <empty v-if="courseList.length == 0" :emptyCont="emptyCont" class="empty"></empty>
+      <course-list :courseList="courseList" v-else></course-list>
     </div>
 	</view-box>
 </template>
 
 <script>
 import Vue from 'vue'
-import Python from './Python'
-import Linux from './Linux'
-import Luffy from './Luffy'
+import CourseList from './CourseList'
+import Loading from '@/components/loading'
+import Empty from '@/components/empty'
 import {ViewBox, Tab, TabItem} from 'vux'
 
 export default {
   components: {
-    Python,
-    Linux,
-    Luffy,
+    CourseList,
+    Loading,
+    Empty,
     Tab,
     TabItem,
-    ViewBox
+    ViewBox,
   },
   data() {
     return {
-      tabs: ['Python','Linux','LuffyX','前端'],
-      num: 0,
       list: [
-				{
-					tag: 'Python',
-          text: 'Python',
-				},
-				{
-					tag: 'Linux',
-					text: 'Linux'
-				},
-				{
-					tag: 'LuffyX',
-					text: 'LuffyX'
-				},
-				{
-					tag: 'needComment',
-					text: '前端'
-        },
+        {tag: 'Python',text: 'Python', sub_category: 1},
+				{tag: 'Linux',text: 'Linux', sub_category: 2},
+				{tag: 'LuffyX',text: 'LuffyX', sub_category: 0},
+				{tag: 'needComment',text: '前端', sub_category: 3},
       ],
+      num: 0,
       index: 0,
+      sub_category: 1,
+      courseList: '',
+      loading: true,
+      emptyCont: '暂无课程列表'
     }
   },
+  mounted () {
+    this.getData()
+  },
   methods: {
-    tab(ind) {
+    getData () {
+      this.$http.get('/api/v1/course/list/?sub_category=' + this.sub_category).then(res => {
+        this.loading = false
+        this.courseList = res.data.data
+      })
+    },
+    tab(ind, sub_category) {
       this.num = ind
+      this.sub_category = sub_category
+      this.getData()
     },
   }
 }
@@ -103,5 +105,11 @@ export default {
     transform: translate3d(-100%, 0, 0);
     transition: .3s;
     overflow: hidden;
+  }
+  .loading {
+    margin-top: 1rem !important;
+  }
+  .empty {
+    margin-top: 1rem !important;
   }
 </style>

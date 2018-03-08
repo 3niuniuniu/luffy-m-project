@@ -1,13 +1,13 @@
 <template>
   <div class="empty">
-    <img src="../../assets/img/pageimgs/null.png" alt="">
-    <p>{{empitCont}}</p>
+    <img src="../assets/svg/empty.svg" alt="">
+    <p>{{emptyCont}}</p>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['empitCont']
+  props: ['emptyCont']
 }
 </script>
 

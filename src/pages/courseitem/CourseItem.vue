@@ -14,10 +14,15 @@
         {{item.text}}
       </tab-item>
     </tab>
-    <introduce v-show="num == 0"></introduce>
-    <catalogue v-show="num == 1"></catalogue>
-    <evaluate v-show="num == 2"></evaluate>
-    <issue v-show="num == 3"></issue>
+    <introduce v-show="num == 0"
+    :CourseItemPirce="CourseItemPirce"
+    :CourseItemCont="CourseItemCont"
+    ></introduce>
+    <loading v-show="num == 1" v-if="this.loading == true"></loading>
+    <empty :emptyCont="emptyCont" v-if="this.courseItem.length == 0" v-show="num == 1"></empty>
+    <catalog-list :courseItem="courseItem" v-show="num == 1" class="catalogs"></catalog-list>
+    <evaluate :ItemComment="ItemComment" v-show="num == 2"></evaluate>
+    <question :QuestionList="QuestionList" v-show="num == 3"></question>
     <course-buy></course-buy>
   </div>
 </template>
@@ -25,12 +30,13 @@
 <script>
 import HeaderItem from '@/components/header'
 import Introduce from './Introduce'
-import Catalogue from './Catalogue'
+import CatalogList from './CatalogList'
 import Evaluate from './Evaluate'
 import CourseBuy from './CourseBuy'
-import Issue from './Issue'
+import Question from './Question'
 import {Tab, TabItem} from 'vux'
-// import GetCoupon from './GetCoupon'
+import Empty from '@/components/empty'
+import Loading from '@/components/loading'
 
 export default {
   components: {
@@ -38,37 +44,79 @@ export default {
     Tab,
     TabItem,
     Introduce,//简介
-    Catalogue,//目录
+    CatalogList,//目录
     Evaluate,//评价
+    Question,//问题
     CourseBuy,//领取及购买
-    Issue,
-    // GetCoupon
+    Empty,
+    Loading
   },
   data () {
     return {
       list: [
-				{
-          text: '简介',
-				},
-				{
-					text: '目录'
-				},
-				{
-					text: '评价'
-        },
-        {
-					text: '常见问题'
-				},
+				{text: '简介'},
+				{text: '目录'},
+				{text: '评价'},
+        {text: '常见问题'},
       ],
       num: 0,
       index: 0,
+      CourseItemPirce: '',
+      CourseItemCont: '',
+      courseItem: '',
+      ItemComment: '',
+      QuestionList: '',
+      emptyCont: '暂无课程目录',
+      loading: true,
     }
+  },
+  mounted () {
+    this.getPirce()
+    this.getCont()
+    this.getCourse()
+    this.getComment()
+    this.getQuestion()
   },
   methods: {
     tab(ind) {
       this.num = ind
+    },
+    getCourse () {
+      this.$http.get('/api/v1/course_sections/?courseid=' + this.$route.query.id).then(res => {
+        this.loading = false
+        this.courseItem = res.data.data
+      })
+    },
+    getComment () {
+      this.$http.get('/api/v1/coursereview/?courseid=' + this.$route.query.id).then(res => {
+        this.ItemComment = res.data.data
+      })
+    },
+    getQuestion () {
+      this.$http.get('/api/v1/course_questions/?course_id=' + this.$route.query.id).then(res => {
+        this.QuestionList = res.data.data
+      })
+    },
+    getPirce () {
+      this.$http.get('/api/v1/coursedetailtop/?courseid=' + this.$route.query.id).then(res => {
+        this.CourseItemPirce = res.data.data
+      })
+    },
+    getCont () {
+      this.$http.get('/api/v1/coursedetail/?courseid=' + this.$route.query.id).then(res => {
+        this.CourseItemCont = res.data.data
+      })
+    },
+  },
+  watch: {
+    '$route' (to, from) {
+      this.getPirce()
+      this.getCont()
+      this.getCourse()
+      this.getComment()
+      this.getQuestion()
     }
-  }
+  },
 }
 </script>
 
@@ -96,6 +144,9 @@ export default {
         color: #72D9C1;
         border-bottom: 2px solid #72d9c1;
       }
+    }
+    .catalogs {
+      padding-bottom: .5rem !important;
     }
   }
 </style>

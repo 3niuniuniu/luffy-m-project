@@ -20,25 +20,25 @@
           </div>
         </div>
       </div>
-      <empty-page :empitCont="empitCont" v-show="empty"></empty-page>
+      <empty :emptyCont="emptyCont" v-show="empty"></empty>
   </div>
 </template>
 
 <script>
   import HeaderItem from '@/components/header'
   import Loading from '@/components/loading'
-  import EmptyPage from '../emptyPage/emptyPage'
+  import Empty from '@/components/empty'
 
   export default {
     components: {
       HeaderItem,
       Loading,
-      EmptyPage,
+      Empty,
     },
     data () {
       return {
         orderList: '',
-        empitCont: '暂无订单',
+        emptyCont: '暂无订单',
         loading: true,
         empty: false,
       }

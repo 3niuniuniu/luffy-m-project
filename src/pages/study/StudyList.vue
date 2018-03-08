@@ -64,7 +64,7 @@ export default {
       this.showModule()
       setTimeout(() => {
         AlertModule.hide()
-      }, 2000)
+      }, 1400)
     },
   }
 }
@@ -75,6 +75,9 @@ export default {
     width: 100%;
     height: auto;
     margin-top: .15rem;
+    .weui-dialog .weui-dialog__btn_primary {
+      color: #72D9BA !important;
+    }
     .list {
       width: 100%;
       height: auto;
