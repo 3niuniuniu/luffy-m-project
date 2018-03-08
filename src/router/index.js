@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Cookies from '../assets/js/Cookie'
 import Router from 'vue-router'
 import Error from '@/components/404'
-import Hello from '@/components/Hello'
 import Home from '@/pages/home/Home'
 
 import PythonAdvanced from '@/pages/home-python/PythonAdvanced'

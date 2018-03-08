@@ -1,12 +1,17 @@
 <template>
   <div class="StudyList" v-show="!loading">
-    <div class="list" @click="goVideo()" v-for="(item,index) in courseModule" :key="index">
-      <p class="title"><span>第{{index+1}}模块：{{item.course_module_name}}</span><span>{{item.status}}</span></p>
+    <cell @click.native="showModuleAuto" v-show="onShow"></cell>
+    <div class="list" @click="goVideo(item.status)" v-for="(item,index) in courseModule" :key="index">
+      <p class="title"><span>{{item.course_module_name}}</span><span>{{item.status}}</span></p>
       <dl>
         <dt>
           <img :src="item.course_module_img" alt="">
-          <p>{{item.progress}}</p>
-          <p><span></span></p>
+          <p class="p1" v-if="item.status == '未开通'">未开通</p>
+          <div v-else-if="item.progress != '未开通'">
+            <p class="masking"></p>
+            <p class="p2">学习到：{{item.progress}}%</p>
+            <p class="p3"><span :style="{width: item.progress + '%'}"></span></p>
+          </div>
         </dt>
         <dd>
           <p>{{item.last_study.current_study_record}}</p>
@@ -19,17 +24,48 @@
 </template>
 
 <script>
-import { LoadMore } from 'vux'
+import { LoadMore, AlertModule, Alert, Group, XSwitch, Cell, TransferDomDirective as TransferDom } from 'vux'
 
 export default {
   props: ['courseModule','loading'],
+  directives: {
+    TransferDom
+  },
   components: {
-    LoadMore
+    LoadMore,
+    Alert,
+    Group,
+    XSwitch,
+    Cell
+  },
+  data () {
+    return {
+      onShow: false,
+    }
+  },
+  mounted () {
+
   },
   methods: {
-    goVideo () {
-      this.$router.push('/study/videocourse')
-    }
+    goVideo (status) {
+      if (status == '未开通') {
+        this.showModuleAuto()
+      } else {
+        this.$router.push('/study/videocourse')
+      }
+    },
+    showModule () {
+      AlertModule.show({
+        title: '抱歉',
+        content: '此模块还未开通',
+      })
+    },
+    showModuleAuto () {
+      this.showModule()
+      setTimeout(() => {
+        AlertModule.hide()
+      }, 2000)
+    },
   }
 }
 </script>
@@ -71,28 +107,55 @@ export default {
             width: 100%;
             height: 100%;
           }
-          p:nth-of-type(1){
+          .p1 {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0.4;
+            color: #fff;
+            font-size: .16rem;
+            text-align: center;
+            line-height: .67rem;
+          }
+          .p2{
             color:#fff;
             font-size: .12rem;
             position: absolute;
             left: .05rem;bottom: .18rem;
           }
-          p:nth-of-type(2) {
+          .p3 {
             width: 90%;
             height: .05rem;
             background: rgba(255,255,255,0.50);
             border: 1px solid #FFFFFF;
             border-radius: 26px;
             position: absolute;
-            left: .05rem;bottom: .08rem;
+            left: .05rem;
+            bottom: .18rem;
             overflow: hidden;
+            position: relative;
             span {
               display: inline-block;
-              width: 50%;
+              // width: 50%;
               height: 100%;
               background: #94DCD4;
               border-radius: 26px;
+              position: absolute;
+              left: 0;
+              top: 0;
             }
+          }
+          .masking {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0.4;
           }
         }
         dd {
