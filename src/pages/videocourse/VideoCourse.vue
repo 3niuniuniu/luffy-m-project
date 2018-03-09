@@ -64,9 +64,6 @@ export default {
     },
     showModuleAuto () {
       this.showModule()
-      setTimeout(() => {
-        AlertModule.hide()
-      }, 2000)
       // setTimeout(() => {
       //   this.$router.push('/home')
       // }, 2100)
