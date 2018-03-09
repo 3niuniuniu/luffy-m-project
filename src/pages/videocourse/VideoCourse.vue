@@ -7,6 +7,7 @@
     <div class="video"></div>
     <p class="log">课程目录</p>
     <loading v-show="loading"></loading>
+    <error-five :errorhint="errorhint" class="error" v-show="error"></error-five>
     <div class="catalog">
       <div class="chapter" v-for="(item,index) in videoDirectory.coursechapters" :key="index">
         <p class="num">{{item.name}}</p>
@@ -25,6 +26,7 @@
 
 <script>
 import Loading from '@/components/loading'
+import ErrorFive from '@/components/500'
 import { LoadMore, AlertModule, Alert, Group, XSwitch, Cell, TransferDomDirective as TransferDom } from 'vux'
 
 export default {
@@ -33,6 +35,7 @@ export default {
   },
   components: {
     Loading,
+    ErrorFive,
     LoadMore,
     Alert,
     Group,
@@ -46,7 +49,9 @@ export default {
       nowName: '',
       videoDirectory: '',
       loading: true,
-      onShow: false
+      onShow: false,
+      errorhint: '服务器发生错误',
+      error: false,
     }
   },
   mounted () {
@@ -64,9 +69,6 @@ export default {
     },
     showModuleAuto () {
       this.showModule()
-      // setTimeout(() => {
-      //   this.$router.push('/home')
-      // }, 2100)
     },
     More (e) {
       this.allH = !this.allH
@@ -89,8 +91,14 @@ export default {
           this.loading = false
           if(this.$route.name == 'VideoCourse') {
             this.showModuleAuto()
+            this.error = true
+            this.errorhint = '您无观看权限'
           }
         }
+      })
+      .catch (res => {
+        this.loading = false
+        this.error = true
       })
     },
     getCourse () {
@@ -98,6 +106,10 @@ export default {
         this.loading = false
         this.nowName = res.data.data.section_name
         this.videoDirectory = res.data.data
+      })
+      .catch (res => {
+        this.loading = false
+        this.error = true
       })
     },
   },
@@ -215,5 +227,8 @@ export default {
   }
   .chapter:last-child {
     margin-bottom: 0;
+  }
+  .error {
+    margin-top: -2.4rem !important;
   }
 </style>
