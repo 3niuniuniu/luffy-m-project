@@ -6,7 +6,7 @@
       <study-date></study-date>
       <study-course @studyCourse="studyCourse"></study-course>
       <loading v-show="loading"></loading>
-      <error-five v-show="error" class="error"></error-five>
+      <error-five v-show="error" class="error" :errorhint="errorhint"></error-five>
       <study-list :courseModule="courseModule" :loading="loading"></study-list>
     </div>
     <study-login v-show="!NotLogin"></study-login>
@@ -42,6 +42,7 @@ export default {
       loading: true,
       onShow: false,
       error: false,
+      errorhint: '服务器发生错误'
     }
   },
   mounted () {

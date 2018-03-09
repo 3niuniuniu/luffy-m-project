@@ -33,7 +33,6 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      console.log(this.$route.query.id)
       this.getData()
     }
   }

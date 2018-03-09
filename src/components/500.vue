@@ -2,14 +2,19 @@
   <div class="error">
     <div class="box">
       <img src="../assets/svg/error-500.svg" alt="">
-      <p>服务器发生错误</p>
+      <p>{{errorhint}}</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  props: ['errorhint'],
+  data () {
+    return {
+      errorhint: ''
+    }
+  }
 }
 </script>
 

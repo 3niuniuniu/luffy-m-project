@@ -1,7 +1,7 @@
 <template>
   <div class="StudyList" v-show="!loading">
     <cell @click.native="showModuleAuto" v-show="onShow"></cell>
-    <div class="list" @click="goVideo(item.status)" v-for="(item,index) in courseModule" :key="index">
+    <div class="list" @click="goVideo(item.status, item.last_study.current_study_record_id)" v-for="(item,index) in courseModule" :key="index">
       <p class="title"><span>{{item.course_module_name}}</span><span>{{item.status}}</span></p>
       <dl>
         <dt>
@@ -41,17 +41,18 @@ export default {
   data () {
     return {
       onShow: false,
+      id: '',
     }
   },
   mounted () {
-
   },
   methods: {
-    goVideo (status) {
+    goVideo (status, id) {
+      this.id = id
       if (status == '未开通') {
         this.showModuleAuto()
       } else {
-        this.$router.push('/study/videocourse')
+        this.$router.push({path: '/study/videocourse', query: {id: id}})
       }
     },
     showModule () {
@@ -66,7 +67,7 @@ export default {
         AlertModule.hide()
       }, 1400)
     },
-  }
+  },
 }
 </script>
 
