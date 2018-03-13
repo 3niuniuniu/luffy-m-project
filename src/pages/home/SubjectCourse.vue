@@ -2,8 +2,8 @@
   <div class="subject">
     <p class="model">专题课程</p>
     <div class="list">
-      <dl v-for="(item,index) in HomeCourse" :key="index">
-        <dt><img :src="item.img" alt=""></dt>
+      <dl v-for="(item,index) in HomeCourse" :key="index" @click="goDetails(item.id)">
+        <dt><img :src="img_host+item.img" alt=""></dt>
         <dd>
           <p>{{item.name}}</p>
           <p>难度：{{item.level}}</p>
@@ -16,14 +16,19 @@
 
 <script>
 import HomeCourse from '../../mock/home/HomeCourse.json'
+import { mapState } from 'vuex';
 export default {
- data () {
-   return {
-     HomeCourse: HomeCourse
-   }
- },
- mounted () {
- }
+  data () {
+    return {
+      HomeCourse: HomeCourse
+    }
+  },
+  methods: {
+    goDetails (id) {
+      this.$router.push({path:'/course/courseitem', query:{id: id}})
+    }
+  },
+  computed: mapState(['img_host']),
 }
 </script>
 

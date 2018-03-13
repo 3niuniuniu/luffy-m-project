@@ -24,7 +24,6 @@
           <button class="btn" @click="nextOne">下一步</button>
           <p class="gologin" @click="goLogin">已有账号，<span>直接登录</span></p>
         </div>
-
         <div class="cont2" v-show="step2">
           <p class="title">注册路飞学城</p>
           <input type="text" placeholder="用户名一旦确认不可更改" v-model="name">
@@ -35,7 +34,6 @@
               <option value="" selected>请选择省份</option>
               <option v-for="(index,item) in provinces" :value="item.id" :key="index" selected>{{item.name}}</option>
             </select>
-
             <select v-model="city">
               <option value="" selected>请选择城市</option>
               <option v-for="(index,item) in citys" :value="item.id" :key="index" selected>{{item.name}}</option>

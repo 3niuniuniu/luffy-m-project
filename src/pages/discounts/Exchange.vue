@@ -1,28 +1,36 @@
 <template>
-  <!-- <div class="exchange" v-show="exchange"> -->
-    <x-dialog
-      v-model="exchange"
-      >
-      <div class="box" >
-        <p>兑换优惠劵</p>
-        <input type="text" placeholder="输入兑换码">
-        <p><span @click="exchangeHide">取消</span><span>兑换</span></p>
-      </div>
-    </x-dialog>
-  <!-- </div> -->
+  <x-dialog
+    v-model="exchange"
+    >
+    <div class="box" >
+      <p>兑换优惠劵</p>
+      <input type="text" placeholder="输入兑换码" v-model="number">
+      <p><span @click="exchangeHide">取消</span><span @click="getPre">兑换</span></p>
+    </div>
+    <cell @click.native="showModuleAuto" v-show="onShow"></cell>
+  </x-dialog>
 </template>
 
 <script>
-import {XDialog} from 'vux'
+import {XDialog, AlertModule, Alert, Group, XSwitch, Cell, TransferDomDirective as TransferDom} from 'vux'
 
 export default {
   props: ['exchange'],
+  directives: {
+    TransferDom
+  },
   components: {
-    XDialog
+    XDialog,
+    Alert,
+    Group,
+    XSwitch,
+    Cell
   },
   data () {
     return {
-      exchange1: false,
+      number: '',
+      onShow: false,
+      content: '',
     }
   },
   mounted () {
@@ -30,6 +38,23 @@ export default {
   methods: {
     exchangeHide () {
       this.$emit('Exchange',false)
+    },
+    showModule () {
+      AlertModule.show({
+        content: this.content,
+      })
+    },
+    showModuleAuto () {
+      this.showModule()
+    },
+    getPre () {
+      this.$http.post('/api/v1/coupon/',{
+        number: this.number
+      }).then(res => {
+        this.exchangeHide()
+        this.content = res.data.error_msg
+        this.showModuleAuto()
+      })
     }
   }
 }

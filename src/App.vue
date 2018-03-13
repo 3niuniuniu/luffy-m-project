@@ -1,10 +1,6 @@
 
 <template>
 	<div style="height: 100%;">
-		<loading
-			v-model="loading"
-			:text="'加载中...'">
-		</loading>
 		<!-- index article cart mine -->
 		<div id="app"
       class="z_app"
@@ -18,7 +14,6 @@
         <nav-bar v-show="$route.meta.navShow"></nav-bar>
       </div>
     </div>
-
 		<transition
 			name="custom-classes-transition"
 			:enter-active-class="enterAnimate"
@@ -36,13 +31,15 @@
 <script>
   import NavBar from '../src/components/nav.vue'
   import {ViewBox, Loading} from 'vux'
+  import Login from '../src/pages/login/Login.vue'
 
 	export default {
     name: 'app',
     components: {
       NavBar,
       ViewBox,
-		  Loading
+      Loading,
+      Login
     },
     data() {
       return {

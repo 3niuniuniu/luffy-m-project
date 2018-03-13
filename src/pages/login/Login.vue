@@ -1,35 +1,33 @@
 <template>
-  <transition name="fade">
-    <div class="login">
-      <img src="../../assets/img/pageimgs/Close Icon2.png" alt="" class="close" @click="close">
-      <div class="bac"></div>
-      <div class="loginBox">
-        <p class="lufei">路飞学城</p>
-        <div class="loginFrom">
-          <span class="error" ref="error"></span>
-          <p class="fromItem"><input type="text" placeholder="用户名/手机号" v-model="user"></p>
-          <p class="fromItem"><input type="password" placeholder="填写密码" v-model="pwd"></p>
+  <div class="login" ref="login">
+    <img src="../../assets/img/pageimgs/Close Icon2.png" alt="" class="close" @click="close">
+    <div class="bac"></div>
+    <div class="loginBox">
+      <p class="lufei">路飞学城</p>
+      <div class="loginFrom">
+        <span class="error" ref="error"></span>
+        <p class="fromItem"><input type="text" placeholder="用户名/手机号" v-model="user"></p>
+        <p class="fromItem"><input type="password" placeholder="填写密码" v-model="pwd"></p>
 
-          <div id="embed-captcha"></div>
-          <p id="wait" class="show">验证码加载中...</p>
-          <p id="notice" class="hide">请先拖动验证码到相应位置</p>
+        <div id="embed-captcha"></div>
+        <p id="wait" class="show">验证码加载中...</p>
+        <p id="notice" class="hide">请先拖动验证码到相应位置</p>
 
-          <div class="fromRemember">
-            <p><span @click="remember"><i v-show="yes"></i></span>7天内免登录</p>
-            <p>忘记密码</p>
-          </div>
-          <p class="fromBtn"><button @click="login">登录</button></p>
+        <div class="fromRemember">
+          <p><span @click="remember"><i v-show="yes"></i></span>7天内免登录</p>
+          <p>忘记密码</p>
         </div>
-        <div class="noAccount">
-          <p class="seg"></p>
-          <p class="foot">
-            <span>没有账号</span>，
-            <span @click="goReg">立即注册</span>
-          </p>
-        </div>
+        <p class="fromBtn"><button @click="login">登录</button></p>
+      </div>
+      <div class="noAccount">
+        <p class="seg"></p>
+        <p class="foot">
+          <span>没有账号</span>，
+          <span @click="goReg">立即注册</span>
+        </p>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <script>
@@ -37,6 +35,7 @@ import Vue from 'vue'
 import $ from 'jquery'
 import '../../assets/js/gt'
 import Cookies from '../../assets/js/Cookie'
+import { setTimeout } from 'timers';
 
 export default {
   data () {
@@ -45,7 +44,7 @@ export default {
       user: '', //用户名
       pwd: '', //密码
       error: '',//报错信息
-      count: 0,
+      // count: 0,
     }
   },
   mounted () {
@@ -71,6 +70,12 @@ export default {
         offline: !res.data.data.success
       }, this.handlerEmbed)
     })
+  },
+  watch: {
+    $route() {
+      const loginEle = this.$refs.login;
+      loginEle.className = 'login';
+    },
   },
   methods: {
     goReg () {
@@ -158,25 +163,17 @@ export default {
       })
     },
     close () {
-      this.$router.go(-1)
+      const loginEle = this.$refs.login;
+      loginEle.className = 'exit-login';
+      setTimeout(() => {
+        this.$router.go(-1);
+      }, 200);
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .fade-enter {
-    opacity: 0;
-  }
-  .fade-enter-active {
-    transition: all .6s ease;
-  }
-  .fade-leave {
-    opacity: 0;
-  }
-  .fade-leave-active {
-    transition: all .6s ease;
-  }
   input {
     width: 100%;
     height: 100%;
@@ -190,7 +187,16 @@ export default {
     display: inline-block;
   }
   .login {
+    bottom: -100%;
     position: relative;
+    animation: enter .5s;
+    animation-fill-mode: forwards;
+  }
+  .exit-login {
+    bottom: 0;
+    position: relative;
+    animation: exit .5s;
+    animation-fill-mode: forwards;
   }
   .close {
     width: .15rem;
@@ -324,4 +330,14 @@ export default {
       }
     }
   }
+
+@keyframes enter {
+    0% {left: 0; height:0; bottom: -100%;}
+    100% {left: 0; height:100%; bottom: 0;}
+}
+
+@keyframes exit {
+    0% {left: 0; height:0; bottom: 0;}
+    100% {left: 0; height:100%; bottom: -100%;}
+}
 </style>

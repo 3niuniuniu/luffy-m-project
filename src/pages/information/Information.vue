@@ -1,6 +1,14 @@
 <template>
   <div class="information">
     <header-item message="我的资料"></header-item>
+    <div v-transfer-dom>
+      <confirm
+      v-model="show"
+      :close-on-confirm="false"
+      @on-confirm="onConfirm">
+        <p style="text-align:center;">{{ ('确定退出?') }}</p>
+      </confirm>
+    </div>
     <ul class="cont">
       <li>
         <span class="type">头像</span>
@@ -37,22 +45,31 @@
         <span class="user">{{userInfo.degree}}</span>
       </li>
     </ul>
-    <div class="footer">
+    <div class="exit" @click="exit">
       退出当前账号
     </div>
   </div>
 </template>
 
 <script>
+  import Vue from 'vue'
+  Vue.use(ConfirmPlugin)
+  Vue.use(LoadingPlugin)
   import HeaderItem from '@/components/header'
+  import { ConfirmPlugin, LoadingPlugin, Confirm, TransferDomDirective as TransferDom } from 'vux'
 
   export default {
+    directives: {
+      TransferDom
+    },
     components: {
       HeaderItem,
+      Confirm,
     },
     data () {
       return {
-        userInfo: ''
+        userInfo: '',
+        show: false
       }
     },
     mounted () {
@@ -61,18 +78,27 @@
       })
     },
     methods: {
-      //  exit () {
-      //    this.$http.get('/api/v1/account/logout/')
-      //     .then((res) =>{
-      //       if(res.data.error_no == 0){
-      //       //退出参数 ，后台清除cookies
-      //         console.log(res)
-      //       }
-      //     })
-      //     .catch((res) => {
-      //       console.log('服务器正在打盹~')
-      //     })
-      //  }
+      onConfirm () {
+        this.$http.get('/api/v1/account/logout/')
+        .then((res) =>{
+          if(res.data.error_no == 0){
+            this.$vux.loading.show({
+              transition: '',
+              text: '退出中...'
+            })
+            setTimeout(() => {
+              this.$vux.loading.hide()
+              this.show = false
+            }, 1000)
+          }
+        })
+        .catch((res) => {
+          console.log(1)
+        })
+      },
+      exit () {
+        this.show = true
+      },
     }
   }
 </script>
@@ -115,7 +141,7 @@
     margin-top: .44rem;
     margin-bottom: .2rem;
   }
-  .footer {
+  .exit {
     width: 100%;
     height: .5rem;
     background: #fff;

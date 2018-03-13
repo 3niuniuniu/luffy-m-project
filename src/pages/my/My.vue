@@ -2,10 +2,11 @@
   <div class="my">
     <div class="title">
       <div class="user">
-        <img :src="userInfo.userImg" alt="">
+        <img src="../../assets/svg/head.svg" alt="" v-if="!NotLogin">
+        <img :src="url" alt="" v-if="NotLogin">
         <p>
           <span v-show="!NotLogin" class="NotLogin" @click="goLogin">点击登录</span>
-          <span v-show="NotLogin" class="name">{{userInfo.username}}</span><br>
+          <span v-show="NotLogin" class="name">{{name}}</span><br>
           <span v-show="NotLogin" class="num">贝里余额233个</span>
         </p>
       </div>
@@ -24,7 +25,7 @@
           <router-link to="/my/discounts" tag="li">
             <img src="../../assets/img/icon/优惠券.png" alt="">
             <p>优惠券</p>
-            <span>3张可用</span>
+            <span v-if="NotLogin">3张可用</span>
             <img src="../../assets/img/pageimgs/Shape2.png" alt="">
           </router-link>
         </ul>
@@ -50,10 +51,14 @@ export default {
   data () {
     return {
       NotLogin: Cookies.get('access_token'),
-      userInfo: JSON.parse(localStorage.getItem('user'))
+      userInfo: JSON.parse(localStorage.getItem('user')),
+      url: '',
+      name: '',
     }
   },
   mounted () {
+    this.url = this.userInfo.userImg
+    this.name = this.userInfo.username
   },
   methods: {
     goLogin () {

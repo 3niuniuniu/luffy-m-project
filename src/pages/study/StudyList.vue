@@ -58,7 +58,7 @@ export default {
     showModule () {
       AlertModule.show({
         title: '抱歉',
-        content: '此模块还未开通',
+        content: '此课程模块还未开通',
       })
     },
     showModuleAuto () {

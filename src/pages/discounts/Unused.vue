@@ -7,7 +7,7 @@
       </div>
       <div class="validtime">
         <p>通用券 <span>{{item.coupon_limit}}</span></p>
-        <p>有效期：{{item.valid_date_from}} 至 {{item.valid_date_to}}</p>
+        <p>有效期：{{item.valid_date_from}} - {{item.valid_date_to}}</p>
       </div>
     </div>
     <empty v-if="CouponValid.count == 0" :emptyCont="emptyCont"></empty>

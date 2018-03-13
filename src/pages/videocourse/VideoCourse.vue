@@ -4,20 +4,24 @@
       <img src="../../assets/img/pageimgs/back_arrow.png" alt="" @click="goBack">
       <span>{{nowName}}</span>
     </div>
-    <div class="video"></div>
-    <p class="log">课程目录</p>
-    <loading v-show="loading"></loading>
-    <error-five :errorhint="errorhint" class="error" v-show="error"></error-five>
-    <div class="catalog">
-      <div class="chapter" v-for="(item,index) in videoDirectory.coursechapters" :key="index">
-        <p class="num">{{item.name}}</p>
-        <ul class="list">
-          <li v-for="(itm,ind) in item.coursesections" :key="ind">
-            <p>{{itm.name}}</p>
-            <p><span>{{itm.duration}}</span></p>
-          </li>
-        </ul>
-        <div class="more" @click="More($event)">点击查看更多</div>
+    <div class="video">
+      <div ref="videoPlay"></div>
+    </div>
+    <div class="box">
+      <p class="log">课程目录</p>
+      <loading v-show="loading"></loading>
+      <error-five :errorhint="errorhint" class="error" v-show="error"></error-five>
+      <div class="catalog">
+        <div class="chapter" v-for="(item,index) in videoDirectory.coursechapters" :key="index">
+          <p class="num">{{item.name}}</p>
+          <ul class="list">
+            <li v-for="(itm,ind) in item.coursesections" :key="ind" @click="tabCourse(itm.id)">
+              <p>{{itm.name}}</p>
+              <p><span>{{itm.duration}}</span></p>
+            </li>
+          </ul>
+          <div class="more" @click="More($event)">点击查看更多</div>
+        </div>
       </div>
     </div>
     <cell @click.native="showModuleAuto" v-show="onShow"></cell>
@@ -52,6 +56,7 @@ export default {
       onShow: false,
       errorhint: '服务器发生错误',
       error: false,
+      videoLink: '',
     }
   },
   mounted () {
@@ -106,12 +111,23 @@ export default {
         this.loading = false
         this.nowName = res.data.data.section_name
         this.videoDirectory = res.data.data
+        this.videoLink = res.data.data.section_link
+        if(res.data.data.section_type == 'video') {
+          this.$refs.videoPlay.innerHTML = ''
+          var videoBox = document.createElement('script')
+          videoBox.setAttribute('src',`https://p.bokecc.com/player?vid=${this.videoLink}&siteid=D90C6BABEBFD8C03&autoStart=false&playerid=94B724260B49E936&playertype=1`)
+          this.$refs.videoPlay.appendChild(videoBox)
+        }
       })
       .catch (res => {
         this.loading = false
         this.error = true
       })
     },
+    tabCourse (id) {
+      this.$route.query.id = id
+      this.getCourse()
+    }
   },
   watch: {
     '$route' (to, from) {
@@ -145,6 +161,9 @@ export default {
       bottom: .15rem;
     }
   }
+  .ccH5PlayBtn {
+    z-index: 99 !important;
+  }
   .videopage {
     width: 100%;
     height: auto;
@@ -152,7 +171,14 @@ export default {
   .video {
     width: 100%;
     height: 2.1rem;
-    background: red;
+    div {
+      width: 100%;
+      height: 100%;
+      margin-top: .44rem;
+    }
+  }
+  .box {
+    margin-top: -.15rem;
   }
   .log {
     font-size: .14rem;

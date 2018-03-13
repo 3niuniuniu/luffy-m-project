@@ -8,18 +8,8 @@ Vue.use(Vuex);
 
 /* 项目全局State */
 const state = {
-	isFixedHeader: false,
-	isShowSearchBar: false,
-	isShowMask: false,
-	sliders: [],
-	hotProducts: [],
-	hotShops: [],
-	products:[],
-	num: 5,
-	busy: false,
-	isShowLoadingTips: false,
-  isShowLoadedTips: false,
-  isLogin: false
+  img_host: '//hcdn1.luffycity.com',
+  get_itembuy: {},
 }
 
 /* Store实例 */

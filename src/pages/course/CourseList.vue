@@ -2,7 +2,7 @@
   <div class="box">
     <div class="list">
       <dl @click="goCourseItem(item.id)" v-for="(item,index) in courseList" :key="index">
-        <dt><img :src="item.course_img" alt=""></dt>
+        <dt><img :src="img_host+item.course_img" alt=""></dt>
         <dd>
           <p>{{item.name}}</p>
           <p>{{item.brief}}</p>
@@ -10,7 +10,7 @@
           <p>¥ {{item.price}}</p>
         </dd>
       </dl>
-      <!-- <dl @click="goPythone">
+      <dl @click="goPythone">
         <dt><img src="../../assets/img/pageimgs/banner1.png" alt=""></dt>
         <dd>
           <p>Python高级</p>
@@ -18,12 +18,13 @@
           <p>难度：高级<span>专题</span></p>
           <p>¥ 399.00</p>
         </dd>
-      </dl> -->
+      </dl>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   props: ['courseList'],
   methods: {
@@ -33,7 +34,8 @@ export default {
     goPythone () {
       this.$router.push('/home/python-advanced')
     }
-  }
+  },
+  computed: mapState(['img_host'])
 }
 </script>
 

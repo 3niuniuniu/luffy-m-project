@@ -6,7 +6,7 @@
         <div class="module" v-for="(item, index) in orderList" :key="index">
           <p class="orderNum">订单号：{{item.order_number}} <span>{{item.status}}</span></p>
           <dl v-for="(val,ind) in item.course_item" :key="ind">
-            <dt><img :src="val.course_img" alt=""></dt>
+            <dt><img :src="img_host+val.course_img" alt=""></dt>
             <dd>
               <p><span>{{val.course_name}}</span><span>¥ {{val.price}}</span></p>
               <p><span>有效期：{{val.valid_period_display}}</span><span>¥ {{val.original_price}}</span></p>
@@ -28,7 +28,7 @@
   import HeaderItem from '@/components/header'
   import Loading from '@/components/loading'
   import Empty from '@/components/empty'
-
+  import { mapState } from 'vuex'
   export default {
     components: {
       HeaderItem,
@@ -51,7 +51,7 @@
           this.empty = true
         }
       })
-    }
+    },
   }
 </script>
 
@@ -108,6 +108,7 @@
             span:nth-of-type(2) {
               font-size: .14rem;
               color: #D0D0D0;
+              text-decoration: line-through;
             }
           }
         }

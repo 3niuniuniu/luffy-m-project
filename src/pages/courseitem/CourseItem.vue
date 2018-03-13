@@ -23,7 +23,7 @@
     <catalog-list :courseItem="courseItem" v-show="num == 1" class="catalogs"></catalog-list>
     <evaluate :ItemComment="ItemComment" v-show="num == 2"></evaluate>
     <question :QuestionList="QuestionList" v-show="num == 3"></question>
-    <course-buy></course-buy>
+    <course-buy :CouponList="CouponList" :name="name" :Package="Package"></course-buy>
   </div>
 </template>
 
@@ -66,6 +66,9 @@ export default {
       courseItem: '',
       ItemComment: '',
       QuestionList: '',
+      CouponList: '',
+      Package: '',
+      name: '',
       emptyCont: '暂无课程目录',
       loading: true,
     }
@@ -76,6 +79,7 @@ export default {
     this.getCourse()
     this.getComment()
     this.getQuestion()
+    this.getCoupon()
   },
   methods: {
     tab(ind) {
@@ -100,21 +104,31 @@ export default {
     getPirce () {
       this.$http.get('/api/v1/coursedetailtop/?courseid=' + this.$route.query.id).then(res => {
         this.CourseItemPirce = res.data.data
+        this.name = this.CourseItemPirce.name
       })
     },
     getCont () {
       this.$http.get('/api/v1/coursedetail/?courseid=' + this.$route.query.id).then(res => {
         this.CourseItemCont = res.data.data
+        this.Package = res.data.data.prices
+      })
+    },
+    getCoupon () {
+      this.$http.get('/api/v1/coupon/list/?course=' + this.$route.query.id).then(res => {
+        this.CouponList = res.data.data
       })
     },
   },
   watch: {
     '$route' (to, from) {
-      this.getPirce()
-      this.getCont()
-      this.getCourse()
-      this.getComment()
-      this.getQuestion()
+      // if (from.path == '/course' || from.path == '/courseitem' || from.path == '/home') {
+        this.getPirce()
+        this.getCont()
+        this.getCourse()
+        this.getComment()
+        this.getQuestion()
+        this.getCoupon()
+      // }
     }
   },
 }

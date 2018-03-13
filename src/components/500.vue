@@ -10,11 +10,6 @@
 <script>
 export default {
   props: ['errorhint'],
-  data () {
-    return {
-      errorhint: ''
-    }
-  }
 }
 </script>
 

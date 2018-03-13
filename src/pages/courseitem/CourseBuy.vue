@@ -10,36 +10,19 @@
       >
       <div class="coupon">
         <div class="head">
-          <p>爬虫开发课程</p>
+          <p>{{name}}</p>
           <p>领取优惠劵</p>
         </div>
+        <empty :emptyCont="emptyCont" v-if="CouponList.length == 0"></empty>
         <div class="coupons">
-          <div class="list">
-            <p><span>30</span>元</p>
-            <p>该课程满300元可用</p>
-            <p>有效期：2017.08.01-2017.12.30</p>
-            <button>领取</button>
-          </div>
-          <div class="list">
-            <p><span>30</span>元</p>
-            <p>该课程满300元可用</p>
-            <p>有效期：2017.08.01-2017.12.30</p>
-            <button>领取</button>
-          </div>
-          <div class="list">
-            <p><span>30</span>元</p>
-            <p>该课程满300元可用</p>
-            <p>有效期：2017.08.01-2017.12.30</p>
-            <button>领取</button>
-          </div>
-          <div class="list">
-            <p><span>30</span>元</p>
-            <p>该课程满300元可用</p>
-            <p>有效期：2017.08.01-2017.12.30</p>
-            <button>领取</button>
+          <div class="list" v-for="(item,index) in CouponList" :key="index">
+            <p><span>{{item.value}}</span>元</p>
+            <p>{{item.coupon_msg}}</p>
+            <p>有效期：{{item.valid_date}}</p>
+            <button @click="getDiscounts($event)">领取</button>
           </div>
         </div>
-        <div class="ok" @click="coupon = false">完成</div>
+        <div class="ok" @click="getTicket">完成</div>
       </div>
     </popup>
     <popup
@@ -54,15 +37,13 @@
               <img src="../../assets/img/pageimgs/banner2.png" alt="">
             </dt>
             <dd>
-              <p>¥66元</p>
-              <p>已选择有效期：<span>1个月</span></p>
+              <p>¥{{price}}元</p>
+              <p>已选择有效期：<span>{{month}}</span></p>
             </dd>
           </dl>
           <p class="title">价格套餐</p>
-          <div class="list">
-            <span>一个月</span>
-            <span>两个月</span>
-            <span>三个月</span>
+          <div class="packagelist">
+            <span v-for="(item,index) in Package" :key="index" @click="onPackage($event, item.price, item.valid_period)" :class="{onSpan: index == 0}">{{item.valid_period_name}}</span>
           </div>
           <div class="Confirm" @click="Confirm">确认购买</div>
         </div>
@@ -72,28 +53,92 @@
 </template>
 
 <script>
-import {Popup} from 'vux'
+import Vue from 'vue'
+import { Popup, Alert, AlertPlugin } from 'vux'
+Vue.use(AlertPlugin)
+import Empty from '@/components/empty'
+import { mapState, mapMutations } from 'vuex'
+
 export default {
+  props: ['CouponList', 'name', 'Package'],
   components: {
-    Popup
+    Popup,
+    Empty
   },
   data () {
     return {
       showTicket: false,
-      showMonth: false
+      showMonth: false,
+      emptyCont: '暂无可领优惠券',
+      price: '',
+      month: '',
+      id: '',
+      validPeriodId: '',
+      OrderList: '',
     }
   },
+  mounted () {
+
+  },
   methods: {
+    ...mapMutations(['GET_ITEMBUY']),
+    Alert () {
+      this.$vux.alert.show({
+        content: this.error_msg,
+      })
+    },
+    getDiscounts (e) {
+      this.$http.get('/api/v1/activity/coupon/?coupon_id=' + this.$route.query.id).then(res => {
+        if (res.data.error_no == 0) {
+          e.target.innerHTML = '已领取'
+          this.error_msg = res.data.data.msg
+          this.Alert()
+        } else {
+          if(res.data.error_msg == '抱歉, 您已领取该优惠券') {
+            e.target.innerHTML = '已领取'
+            this.error_msg = res.data.error_msg
+            this.Alert()
+          }
+        }
+      })
+    },
+    onPackage (e, price, validPeriodId) {
+      $(e.target).addClass('onSpan').siblings().removeClass('onSpan')
+      this.month = e.target.innerHTML
+      this.price = price
+      this.validPeriodId = validPeriodId
+    },
     Confirm () {
-      this.$router.push('/Buy')
+      var params = {
+        amount: this.price,
+        productList: [{
+          courseId: this.$route.query.id,
+          validPeriodId: this.validPeriodId,
+          price: this.price,
+        }],
+      };
+      this.$http.post('/api/v1/order/confirm/',
+        JSON.stringify(params)
+      ).then(res => {
+        if (res.data.error_no == 0) {
+          this.OrderList = res.data.data
+          this.GET_ITEMBUY(this.OrderList)
+          this.$router.push({path: '/Buy', query: {id: this.$route.query.id}})
+        } else {
+          console.log(res.data)
+        }
+      })
     },
     getTicket () {
       this.showTicket = !this.showTicket
     },
     buyMonth () {
+      this.price = this.Package[0].price
+      this.month = this.Package[0].valid_period_name
+      this.validPeriodId = this.Package[0].valid_period
       this.showMonth= !this.showMonth
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -127,10 +172,10 @@ export default {
     width: 100%;
     height: 4.4rem;
     background: #fff;
-    // border-radius: .2rem .2rem 0 0;
     position: fixed;
     left: 0;
     bottom: 0;
+    overflow: scroll;
     .head {
       width: 100%;
       text-align: center;
@@ -148,6 +193,7 @@ export default {
       margin-left: .24rem;
       margin-right: .24rem;
       margin-top: .16rem;
+      margin-bottom: .5rem;
       .list:last-child {
         border-bottom: none
       }
@@ -197,13 +243,13 @@ export default {
       position: fixed;
       left: 0;
       bottom: 0;
+      margin-top: 1rem;
     }
   }
   .purchase {
     width: 100%;
     height: 4.4rem;
     background: #fff;
-    // border-radius: .2rem .2rem 0 0;
     position: fixed;
     left: 0;
     bottom: 0;
@@ -246,7 +292,7 @@ export default {
         font-size: .17rem;
         color: #4A4A4A;
       }
-      .list {
+      .packagelist {
         width: 100%;
         span {
           width: 1.3rem;
@@ -261,7 +307,11 @@ export default {
           border-radius: 3px;
           font-size: .15rem;
           color: #666666;
+        }
+        .onSpan {
+          border: none;
           background-image: linear-gradient(-225deg, #72D9C4 0%, #72D997 100%);
+          color: #fff;
         }
       }
       .Confirm {

@@ -2,24 +2,14 @@
   <div class="buy">
     <header-item message="提交订单"></header-item>
     <div class="list">
-      <dl>
+      <dl v-for="(item,index) in get_itembuy.buyData.data" :key="index">
         <dt>
-          <img src="../../assets/img/pageimgs/banner2.png" alt="">
+          <img :src="item.courseUrl" alt="">
         </dt>
         <dd>
-          <p>爬虫开发实战课程</p>
-          <p>有效期：<span>3个月</span></p>
-          <p>¥ <span>399</span></p>
-        </dd>
-      </dl>
-      <dl>
-        <dt>
-          <img src="../../assets/img/pageimgs/banner2.png" alt="">
-        </dt>
-        <dd>
-          <p>爬虫开发实战课程</p>
-          <p>有效期：<span>3个月</span></p>
-          <p>¥ <span>399</span></p>
+          <p>{{item.courseName}}</p>
+          <p>有效期：<span>{{item.validPeriod}}</span></p>
+          <p>¥ <span>{{item.courseDiscountPrice}}</span></p>
         </dd>
       </dl>
     </div>
@@ -31,12 +21,12 @@
           <p><span>3</span>张可用<img src="../../assets/img/pageimgs/Shape2.png" alt=""></p>
         </router-link>
         <li>
-          <p>可用10贝里，抵扣0.1元</p>
+          <p>可用{{get_itembuy.balance}}贝里，抵扣{{get_itembuy.balance/10}}元</p>
           <x-switch title="贝里" v-model="value" class="x-switch"></x-switch>
         </li>
         <li>
-          <p>已优惠￥39</p>
-          <p>总计 <b>￥399</b></p>
+          <p>已优惠￥{{get_itembuy.discountPrice}}</p>
+          <p>总计 <b>￥{{get_itembuy.priceSum}}</b></p>
         </li>
       </ul>
     </div>
@@ -45,7 +35,7 @@
       <p><img src="../../assets/img/pageimgs/Checkbox 1.png" alt=""></p>
     </div>
     <div class="foot">
-      <span>实付款￥360</span>
+      <span>实付款￥{{get_itembuy.actualPrice}}</span>
       <span @click="goPayment">去支付</span>
     </div>
   </div>
@@ -54,25 +44,33 @@
 <script>
 import HeaderItem from '@/components/header'
 import { XSwitch } from 'vux'
+import { mapState } from 'vuex'
 
 export default {
+  name: 'buy',
   components: {
     HeaderItem,
     XSwitch
+  },
+  data () {
+    return {
+      number: 0,
+      value: '',
+    }
+  },
+  mounted () {
+    // console.log(this.get_itembuy)
   },
   methods: {
     goPayment () {
       this.$router.push({path: '/BuySucceed'})
     }
-  }
+  },
+  computed: mapState(['get_itembuy'])
 }
 </script>
 
 <style lang="scss" scoped>
-  // .weui-switch:checked, .weui-switch-cp__input:checked ~ .weui-switch-cp__box {
-  //   border-color: #72D9BC !important;
-  //   background-color: #72D9BC !important;
-  // }
   .list {
     margin-top: .44rem;
     dl {
