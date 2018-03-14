@@ -9,24 +9,27 @@
         <dd>
           <p>{{item.courseName}}</p>
           <p>有效期：<span>{{item.validPeriod}}</span></p>
-          <p>¥ <span>{{item.courseDiscountPrice}}</span></p>
+          <p>¥ <span ref="originalPrice">{{item.courseOriginPrice}}</span></p>
+          <span ref="discountPrice" style="display:none">{{item.courseDiscountPrice}}</span>
         </dd>
       </dl>
     </div>
     <div class="pre">
       <p class="title">优惠信息</p>
       <ul>
-        <router-link tag="li" to="/selectcoupon">
+        <router-link tag="li" :to="{path: '/selectcoupon', query: {id: this.$route.query.id}}">
           <p>优惠券</p>
-          <p><span>3</span>张可用<img src="../../assets/img/pageimgs/Shape2.png" alt=""></p>
+          <p><span>{{get_itembuy.couponList.total + get_num}}</span>张可用<img src="../../assets/img/pageimgs/Shape2.png" alt=""></p>
         </router-link>
         <li>
           <p>可用{{get_itembuy.balance}}贝里，抵扣{{get_itembuy.balance/10}}元</p>
-          <x-switch title="贝里" v-model="value" class="x-switch"></x-switch>
+          <x-switch title="贝里" class="x-switch"
+          @on-change="onChange">
+          </x-switch>
         </li>
         <li>
           <p>已优惠￥{{get_itembuy.discountPrice}}</p>
-          <p>总计 <b>￥{{get_itembuy.priceSum}}</b></p>
+          <p>总计 <b ref="totalPrice">￥{{get_itembuy.priceSum}}</b></p>
         </li>
       </ul>
     </div>
@@ -35,7 +38,7 @@
       <p><img src="../../assets/img/pageimgs/Checkbox 1.png" alt=""></p>
     </div>
     <div class="foot">
-      <span>实付款￥{{get_itembuy.actualPrice}}</span>
+      <span ref="actualPrice">实付款￥{{get_itembuy.actualPrice}}</span>
       <span @click="goPayment">去支付</span>
     </div>
   </div>
@@ -43,30 +46,79 @@
 
 <script>
 import HeaderItem from '@/components/header'
-import { XSwitch } from 'vux'
-import { mapState } from 'vuex'
+import { XSwitch, Group } from 'vux'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'buy',
   components: {
     HeaderItem,
+    Group,
     XSwitch
   },
   data () {
     return {
       number: 0,
-      value: '',
+      isbeili: 0,
     }
-  },
-  mounted () {
-    // console.log(this.get_itembuy)
   },
   methods: {
+    ...mapMutations(['GET_ITEMBUY']),
+    onChange (val) {
+      if (val) {
+        this.isbeili = 1
+        var data = {
+          useBalanceStatus: 1,
+          sessionKey: this.session_key,
+        }
+      } else {
+        var data = {
+          useBalanceStatus: -1,
+          sessionKey: this.session_key,
+        }
+      }
+      this.$http.post('/api/v1/order/balance/', {
+        ...data
+      }).then(res => {
+        this.GET_ITEMBUY(res.data.data)
+      })
+    },
+    getNum(text){
+      var value = text.match(/\d/g).join("")
+      return value
+    },
     goPayment () {
-      this.$router.push({path: '/BuySucceed'})
-    }
+      var parameter = {
+        amount: this.getNum(this.$refs.totalPrice.innerHTML),
+        actualPrice: this.getNum(this.$refs.actualPrice.innerHTML),
+        globalCouponNumber: this.$store.state.order_number,
+        globalBalance: this.isbeili,
+        isDegreeCourse: '',//是否学位课程购买
+        paymentType: 1,
+        productArray: [
+          {
+            courseId: this.$route.query.id,
+            validPeriodId: this.valid_periodid,
+            courseOriginPrice: this.getNum(this.$refs.originalPrice.innerHTML),
+            courseDiscountPrice: this.getNum(this.$refs.discountPrice.innerHTML),
+            couponNumber: this.$store.state.coupon_number,
+          }
+        ]
+      }
+      this.$http.post('/api/v1/order/create/', {
+        ...parameter
+      }).then(res => {
+        console.log(res)
+      })
+      // this.$router.push({path: '/BuySucceed', query: {id: this.$route.query.id}})
+    },
   },
-  computed: mapState(['get_itembuy'])
+  computed: mapState([
+    'get_itembuy',
+    'get_num',
+    'session_key',
+    'valid_periodid'
+  ])
 }
 </script>
 
@@ -93,9 +145,13 @@ export default {
       }
       dd {
         p:nth-of-type(1) {
+          width: 1.8rem;
           font-size: .14rem;
           color: #4A4A4A;
           padding-bottom: .17rem;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
         }
         p:nth-of-type(2) {
           font-size: .12rem;
@@ -108,8 +164,8 @@ export default {
           font-size: .14rem;
           color: #FA6240;
           position: absolute;
-          right: .2rem;
-          top: .4rem;
+          right: .18rem;
+          top: .48rem;
         }
       }
     }

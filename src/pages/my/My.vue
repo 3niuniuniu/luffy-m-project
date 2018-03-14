@@ -25,7 +25,7 @@
           <router-link to="/my/discounts" tag="li">
             <img src="../../assets/img/icon/优惠券.png" alt="">
             <p>优惠券</p>
-            <span v-if="NotLogin">3张可用</span>
+            <span v-if="NotLogin">{{this.$store.state.available_coupon_num}}张可用</span>
             <img src="../../assets/img/pageimgs/Shape2.png" alt="">
           </router-link>
         </ul>

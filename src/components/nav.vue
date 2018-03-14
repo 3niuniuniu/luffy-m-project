@@ -28,16 +28,6 @@
 
 			}
 		},
-		computed: {
-			//映射State
-      ...mapState([
-        'isFixedHeader'
-      ])
-    },
-    mounted() {
-      // 监听滚动条
-      window.addEventListener('scroll',this.handlerScroll);
-    },
     methods: {
       // 映射Actions中的handlerScroll方法
       ...mapActions([

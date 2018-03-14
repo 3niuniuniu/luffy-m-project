@@ -29,6 +29,7 @@
   import Loading from '@/components/loading'
   import Empty from '@/components/empty'
   import { mapState } from 'vuex'
+
   export default {
     components: {
       HeaderItem,

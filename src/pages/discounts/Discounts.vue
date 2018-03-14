@@ -48,15 +48,9 @@ export default {
   data () {
     return {
       list: [
-				{
-          text: '可使用',
-				},
-				{
-					text: '已使用'
-				},
-				{
-					text: '已过期'
-				},
+				{text: '可使用'},
+				{text: '已使用'},
+				{text: '已过期'}
       ],
       num: 0,
       exchange: false,
@@ -67,8 +61,9 @@ export default {
     }
   },
   mounted () {
-    this.$http.get('/api/v1/coupon/').then(res => {
+    this.$http.get('/api/v1/coupons/').then(res => {
       this.CouponValid = res.data.data.coupon_valid
+      this.$store.state.available_coupon_num = this.CouponValid.result.length
       this.CouponUsed = res.data.data.coupon_used
       this.CouponExpire = res.data.data.coupon_expire
     })

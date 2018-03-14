@@ -54,9 +54,9 @@
 
 <script>
 import Vue from 'vue'
-import { Popup, Alert, AlertPlugin } from 'vux'
 Vue.use(AlertPlugin)
 import Empty from '@/components/empty'
+import { Popup, Alert, AlertPlugin } from 'vux'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
@@ -81,7 +81,7 @@ export default {
 
   },
   methods: {
-    ...mapMutations(['GET_ITEMBUY']),
+    ...mapMutations(['GET_ITEMBUY', 'GET_VALIDPERIODLD']),
     Alert () {
       this.$vux.alert.show({
         content: this.error_msg,
@@ -121,11 +121,9 @@ export default {
         JSON.stringify(params)
       ).then(res => {
         if (res.data.error_no == 0) {
-          this.OrderList = res.data.data
-          this.GET_ITEMBUY(this.OrderList)
+          this.GET_ITEMBUY(res.data.data)
+          this.GET_VALIDPERIODLD(this.validPeriodId)
           this.$router.push({path: '/Buy', query: {id: this.$route.query.id}})
-        } else {
-          console.log(res.data)
         }
       })
     },
@@ -133,9 +131,11 @@ export default {
       this.showTicket = !this.showTicket
     },
     buyMonth () {
-      this.price = this.Package[0].price
-      this.month = this.Package[0].valid_period_name
-      this.validPeriodId = this.Package[0].valid_period
+      if (this.price == '' || this.month == '' || this.validPeriodId == '') {
+        this.price = this.Package[0].price
+        this.month = this.Package[0].valid_period_name
+        this.validPeriodId = this.Package[0].valid_period
+      }
       this.showMonth= !this.showMonth
     },
   },

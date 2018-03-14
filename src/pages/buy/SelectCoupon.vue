@@ -1,43 +1,120 @@
 <template>
   <div class="select">
     <header-item message="选择优惠券"></header-item>
-    <div class="list">
-      <p class="title">《爬虫开发课程》优惠券</p>
-      <div>
-        <div class="coupon">
-          <div class="discount">
-            <p>￥<span>30</span></p>
-            <p>满500元可用</p>
-          </div>
-          <div class="validtime">
-            <p>通用券 <span>全场通用</span></p>
-            <p>有效期：2017.08.01-2017.12.30</p>
-            <p><img src="../../assets/img/pageimgs/Checkbox 1.png" alt=""></p>
+    <div>
+      <p class="title" style="padding-top:.6rem">《{{get_name}}》优惠券</p>
+      <p class="p1" v-if="get_coupons.length == 0">该课程暂无优惠券</p>
+      <div class="list" v-for="(item,index) in get_coupons" :key="index">
+        <div>
+          <div class="coupon">
+            <div class="discount">
+              <p>￥<span>{{item.faceVal}}</span></p>
+              <p>{{item.couponContent}}</p>
+            </div>
+            <div class="validtime">
+              <p>通用券 <span>{{item.couponRestrict}}</span></p>
+              <p>有效期：{{item.couponTimeLimit}}</p>
+              <p @click="onCoupon(item.couponNumber)"><img src="../../assets/img/pageimgs/Checkbox 1.png" alt="" v-show="item.default"></p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="ok">确定</div>
+    <div>
+      <p class="title">订单优惠券</p>
+      <div class="list">
+        <div>
+          <div class="coupon" v-for="(item,index) in get_allcoupons" :key="index">
+            <div class="discount">
+              <p>￥<span>{{item.faceVal}}</span></p>
+              <p>{{item.couponContent}}</p>
+            </div>
+            <div class="validtime">
+              <p>通用券 <span>{{item.couponRestrict}}</span></p>
+              <p>有效期：{{item.couponTimeLimit}}</p>
+              <p @click="onOrderCoupon(item.couponNumber, item.default)"><img src="../../assets/img/pageimgs/Checkbox 1.png" alt="" v-show="item.default"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ok" @click="ok">确定</div>
   </div>
 </template>
 
 <script>
   import HeaderItem from '@/components/header'
+  import { mapState, mapMutations } from 'vuex'
+
   export default {
     components: {
       HeaderItem,
-    }
+    },
+    methods: {
+      ...mapMutations(['GET_ITEMBUY']),
+      onCoupon (number) {
+        this.$store.state.coupon_number = number
+        this.$http.post('/api/v1/order/coupon/change/', {
+          sessionKey: this.session_key,
+          changeCouponNumber: number,
+          courseId: Number(this.$route.query.id),
+          validPeriodId: this.valid_periodid
+        }).then(res => {
+          this.GET_ITEMBUY(res.data.data)
+        })
+      },
+      onOrderCoupon (number, isDefault) {
+        this.$store.state.order_number = number
+        if (isDefault) {
+          var parameter = {
+            sessionKey: this.session_key,
+            changeCouponNumber: '-1',
+            courseId: '-1',
+            validPeriodId: '-1'
+          }
+        } else {
+          var parameter = {
+            sessionKey: this.session_key,
+            changeCouponNumber: number
+          }
+        }
+        this.$http.post('/api/v1/order/coupon/change/', {
+          ...parameter
+        }).then(res => {
+          this.GET_ITEMBUY(res.data.data)
+        })
+      },
+      ok () {
+        this.$router.go(-1)
+      }
+    },
+    computed: mapState([
+      'get_coupons',
+      'get_allcoupons',
+      'session_key',
+      'valid_periodid',
+      'get_itembuy',
+      'get_name'
+    ])
   }
 </script>
 
 <style lang="scss" scoped>
-  .list {
-    margin-top: .44rem;
-    .title {
-      padding: .15rem .1rem;
-      font-size: .15rem;
-      color: #4A4A4A;
-    }
+  .title {
+    padding: .15rem .1rem;
+    font-size: .15rem;
+    color: #4A4A4A;
+  }
+  .p1 {
+    text-align: center;
+    font-size: .14rem;
+    color: #9D9D9D;
+    width: 96%;
+    height: auto;
+    background: #fff;
+    margin: 0 auto;
+    padding: .3rem;
+    box-sizing: border-box;
   }
   .coupon {
     width: 96%;
@@ -94,7 +171,9 @@
         img {
           width: 100%;
           height: 100%;
-          display: none;
+        }
+        .show {
+          display: inline-block;
         }
       }
     }

@@ -48,7 +48,7 @@ export default {
       this.showModule()
     },
     getPre () {
-      this.$http.post('/api/v1/coupon/',{
+      this.$http.post('/api/v1/coupons/',{
         number: this.number
       }).then(res => {
         this.exchangeHide()

@@ -10,7 +10,7 @@
           <p>¥ {{item.price}}</p>
         </dd>
       </dl>
-      <dl @click="goPythone">
+      <!-- <dl @click="goPythone">
         <dt><img src="../../assets/img/pageimgs/banner1.png" alt=""></dt>
         <dd>
           <p>Python高级</p>
@@ -18,17 +18,20 @@
           <p>难度：高级<span>专题</span></p>
           <p>¥ 399.00</p>
         </dd>
-      </dl>
+      </dl> -->
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   props: ['courseList'],
   methods: {
+    ...mapMutations(['GET_COURSEID']),
     goCourseItem (id) {
+      this.GET_COURSEID(id)
       this.$router.push({path:'/course/courseitem', query:{id: id}})
     },
     goPythone () {

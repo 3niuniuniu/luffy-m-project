@@ -24,7 +24,7 @@ export default {
     return {
       emptyCont: '您还未使用过优惠券哦'
     }
-  }
+  },
 }
 </script>
 

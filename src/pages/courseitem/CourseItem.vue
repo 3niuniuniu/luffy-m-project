@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import HeaderItem from '@/components/header'
 import Introduce from './Introduce'
 import CatalogList from './CatalogList'
@@ -37,6 +38,7 @@ import Question from './Question'
 import {Tab, TabItem} from 'vux'
 import Empty from '@/components/empty'
 import Loading from '@/components/loading'
+import { mapState } from '_vuex@2.5.0@vuex';
 
 export default {
   components: {
@@ -74,61 +76,60 @@ export default {
     }
   },
   mounted () {
-    this.getPirce()
-    this.getCont()
-    this.getCourse()
-    this.getComment()
-    this.getQuestion()
-    this.getCoupon()
+    this.getPirce(this.course_id)
+    this.getCont(this.course_id)
+    this.getCourse(this.course_id)
+    this.getComment(this.course_id)
+    this.getQuestion(this.course_id)
+    this.getCoupon(this.course_id)
   },
   methods: {
     tab(ind) {
       this.num = ind
     },
-    getCourse () {
-      this.$http.get('/api/v1/course_sections/?courseid=' + this.$route.query.id).then(res => {
+    getCourse (id) {
+      this.$http.get('/api/v1/course_sections/?courseid=' + id).then(res => {
         this.loading = false
         this.courseItem = res.data.data
       })
     },
-    getComment () {
-      this.$http.get('/api/v1/coursereview/?courseid=' + this.$route.query.id).then(res => {
+    getComment (id) {
+      this.$http.get('/api/v1/coursereview/?courseid=' + id).then(res => {
         this.ItemComment = res.data.data
       })
     },
-    getQuestion () {
-      this.$http.get('/api/v1/course_questions/?course_id=' + this.$route.query.id).then(res => {
+    getQuestion (id) {
+      this.$http.get('/api/v1/course_questions/?course_id=' + id).then(res => {
         this.QuestionList = res.data.data
       })
     },
-    getPirce () {
-      this.$http.get('/api/v1/coursedetailtop/?courseid=' + this.$route.query.id).then(res => {
+    getPirce (id) {
+      this.$http.get('/api/v1/coursedetailtop/?courseid=' + id).then(res => {
         this.CourseItemPirce = res.data.data
         this.name = this.CourseItemPirce.name
       })
     },
-    getCont () {
-      this.$http.get('/api/v1/coursedetail/?courseid=' + this.$route.query.id).then(res => {
+    getCont (id) {
+      this.$http.get('/api/v1/coursedetail/?courseid=' + id).then(res => {
         this.CourseItemCont = res.data.data
         this.Package = res.data.data.prices
       })
     },
-    getCoupon () {
-      this.$http.get('/api/v1/coupon/list/?course=' + this.$route.query.id).then(res => {
+    getCoupon (id) {
+      this.$http.get('/api/v1/coupon/list/?course=' + id).then(res => {
         this.CouponList = res.data.data
       })
     },
   },
+  computed: mapState(['course_id']),
   watch: {
     '$route' (to, from) {
-      // if (from.path == '/course' || from.path == '/courseitem' || from.path == '/home') {
-        this.getPirce()
-        this.getCont()
-        this.getCourse()
-        this.getComment()
-        this.getQuestion()
-        this.getCoupon()
-      // }
+      this.getPirce(this.course_id)
+      this.getCont(this.course_id)
+      this.getCourse(this.course_id)
+      this.getComment(this.course_id)
+      this.getQuestion(this.course_id)
+      this.getCoupon(this.course_id)
     }
   },
 }

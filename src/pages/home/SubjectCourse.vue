@@ -16,7 +16,7 @@
 
 <script>
 import HomeCourse from '../../mock/home/HomeCourse.json'
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 export default {
   data () {
     return {
@@ -24,7 +24,9 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['GET_COURSEID']),
     goDetails (id) {
+      this.GET_COURSEID(id)
       this.$router.push({path:'/course/courseitem', query:{id: id}})
     }
   },

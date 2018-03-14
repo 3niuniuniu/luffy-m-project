@@ -1,4 +1,10 @@
 
 export const GET_ITEMBUY = 'GET_ITEMBUY'
 
+export const GET_VALIDPERIODLD = 'GET_VALIDPERIODLD'
+
+export const GET_COURSEID = 'GET_COURSEID'
+
+
+
 

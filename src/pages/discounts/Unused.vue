@@ -26,7 +26,7 @@ export default {
     return {
       emptyCont: '暂无可用优惠劵'
     }
-  }
+  },
 }
 </script>
 
