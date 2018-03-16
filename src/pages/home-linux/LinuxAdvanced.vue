@@ -34,12 +34,12 @@ import HeaderItem from '@/components/header'
 import LinuxBanner from './LinuxBanner'
 import LinuxIntroduce from './linux-introduce/LinuxIntroduce'
 import LinuxCatalogue from './linux-catalogue/LinuxCatalogue'
-import CatalogueList from '../../mock/linux/catalogueAdvanced.json'
 import LinuxComment from '../home-python/python-comment/PythonComment'
 import LinuxIssue from '../courseitem/Issue'
+import CourseBuy from '../home-python/CourseBuy'
+import CatalogueList from '../../mock/linux/catalogueAdvanced.json'
 import Issue from '../../mock/linux/linuxIssue.json'
 import {Tab, TabItem} from 'vux'
-import CourseBuy from '../courseitem/CourseBuy'
 
 
 export default {
@@ -73,7 +73,7 @@ export default {
       ],
       pirceNum: {
         name: 'Linux云计算工程师（高级）',
-        pirce: '￥ 6000',
+        pirce: '￥ 6500',
         cont: '深入学习Linux运维、云计算、DevOps持续集成、ELK日志分析、OpenStack云计算框架、Docker容器…',
         difficulty: '中级',
         period: '6个月',

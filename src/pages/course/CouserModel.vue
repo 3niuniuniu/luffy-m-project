@@ -14,9 +14,11 @@
 		</tab>
 
     <loading v-show="loading" class="loading"></loading>
+    <error-five :errorhint="errorhint" v-show="error" class="error"></error-five>
     <div class="cont" v-show="!loading">
-      <empty v-if="courseList.length == 0" :emptyCont="emptyCont" class="empty"></empty>
-      <course-list :courseList="courseList" v-else></course-list>
+      <empty v-if="empty" :emptyCont="emptyCont" class="empty"></empty>
+      <luffy-x-list v-if="sub_category == 0"></luffy-x-list>
+      <course-list :courseList="courseList" v-else-if="sub_category !== 0"></course-list>
     </div>
 	</view-box>
 </template>
@@ -24,18 +26,22 @@
 <script>
 import Vue from 'vue'
 import CourseList from './CourseList'
+import LuffyXList from './LuffyXList'
 import Loading from '@/components/loading'
 import Empty from '@/components/empty'
+import ErrorFive from '@/components/500'
 import {ViewBox, Tab, TabItem} from 'vux'
 
 export default {
   components: {
     CourseList,
+    LuffyXList,
     Loading,
     Empty,
     Tab,
     TabItem,
     ViewBox,
+    ErrorFive
   },
   data() {
     return {
@@ -50,7 +56,10 @@ export default {
       sub_category: 1,
       courseList: '',
       loading: true,
-      emptyCont: '暂无课程列表'
+      empty: false,
+      emptyCont: '暂无课程列表',
+      errorhint: '服务器发生错误',
+      error: false,
     }
   },
   mounted () {
@@ -61,11 +70,29 @@ export default {
       this.$http.get('/api/v1/course/list/?sub_category=' + this.sub_category).then(res => {
         this.loading = false
         this.courseList = res.data.data
+        if (this.courseList.length == 0) {
+          this.empty = true
+        } else {
+          this.empty = false
+        }
+      })
+      .catch(() => {
+        this.loading = false
+        this.error = true
+        if (this.sub_category == 0) {
+          this.error = false
+        }
       })
     },
     tab(ind, sub_category) {
+      this.loading = true
+      this.error = false
       this.num = ind
       this.sub_category = sub_category
+      if (this.sub_category == 0) {
+        this.error = false
+        this.empty = false
+      }
       this.getData()
     },
   }
@@ -111,5 +138,10 @@ export default {
   }
   .empty {
     margin-top: 1rem !important;
+  }
+  .error {
+    width: 100%;
+    height: 100%;
+    padding-top: 4.5rem;
   }
 </style>

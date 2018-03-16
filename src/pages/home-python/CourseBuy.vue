@@ -1,27 +1,15 @@
 <template>
-  <div>
+  <div class="box">
     <div class="buy">
       <button @click="getTicket">领取优惠券</button>
-      <button @click="buyMonth">立即购买</button>
+      <button @click="goBuy">立即购买</button>
     </div>
     <popup
       v-model="showTicket"
       height="4.4rem"
       >
       <div class="coupon">
-        <div class="head">
-          <p>{{name}}</p>
-          <p>领取优惠劵</p>
-        </div>
-        <empty :emptyCont="emptyCont" v-if="CouponList.length == 0"></empty>
-        <div class="coupons">
-          <div class="list" v-for="(item,index) in CouponList" :key="index">
-            <p><span>{{item.value}}</span>元</p>
-            <p>{{item.coupon_msg}}</p>
-            <p>有效期：{{item.valid_date}}</p>
-            <button @click="getDiscounts($event)">领取</button>
-          </div>
-        </div>
+        <empty :emptyCont="emptyCont"></empty>
         <div class="ok" @click="getTicket">完成</div>
       </div>
     </popup>
@@ -38,12 +26,14 @@
             </dt>
             <dd>
               <p>¥{{price}}元</p>
-              <p>已选择有效期：<span>{{month}}</span></p>
+              <p>已选择 <span>{{course}}</span></p>
             </dd>
           </dl>
           <p class="title">价格套餐</p>
           <div class="packagelist">
-            <span v-for="(item,index) in Package" :key="index" @click="onPackage($event, item.price, item.valid_period)" :class="{onSpan: index == 0}">{{item.valid_period_name}}</span>
+            <span @click="onPackage($event)" class="onSpan">Deluxe套餐</span>
+            <span @click="onPackage($event)">SVIP套餐</span>
+            <span @click="onPackage($event)">VVIP套餐</span>
           </div>
           <div class="Confirm" @click="Confirm">确认购买</div>
         </div>
@@ -60,23 +50,20 @@ import { Popup, Alert, AlertPlugin } from 'vux'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
-  props: ['CouponList', 'name', 'Package'],
   components: {
+    Empty,
     Popup,
     Alert,
-    Empty
   },
   data () {
     return {
+      emptyCont: '暂无可领优惠券',
       showTicket: false,
       showMonth: false,
-      emptyCont: '暂无可领优惠券',
-      price: '',
-      month: '',
-      id: '',
-      validPeriodId: '',
-      OrderList: '',
-      isDegreeCourse: 0,
+      course: 'Deluxe套餐',
+      price: 8999,
+      validPeriodId: 720,
+      isDegreeCourse: 1,
     }
   },
   mounted () {
@@ -84,31 +71,25 @@ export default {
   },
   methods: {
     ...mapMutations(['GET_ITEMBUY', 'GET_VALIDPERIODLD']),
-    Alert () {
-      this.$vux.alert.show({
-        content: this.error_msg,
-      })
+    getTicket () {
+      this.showTicket = !this.showTicket
     },
-    getDiscounts (e) {
-      this.$http.get('/api/v1/activity/coupon/?coupon_id=' + this.$route.query.id).then(res => {
-        if (res.data.error_no == 0) {
-          e.target.innerHTML = '已领取'
-          this.error_msg = res.data.data.msg
-          this.Alert()
-        } else {
-          if(res.data.error_msg == '抱歉, 您已领取该优惠券') {
-            e.target.innerHTML = '已领取'
-            this.error_msg = res.data.error_msg
-            this.Alert()
-          }
-        }
-      })
+    buyMonth () {
+      this.showMonth= !this.showMonth
     },
-    onPackage (e, price, validPeriodId) {
+    onPackage (e) {
+      this.course = e.target.innerHTML
+      if (this.course == 'Deluxe套餐') {
+        this.price = 8999
+        this.validPeriodId = 720
+      } else if (this.course == 'SVIP套餐') {
+        this.price = 19800
+        this.validPeriodId = 722
+      } else if (this.course == 'VVIP套餐') {
+        this.price = 59800
+        this.validPeriodId = 723
+      }
       $(e.target).addClass('onSpan').siblings().removeClass('onSpan')
-      this.month = e.target.innerHTML
-      this.price = price
-      this.validPeriodId = validPeriodId
     },
     Confirm () {
       var params = {
@@ -118,7 +99,7 @@ export default {
           validPeriodId: this.validPeriodId,
           price: this.price,
         }],
-        isDegreeCourse: this.isDegreeCourse
+        isDegreeCourse: this.isDegreeCourse,
       };
       this.$http.post('/api/v1/order/confirm/',
         JSON.stringify(params)
@@ -130,18 +111,29 @@ export default {
         }
       })
     },
-    getTicket () {
-      this.showTicket = !this.showTicket
-    },
-    buyMonth () {
-      if (this.price == '' || this.month == '' || this.validPeriodId == '') {
-        this.price = this.Package[0].price
-        this.month = this.Package[0].valid_period_name
-        this.validPeriodId = this.Package[0].valid_period
+    goBuy () {
+      if (this.$route.name == 'python-medium') {
+        this.showMonth= !this.showMonth
+        if (this.price == '' && this.course == '') {
+          this.price = 8999
+          this.course = 'Deluex套餐'
+        }
+      } else {
+        if (this.$route.name == 'python-advanced') {
+          this.price = 7999
+          this.validPeriodId = 720
+        } else if (this.$route.name == 'linux-medium') {
+          this.price = 8500
+          this.validPeriodId = 720
+        } else if (this.$route.name == 'linux-advanced') {
+          this.price = 6500
+          this.validPeriodId = 720
+        }
+        this.Confirm()
+        this.$router.push({path: '/Buy', query: {id: this.$route.query.id}})
       }
-      this.showMonth= !this.showMonth
     },
-  },
+  }
 }
 </script>
 
@@ -181,62 +173,6 @@ export default {
     left: 0;
     bottom: 0;
     overflow: scroll;
-    .head {
-      width: 100%;
-      text-align: center;
-      margin-top: .25rem;
-      p:nth-of-type(1) {
-        font-size: .18rem;
-        color: #4A4A4A;
-      }
-      p:nth-of-type(2) {
-        font-size: .12rem;
-        color: #9B9B9B;
-      }
-    }
-    .coupons {
-      margin-left: .24rem;
-      margin-right: .24rem;
-      margin-top: .16rem;
-      margin-bottom: .5rem;
-      .list:last-child {
-        border-bottom: none
-      }
-      .list {
-        padding-top: .15rem;
-        padding-bottom: .15rem;
-        border-bottom: 1px solid #DBDFE2;
-        position: relative;
-        p:nth-of-type(1) {
-          font-size: .12rem;
-          color: #FA6240;
-          span {
-            font-size: .24rem;
-          }
-        }
-        p:nth-of-type(2) {
-          font-size: .14rem;
-          color: #666666;
-          padding-bottom: .03rem;
-        }
-        p:nth-of-type(3) {
-          font-size: .12rem;
-          color: #9B9B9B;
-        }
-        button {
-          width: .75rem;
-          height: .34rem;
-          border: 1px solid #72D9BC;
-          border-radius: 2px;
-          background: #fff;
-          font-size: .14rem;
-          color: #72D9BC;
-          position: absolute;
-          right: 0;
-          top: .3rem;
-        }
-      }
-    }
     .ok {
       width: 100%;
       height: .5rem;

@@ -40,11 +40,11 @@ import PythonBanner from './PythonBanner'
 import PythonIntroduce from './python-introduce/PythonIntroduce'
 import PythonModel from './PythonModel'
 import PythonCatalog from './python-catalog/PythonCatalog'
-import CourseList from '../../mock/python/courseMedium.json'
 import PythonComment from './python-comment/PythonComment'
 import PythonIssue from '../courseitem/Issue'
+import CourseBuy from './CourseBuy'
+import CourseList from '../../mock/python/courseMedium.json'
 import Issue from '../../mock/question/pythonIssue.json'
-import CourseBuy from '../courseitem/CourseBuy'
 import {Tab, TabItem} from 'vux'
 
 export default {

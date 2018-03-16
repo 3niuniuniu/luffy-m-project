@@ -9,8 +9,8 @@
         <dd>
           <p>{{item.courseName}}</p>
           <p>有效期：<span>{{item.validPeriod}}</span></p>
-          <p>¥ <span ref="originalPrice">{{item.courseOriginPrice}}</span></p>
-          <span ref="discountPrice" style="display:none">{{item.courseDiscountPrice}}</span>
+          <p>¥ <span id="courseOriginPrice">{{item.courseOriginPrice}}</span></p>
+          <span id="discountPrice" style="display:none">{{item.courseDiscountPrice}}</span>
         </dd>
       </dl>
     </div>
@@ -60,7 +60,15 @@ export default {
     return {
       number: 0,
       isbeili: 0,
+      courseOriginPrice: '',
+      discountPrice: '',
     }
+  },
+  mounted () {
+   var courseOriginPrice = document.getElementById('courseOriginPrice')
+   var discountPrice = document.getElementById('discountPrice')
+   this.discountPrice = discountPrice.innerHTML
+   this.courseOriginPrice = courseOriginPrice.innerHTML
   },
   methods: {
     ...mapMutations(['GET_ITEMBUY']),
@@ -84,41 +92,46 @@ export default {
       })
     },
     getNum(text){
-      var value = text.match(/\d/g).join("")
-      return value
+      var value = text.match(/[\d.]/g).join("")
+      return Number(value)
     },
     goPayment () {
       var parameter = {
         amount: this.getNum(this.$refs.totalPrice.innerHTML),
         actualPrice: this.getNum(this.$refs.actualPrice.innerHTML),
-        globalCouponNumber: this.$store.state.order_number,
+        globalCouponNumber: this.order_number || null,
         globalBalance: this.isbeili,
-        isDegreeCourse: '',//是否学位课程购买
+        isDegreeCourse: this.$store.state.is_degree_course || null,
         paymentType: 1,
         productArray: [
           {
             courseId: this.$route.query.id,
             validPeriodId: this.valid_periodid,
-            courseOriginPrice: this.getNum(this.$refs.originalPrice.innerHTML),
-            courseDiscountPrice: this.getNum(this.$refs.discountPrice.innerHTML),
-            couponNumber: this.$store.state.coupon_number,
+            courseOriginPrice: Number(this.courseOriginPrice),
+            courseDiscountPrice: Number(this.discountPrice),
+            couponNumber: this.coupon_number || this.default_number,
           }
         ]
       }
       this.$http.post('/api/v1/order/create/', {
         ...parameter
       }).then(res => {
-        console.log(res)
+        location.href = res.data.data.paymentUrl
       })
       // this.$router.push({path: '/BuySucceed', query: {id: this.$route.query.id}})
     },
   },
-  computed: mapState([
-    'get_itembuy',
-    'get_num',
-    'session_key',
-    'valid_periodid'
-  ])
+  computed: {
+    ...mapState([
+      'get_itembuy',
+      'get_num',
+      'session_key',
+      'valid_periodid',
+      'coupon_number',
+      'order_number',
+      'default_number'
+    ])
+  }
 }
 </script>
 

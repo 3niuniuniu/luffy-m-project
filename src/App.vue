@@ -84,11 +84,13 @@ html{
   width: 100%;
   height: 100%;
   overflow: hidden;
+  font-family: "Microsoft YaHei";
 }
 body{
   position: relative;
   height: 100%;
   overflow-x: hidden;
+  font-family: "Microsoft YaHei";
 }
 .z_app{
   transition: 0.3s;
@@ -119,6 +121,10 @@ body{
   /* z-index: 5; */
   background-color: #f3f5f7;
   overflow-y: scroll;
+}
+button {
+  border: none;
+  background: transparent;
 }
 .animated {
   -webkit-animation-duration: 0.3s;

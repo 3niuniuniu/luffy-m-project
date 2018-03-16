@@ -12,6 +12,12 @@ export default {
     for (var i in data.buyData.data) {
       state.get_name = data.buyData.data[i].courseName
       state.get_coupons = data.buyData.data[i].courseCouponList.coupons
+      for (var n in data.buyData.data[i].courseCouponList.coupons) {
+        if (data.buyData.data[i].courseCouponList.coupons[n].default) {
+          var couponNumber = data.buyData.data[i].courseCouponList.coupons[n].couponNumber
+          state.default_number = couponNumber
+        }
+      }
       state.get_num = data.buyData.data[i].courseCouponList.total
     }
   },

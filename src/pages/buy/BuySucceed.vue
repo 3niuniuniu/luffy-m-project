@@ -4,12 +4,12 @@
     <div class="item">
       <img src="../../assets/img/pageimgs/支付成功.png" alt="">
       <p>支付成功</p>
-      <p>收到款项<span>2888</span>元</p>
-      <p>成功购买Python全栈开发课程</p>
+      <p>收到款项<span>{{actual_amount}}</span>元</p>
+      <p>成功购买<span v-for="(item,index) in buy_courses" :key="index">{{item}}</span></p>
     </div>
     <div class="btn">
-      <button>查看订单</button>
-      <button>立即学习</button>
+      <button @click="goOrder">查看订单</button>
+      <button @click="goStudy">立即学习</button>
     </div>
  </div>
 </template>
@@ -19,6 +19,25 @@
   export default {
     components: {
       HeaderItem,
+    },
+    data () {
+      return {
+        actual_amount: '',
+      }
+    },
+    mounted () {
+      this.$http.get('/api/v1/trade/detail/?order_num=' + this.$route.query.order_num).then(res => {
+        this.actual_amount = res.data.data.actual_amount
+        this.buy_courses = res.data.data.buy_courses
+      })
+    },
+    methods: {
+      goOrder () {
+        this.$router.push({path: '/my/order'})
+      },
+      goStudy () {
+        this.$router.push({path: '/study'})
+      }
     }
   }
 </script>

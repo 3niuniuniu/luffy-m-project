@@ -2,6 +2,7 @@
   <div class="order">
     <header-item message="我的订单"></header-item>
       <loading v-show="loading" class="loading"></loading>
+      <error-five :errorhint="errorhint" v-show="error" class="error"></error-five>
       <div v-show="!loading">
         <div class="module" v-for="(item, index) in orderList" :key="index">
           <p class="orderNum">订单号：{{item.order_number}} <span>{{item.status}}</span></p>
@@ -13,10 +14,10 @@
             </dd>
           </dl>
           <div class="discounts">
-            <p><span>优惠券</span> <span>7折</span></p>
-            <p><span>贝里</span> <span>300ge</span></p>
+            <p><span>优惠券</span> <span>{{item.deduction.coupon}}</span></p>
+            <p><span>贝里</span> <span>{{item.deduction.blance}}</span></p>
             <p><span>实付</span><span>￥{{item.actual_amount}}</span></p>
-            <p><span>下单时间：<br>{{item.date}}</span> <button>{{item.handle}}</button></p>
+            <p><span>下单时间：<br>{{item.date}}</span><button @click="goHandle($event,item.handle, item.order_number)" v-show="item.handle">{{item.handle}}</button></p>
           </div>
         </div>
       </div>
@@ -25,23 +26,31 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   import HeaderItem from '@/components/header'
   import Loading from '@/components/loading'
   import Empty from '@/components/empty'
+  import ErrorFive from '@/components/500'
   import { mapState } from 'vuex'
+  Vue.use(AlertPlugin)
+  import { Alert, AlertPlugin, AlertModule } from 'vux'
 
   export default {
     components: {
       HeaderItem,
       Loading,
       Empty,
+      ErrorFive,
+      Alert,
     },
     data () {
       return {
         orderList: '',
         emptyCont: '暂无订单',
+        errorhint: '服务器发生错误',
         loading: true,
         empty: false,
+        error:  false,
       }
     },
     mounted () {
@@ -50,9 +59,42 @@
         this.orderList = res.data.data
         if(this.orderList.length == 0) {
           this.empty = true
+        } else {
+          this.empty = false
         }
       })
+      .catch(() => {
+        this.loading = false
+        this.error = true
+      })
     },
+    methods: {
+      showModule () {
+        AlertModule.show({
+          content: '路飞学城PC官网可进行评价',
+        })
+      },
+      showModuleAuto () {
+        this.showModule()
+        setTimeout(() => {
+          AlertModule.hide()
+        }, 1800)
+      },
+      goHandle (e, text, number) {
+        if (text == '去评价') {
+          this.showModuleAuto()
+        } else if(text == '去学习') {
+          this.$router.push({path: '/study'})
+        } else {
+          this.$http.get('/api/v1/order/pay/?orderNumber=' + number).then(res => {
+            location.href = res.data.data.paymentUrl
+          })
+        }
+      }
+    },
+    computed: {
+      ...mapState(['img_host'])
+    }
   }
 </script>
 
@@ -172,5 +214,8 @@
     .module:last-child{
       margin-bottom: -.2rem;
     }
+  }
+  .error {
+    margin-top: -1rem;
   }
 </style>

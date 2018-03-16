@@ -10,15 +10,6 @@
           <p>¥ {{item.price}}</p>
         </dd>
       </dl>
-      <!-- <dl @click="goPythone">
-        <dt><img src="../../assets/img/pageimgs/banner1.png" alt=""></dt>
-        <dd>
-          <p>Python高级</p>
-          <p>1111111111</p>
-          <p>难度：高级<span>专题</span></p>
-          <p>¥ 399.00</p>
-        </dd>
-      </dl> -->
     </div>
   </div>
 </template>
@@ -34,9 +25,6 @@ export default {
       this.GET_COURSEID(id)
       this.$router.push({path:'/course/courseitem', query:{id: id}})
     },
-    goPythone () {
-      this.$router.push('/home/python-advanced')
-    }
   },
   computed: mapState(['img_host'])
 }
@@ -50,7 +38,10 @@ export default {
     .list {
       padding-left: .2rem;
       padding-right: .2rem;
-      padding-top: 1rem;
+      margin-top: .8rem;
+      dl:first-child {
+        padding-top: .2rem;
+      }
     }
     dl {
       width: 100%;

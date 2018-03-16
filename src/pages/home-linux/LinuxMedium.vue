@@ -34,11 +34,11 @@ import HeaderItem from '@/components/header'
 import LinuxBanner from './LinuxBanner'
 import LinuxIntroduce from './linux-introduce/LinuxIntroduce'
 import LinuxCatalogue from './linux-catalogue/LinuxCatalogue'
-import CatalogueList from '../../mock/linux/catalogueMedium.json'
 import LinuxComment from '../home-python/python-comment/PythonComment'
 import LinuxIssue from '../courseitem/Issue'
+import CourseBuy from '../home-python/CourseBuy'
+import CatalogueList from '../../mock/linux/catalogueMedium.json'
 import Issue from '../../mock/linux/linuxIssue.json'
-import CourseBuy from '../courseitem/CourseBuy'
 import {Tab, TabItem} from 'vux'
 
 export default {

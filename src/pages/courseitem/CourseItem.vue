@@ -1,7 +1,9 @@
 <template>
   <div class="CourseItem">
     <header-item message="课程"></header-item>
-    <div class="video"></div>
+    <div class="video">
+      <div ref="videoPlay"></div>
+    </div>
     <tab
       class="CourseTitle"
       :line-width="2"
@@ -19,7 +21,7 @@
     :CourseItemCont="CourseItemCont"
     ></introduce>
     <loading v-show="num == 1" v-if="this.loading == true"></loading>
-    <empty :emptyCont="emptyCont" v-if="this.courseItem.length == 0" v-show="num == 1"></empty>
+    <empty :emptyCont="emptyCont" v-if="empty" v-show="num == 1"></empty>
     <catalog-list :courseItem="courseItem" v-show="num == 1" class="catalogs"></catalog-list>
     <evaluate :ItemComment="ItemComment" v-show="num == 2"></evaluate>
     <question :QuestionList="QuestionList" v-show="num == 3"></question>
@@ -38,7 +40,7 @@ import Question from './Question'
 import {Tab, TabItem} from 'vux'
 import Empty from '@/components/empty'
 import Loading from '@/components/loading'
-import { mapState } from '_vuex@2.5.0@vuex';
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -71,8 +73,10 @@ export default {
       CouponList: '',
       Package: '',
       name: '',
+      empty: false,
       emptyCont: '暂无课程目录',
       loading: true,
+      videoLink: '',
     }
   },
   mounted () {
@@ -91,6 +95,11 @@ export default {
       this.$http.get('/api/v1/course_sections/?courseid=' + id).then(res => {
         this.loading = false
         this.courseItem = res.data.data
+        if (this.courseItem.length == 0) {
+          this.empty = true
+        } else {
+          this.empty = false
+        }
       })
     },
     getComment (id) {
@@ -107,6 +116,11 @@ export default {
       this.$http.get('/api/v1/coursedetailtop/?courseid=' + id).then(res => {
         this.CourseItemPirce = res.data.data
         this.name = this.CourseItemPirce.name
+        this.videoLink = res.data.data.video_brief_link
+        this.$refs.videoPlay.innerHTML = ''
+        var videoBox = document.createElement('script')
+        videoBox.setAttribute('src',`https://p.bokecc.com/player?vid=${this.videoLink}&siteid=D90C6BABEBFD8C03&autoStart=false&playerid=94B724260B49E936&playertype=1`)
+        this.$refs.videoPlay.appendChild(videoBox)
       })
     },
     getCont (id) {
@@ -140,13 +154,14 @@ export default {
     .video {
       width: 100%;
       height: 2.11rem;
-      background: red;
+      margin-top: .43rem;
     }
     .CourseTitle {
       display: flex;
       align-items: center;
       background: #fff;
       border-bottom: 1px solid #D9DDE1;
+      margin-top: -.2rem;
       span{
         flex: 1;
         text-align: center;

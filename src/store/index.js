@@ -18,8 +18,10 @@ const state = {
   valid_periodid: '',
   get_num: '',
   coupon_number: '',
+  default_number: '',
   order_number: '',
   available_coupon_num: '',
+  is_degree_course: '',
 }
 
 /* Store实例 */

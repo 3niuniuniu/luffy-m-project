@@ -5,12 +5,12 @@
       <div @click="goPython">
         <p>Python</p>
         <p>0基础6个月练成Python全栈开发大神</p>
-        <p><span>¥366.00</span><img src="../../assets/img/pageimgs/pylogo.png" alt=""></p>
+        <p><span>¥ 8999</span><img src="../../assets/img/pageimgs/pylogo.png" alt=""></p>
       </div>
       <div @click="goLinux">
         <p>Linux</p>
         <p>0基础6个月练成Python全栈开发大神</p>
-        <p><span>¥366.00</span><img src="../../assets/img/pageimgs/Linuxlogo.png" alt=""></p>
+        <p><span>¥ 8500</span><img src="../../assets/img/pageimgs/Linuxlogo.png" alt=""></p>
       </div>
     </div>
   </div>
@@ -18,12 +18,6 @@
 
 <script>
 export default {
-  name: 'degree',
-  data () {
-    return {
-
-    }
-  },
   methods: {
     goPython () {
       this.$router.push({path: '/home/python-medium'})

@@ -12,7 +12,7 @@
     <ul class="cont">
       <li>
         <span class="type">头像</span>
-        <img :src="userInfo.head_img" alt="">
+        <img :src="img_host + userInfo.head_img" alt="">
       </li>
       <li>
         <span class="type">用户名</span>
@@ -57,6 +57,7 @@
   Vue.use(LoadingPlugin)
   import HeaderItem from '@/components/header'
   import { ConfirmPlugin, LoadingPlugin, Confirm, TransferDomDirective as TransferDom } from 'vux'
+  import { mapState } from 'vuex'
 
   export default {
     directives: {
@@ -99,6 +100,9 @@
       exit () {
         this.show = true
       },
+    },
+    computed: {
+      ...mapState(['img_host'])
     }
   }
 </script>

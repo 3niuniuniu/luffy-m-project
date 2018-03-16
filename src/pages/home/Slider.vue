@@ -26,7 +26,7 @@ export default {
       centeredSlides: true,
       spaceBetween: 6,
       paginationClickable: true,
-      autoplay: 1000,
+      autoplay: 3500,
       pagination : '.swiper-pagination',
     })
     // $(".swiper-container").mouseenter(() => {

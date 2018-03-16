@@ -88,14 +88,16 @@
         this.$router.go(-1)
       }
     },
-    computed: mapState([
-      'get_coupons',
-      'get_allcoupons',
-      'session_key',
-      'valid_periodid',
-      'get_itembuy',
-      'get_name'
-    ])
+    computed: {
+      ...mapState([
+        'get_coupons',
+        'get_allcoupons',
+        'session_key',
+        'valid_periodid',
+        'get_itembuy',
+        'get_name'
+      ])
+    }
   }
 </script>
 
