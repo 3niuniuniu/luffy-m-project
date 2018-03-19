@@ -22,7 +22,7 @@
         <div class="pricemeal">
           <dl>
             <dt>
-              <img src="../../assets/img/pageimgs/banner2.png" alt="">
+              <img src="../../assets/img/pageimgs/python-banner中级.png" alt="">
             </dt>
             <dd>
               <p>¥{{price}}元</p>

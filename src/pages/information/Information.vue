@@ -90,6 +90,7 @@
             setTimeout(() => {
               this.$vux.loading.hide()
               this.show = false
+              this.$router.push({path: '/my'})
             }, 1000)
           }
         })

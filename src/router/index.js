@@ -30,6 +30,7 @@ import SelectCoupon from '@/pages/buy/SelectCoupon'
 
 import Login from '@/pages/login/Login'
 import Register from '@/pages/register/Register'
+import ForgetPassword from '@/pages/forgetpassword/ForgetPassword'
 
 Vue.use(Router)
 
@@ -60,6 +61,7 @@ const router = new Router({
     { path: '/selectcoupon', name: 'SelectCoupon', component: SelectCoupon, meta: { navShow: false }, components: { 'default': Buy, 'subPage': SelectCoupon } },
     { path: '/login', name: 'Login', component: Login, meta: { navShow: false } },
     { path: '/register', name: 'Register', component: Register, meta: {navShow: false } },
+    { path: '/forget', name: 'forget', component: ForgetPassword, meta: {navShow: false } },
     { path: '/404', name:'Error', component: Error, meta: { navShow: true } },
     { path: "*",redirect: '/404'}
   ]

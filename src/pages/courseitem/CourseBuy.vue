@@ -34,7 +34,7 @@
         <div class="pricemeal">
           <dl>
             <dt>
-              <img src="../../assets/img/pageimgs/banner2.png" alt="">
+              <img :src="img_host + $store.state.img_url" alt="">
             </dt>
             <dd>
               <p>¥{{price}}元</p>
@@ -142,6 +142,7 @@ export default {
       this.showMonth= !this.showMonth
     },
   },
+  computed: mapState(['img_host'])
 }
 </script>
 

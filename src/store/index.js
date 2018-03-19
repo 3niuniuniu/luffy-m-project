@@ -22,6 +22,9 @@ const state = {
   order_number: '',
   available_coupon_num: '',
   is_degree_course: '',
+  img_url: '',
+  register_token: '',
+  reload: false,
 }
 
 /* Store实例 */

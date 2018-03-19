@@ -2,12 +2,12 @@
   <div class="my">
     <div class="title">
       <div class="user">
-        <img src="../../assets/svg/head.svg" alt="" v-if="!NotLogin">
+        <img src="../../assets/img/pageimgs/defaulthead.png" alt="" v-if="!NotLogin">
         <img :src="url" alt="" v-if="NotLogin">
         <p>
           <span v-show="!NotLogin" class="NotLogin" @click="goLogin">点击登录</span>
           <span v-show="NotLogin" class="name">{{name}}</span><br>
-          <span v-show="NotLogin" class="num">贝里余额233个</span>
+          <span v-show="NotLogin" class="num">贝里余额1个</span>
         </p>
       </div>
       <div class="myMessage">
@@ -25,7 +25,8 @@
           <router-link to="/my/discounts" tag="li">
             <img src="../../assets/img/icon/优惠券.png" alt="">
             <p>优惠券</p>
-            <span v-if="NotLogin">{{this.$store.state.available_coupon_num}}张可用</span>
+            <span v-if="this.$store.state.available_coupon_num == 0">可兑换</span>
+            <span v-else-if="NotLogin" class="sp">{{this.$store.state.available_coupon_num}}张可用</span>
             <img src="../../assets/img/pageimgs/Shape2.png" alt="">
           </router-link>
         </ul>
@@ -52,13 +53,12 @@ export default {
     return {
       NotLogin: Cookies.get('access_token'),
       userInfo: JSON.parse(localStorage.getItem('user')),
-      url: '',
-      name: '',
+      url: localStorage.getItem("userimg"),
+      name: localStorage.getItem("username"),
     }
   },
   mounted () {
-    this.url = this.userInfo.userImg
-    this.name = this.userInfo.username
+
   },
   methods: {
     goLogin () {
@@ -100,7 +100,7 @@ export default {
     width: 100%;
     height: auto;
     background: #fff;
-    margin-top: .2rem;
+    margin-top: .18rem;
     ul {
       margin-left: .34rem;
       p {
@@ -127,10 +127,13 @@ export default {
         }
         span {
           display: inline-block;
-          font-size: .14rem;
+          font-size: .12rem;
           color: #666666;
           position: absolute;
-          right:.5rem;top: .21rem;
+          right:.5rem;top: .22rem;
+        }
+        .sp {
+          color: #FA6240;
         }
       }
     }

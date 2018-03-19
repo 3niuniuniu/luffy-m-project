@@ -8,14 +8,12 @@
         <span class="error" ref="error"></span>
         <p class="fromItem"><input type="text" placeholder="用户名/手机号" v-model="user"></p>
         <p class="fromItem"><input type="password" placeholder="填写密码" v-model="pwd"></p>
-
         <div id="embed-captcha"></div>
         <p id="wait" class="show">验证码加载中...</p>
         <p id="notice" class="hide">请先拖动验证码到相应位置</p>
-
         <div class="fromRemember">
           <p><span @click="remember"><i v-show="yes"></i></span>7天内免登录</p>
-          <p>忘记密码</p>
+          <p @click="goForget">忘记密码</p>
         </div>
         <p class="fromBtn"><button @click="login">登录</button></p>
       </div>
@@ -32,10 +30,9 @@
 
 <script>
 import Vue from 'vue'
-import $ from 'jquery'
-import '../../assets/js/gt'
 import Cookies from '../../assets/js/Cookie'
 import { setTimeout } from 'timers';
+import '../../assets/js/gt'
 
 export default {
   data () {
@@ -58,7 +55,7 @@ export default {
       // })
     });
     var myurl = this.GetQueryString("return_url")
-    if(myurl != null && myurl.toString().length>1){
+    if(myurl != null && myurl.toString().length > 1){
       console.log(this.GetQueryString("return_url"))
     }
     this.$http.get('/api/v1/captcha_check/?t='+ Math.random()).then(res => {
@@ -78,6 +75,9 @@ export default {
     },
   },
   methods: {
+    goForget () {
+      this.$router.push({path: '/forget'})
+    },
     goReg () {
       this.$router.push({path: '/register'})
     },
@@ -89,9 +89,8 @@ export default {
     remember () {
       this.yes = !this.yes
     },
-    get (key,exp){
+    get (key, exp) {
     var data = localStorage.getItem(key);
-    // var dataObj = JSON.parse(data);
     if (new Date().getTime() > exp) {
         localStorage.removeItem('info')
       }
@@ -104,9 +103,9 @@ export default {
           username: this.user,
           password: this.pwd,
           seven: this.yes,
-          geetest_challenge: document.getElementsByName('geetest_challenge').value,
-          geetest_validate: document.getElementsByName('geetest_validate').value,
-          geetest_seccode: document.getElementsByName('geetest_seccode').value,
+          geetest_challenge: $('input[name="geetest_challenge"]').val(),
+          geetest_validate: $('input[name="geetest_validate"]').val(),
+          geetest_seccode: $('input[name="geetest_seccode"]').val(),
           redirect_url: this.GetQueryString("return_url"),
         }
         this.$http.post('/api/v1/account/login/', {
@@ -120,16 +119,12 @@ export default {
               userImg: data.avatar,
               phone: data.phone
             }
-            Cookies.set('token', data.access_token, data.expires_in)
-            Cookies.set('username', data.username, data.expires_in )
-            Cookies.set('userImg', data.avatar, data.expires_in )
-            // this.$store.state.Authorization = Cookies.get('token')
-            // this.$store.state.userImg = data.avatar
-            // this.$store.state.username = data.username
+            localStorage.setItem('token', data.access_token, data.expires_in)
+            localStorage.setItem('username', data.username, data.expires_in )
+            localStorage.setItem('userimg', data.avatar, data.expires_in )
             if(this.yes){
               localStorage.setItem('user',JSON.stringify(info))
             }
-            // localStorage.removeItem('key')
             if (res.data.data.redirect_url == '' || res.data.data.redirect_url == undefined) {
               this.$router.push({path: '/home'})
             } else {
@@ -254,6 +249,9 @@ export default {
           text-indent: .2rem;
           font-size: .15rem;
         }
+      }
+      .hide {
+        display: none;
       }
       .show,.hide {
         font-size: .12rem;

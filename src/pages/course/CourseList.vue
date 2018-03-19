@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="list">
-      <dl @click="goCourseItem(item.id)" v-for="(item,index) in courseList" :key="index">
+      <dl @click="goCourseItem(item.id ,item.course_img)" v-for="(item,index) in courseList" :key="index">
         <dt><img :src="img_host+item.course_img" alt=""></dt>
         <dd>
           <p>{{item.name}}</p>
@@ -21,7 +21,8 @@ export default {
   props: ['courseList'],
   methods: {
     ...mapMutations(['GET_COURSEID']),
-    goCourseItem (id) {
+    goCourseItem (id, url) {
+      this.$store.state.img_url = url
       this.GET_COURSEID(id)
       this.$router.push({path:'/course/courseitem', query:{id: id}})
     },

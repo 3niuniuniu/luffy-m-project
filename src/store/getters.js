@@ -1,3 +1,3 @@
 export default {
-	item_buylist: state=>state.item_buylist,
+	// item_buylist: state=>state.item_buylist,
 }

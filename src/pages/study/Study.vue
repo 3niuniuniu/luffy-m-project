@@ -82,7 +82,7 @@ export default {
 <style lang="scss" scoped>
   .study {
     overflow-y: scroll;
-    padding-bottom: 2rem;
+    padding-bottom: .52rem;
     height: auto;
     background: #f3f5f7;
     .error {

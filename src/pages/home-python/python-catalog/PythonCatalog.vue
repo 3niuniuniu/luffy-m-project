@@ -142,14 +142,14 @@ export default {
               border-top: none;
               padding-left: .3rem;
               padding-right: .3rem;
-              padding-top: .3rem;
-              padding-bottom: .2rem;
+              padding-top: .15rem;
+              padding-bottom: .15rem;
               display: none;
               span {
                 display: block;
                 font-size: .12rem;
                 color: #333333;
-                padding: .02rem 0;
+                padding: .04rem 0;
               }
             }
           }

@@ -15,7 +15,7 @@
         <div class="chapter" v-for="(item,index) in videoDirectory.coursechapters" :key="index">
           <p class="num">{{item.name}}</p>
           <ul class="list">
-            <li v-for="(itm,ind) in item.coursesections" :key="ind" @click="tabCourse(itm.id)">
+            <li v-for="(itm,ind) in item.coursesections" :key="ind" @click="tabCourse($event, itm.id)">
               <p>{{itm.name}}</p>
               <p><span>{{itm.duration}}</span></p>
             </li>
@@ -124,9 +124,10 @@ export default {
         this.error = true
       })
     },
-    tabCourse (id) {
+    tabCourse (e, id) {
       this.$route.query.id = id
       this.getCourse()
+      $(e).css('color','#72D9C2').siblings().css('color','#4A4A4A')
     }
   },
   watch: {
@@ -151,7 +152,12 @@ export default {
     left: 0;top:0;
     z-index: 999;
     span {
+      // width: 3.2rem;
       padding-left: .36rem;
+      white-space: nowrap;
+      // text-overflow: ellipsis;
+      // overflow: hidden;
+      display: inline-block;
     }
     img {
       width: .15rem;
