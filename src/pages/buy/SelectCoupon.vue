@@ -131,6 +131,7 @@
       padding: 0 .1rem;
       border-right: 1px dashed #d0d0d0;
       text-align: center;
+      font-family: PingFangSC-Regular;
       p:nth-of-type(1) {
         font-size: .12rem;
         span {

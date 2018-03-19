@@ -1,27 +1,28 @@
 <template>
   <div class="order">
     <header-item message="我的订单"></header-item>
-      <loading v-show="loading" class="loading"></loading>
-      <error-five :errorhint="errorhint" v-show="error" class="error"></error-five>
-      <div v-show="!loading">
-        <div class="module" v-for="(item, index) in orderList" :key="index">
-          <p class="orderNum">订单号：{{item.order_number}} <span>{{item.status}}</span></p>
-          <dl v-for="(val,ind) in item.course_item" :key="ind">
-            <dt><img :src="img_host+val.course_img" alt=""></dt>
-            <dd>
-              <p><span>{{val.course_name}}</span><span>¥ {{val.price}}</span></p>
-              <p><span>有效期：{{val.valid_period_display}}</span><span>¥ {{val.original_price}}</span></p>
-            </dd>
-          </dl>
-          <div class="discounts">
-            <p><span>优惠券</span> <span>{{item.deduction.coupon}}</span></p>
-            <p><span>贝里</span> <span>{{item.deduction.blance}}</span></p>
-            <p><span>实付</span><span>￥{{item.actual_amount}}</span></p>
-            <p><span>下单时间：<br>{{item.date}}</span><button @click="goHandle($event,item.handle, item.order_number)" v-show="item.handle">{{item.handle}}</button></p>
-          </div>
+    <toast v-model="showSuccess" type="text" width="2.4rem" position="top" class="toast">{{text}}</toast>
+    <loading v-show="loading" class="loading"></loading>
+    <error-five :errorhint="errorhint" v-show="error" class="error"></error-five>
+    <div v-show="!loading">
+      <div class="module" v-for="(item, index) in orderList" :key="index">
+        <p class="orderNum">订单号：{{item.order_number}} <span>{{item.status}}</span></p>
+        <dl v-for="(val,ind) in item.course_item" :key="ind">
+          <dt><img :src="img_host+val.course_img" alt=""></dt>
+          <dd>
+            <p><span>{{val.course_name}}</span><span>¥ {{val.price}}</span></p>
+            <p><span>有效期：{{val.valid_period_display}}</span><span>¥ {{val.original_price}}</span></p>
+          </dd>
+        </dl>
+        <div class="discounts">
+          <p><span>优惠券</span> <span>{{item.deduction.coupon}}</span></p>
+          <p><span>贝里</span> <span>{{item.deduction.blance}}</span></p>
+          <p><span>实付</span><span>￥{{item.actual_amount}}</span></p>
+          <p><span>下单时间：<br>{{item.date}}</span><button @click="goHandle($event,item.handle, item.order_number)" v-show="item.handle">{{item.handle}}</button></p>
         </div>
       </div>
-      <empty :emptyCont="emptyCont" v-show="empty"></empty>
+    </div>
+    <empty :emptyCont="emptyCont" v-show="empty"></empty>
   </div>
 </template>
 
@@ -32,8 +33,9 @@
   import Empty from '@/components/empty'
   import ErrorFive from '@/components/500'
   import { mapState } from 'vuex'
-  Vue.use(AlertPlugin)
-  import { Alert, AlertPlugin, AlertModule } from 'vux'
+  // Vue.use(AlertPlugin)
+  // import { Alert, AlertPlugin, AlertModule } from 'vux'
+  import { Toast, ToastPlugin } from 'vux'
 
   export default {
     components: {
@@ -41,7 +43,8 @@
       Loading,
       Empty,
       ErrorFive,
-      Alert,
+      // Alert,
+      Toast
     },
     data () {
       return {
@@ -51,6 +54,8 @@
         loading: true,
         empty: false,
         error:  false,
+        showSuccess: false,
+        text: '',
       }
     },
     mounted () {
@@ -69,20 +74,22 @@
       })
     },
     methods: {
-      showModule () {
-        AlertModule.show({
-          content: '路飞学城PC官网可进行评价',
-        })
-      },
-      showModuleAuto () {
-        this.showModule()
-        setTimeout(() => {
-          AlertModule.hide()
-        }, 1800)
-      },
+      // showModule () {
+      //   AlertModule.show({
+      //     content: '路飞学城PC官网可进行评价',
+      //   })
+      // },
+      // showModuleAuto () {
+      //   this.showModule()
+      //   setTimeout(() => {
+      //     AlertModule.hide()
+      //   }, 1800)
+      // },
       goHandle (e, text, number) {
         if (text == '去评价') {
-          this.showModuleAuto()
+          // this.showModuleAuto()
+          this.showSuccess = true
+          this.text = '路飞学城PC官网可进行评价'
         } else if(text == '去学习') {
           this.$router.push({path: '/study'})
         } else {
@@ -159,6 +166,7 @@
       .discounts {
         margin-left: .3rem;
         padding-right: .2rem;
+        font-family: PingFangSC-Regular;
         p {
           display: flex;
           justify-content: space-between;

@@ -1,80 +1,78 @@
 <template>
-  <!-- <transition name="fade"> -->
-    <div class="reg" ref="login">
-      <div class="cont">
-        <img src="../../assets/img/pageimgs/Close.png" alt="" class="close" @click="close">
-        <toast v-model="showSuccess" type="success" width="2rem">恭喜您~注册成功啦!</toast>
-        <toast v-model="showError" type="warn" width="2rem">{{errorText}}</toast>
-        <div class="cont1" v-show="step1">
-          <p class="title">Hello！欢迎来到路飞学城</p>
-          <p class="p1">请填写你的手机号码</p>
-          <p class="error" ref="error"></p>
-          <div class="phoneBox">
-            <select v-model="nationCode">
-              <option value="86" selected>+86&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国 </option>
-              <option v-for="(item,index) in nationCodes" :key="index" :value="item.nation_code">+{{item.nation_code}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.nation_name}}</option>
-            </select>
-            <input type="text" class="phone" v-model="phone" placeholder="请输入手机号码">
-          </div>
-          <div class="code">
-            <div class="num">
-              <span>验证码</span>
-              <input type="text" class="num" placeholder="输入验证码" v-model="verify">
-            </div>
-            <button @click="getVerify" ref="num">发送验证码</button>
-          </div>
-          <button class="btn" @click="nextOne">下一步</button>
-          <p class="gologin" @click="goLogin">已有账号，<span>直接登录</span></p>
+  <div class="reg" ref="login">
+    <div class="cont">
+      <img src="../../assets/img/pageimgs/Close.png" alt="" class="close" @click="close">
+      <toast v-model="showSuccess" type="success" width="2rem">恭喜您~注册成功啦!</toast>
+      <toast v-model="showError" type="warn" width="2rem">{{errorText}}</toast>
+      <div class="cont1" v-show="step1">
+        <p class="title">Hello！欢迎来到路飞学城</p>
+        <p class="p1">请填写你的手机号码</p>
+        <p class="error" ref="error"></p>
+        <div class="phoneBox">
+          <select v-model="nationCode">
+            <option value="86" selected>+86&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国 </option>
+            <option v-for="(item,index) in nationCodes" :key="index" :value="item.nation_code">+{{item.nation_code}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{item.nation_name}}</option>
+          </select>
+          <input type="text" class="phone" v-model="phone" placeholder="请输入手机号码">
         </div>
-        <div class="cont2" v-show="step2">
-          <p class="title">注册路飞学城</p>
-          <p class="error" ref="error2"></p>
-          <input type="text" placeholder="用户名一旦确认不可更改" v-model="name">
-          <input type="password" placeholder="密码至少6位且不能全数字" v-model="pwd1">
-          <input type="password" placeholder="确认密码" v-model="pwd2">
-          <div class="city">
-            <select v-model="province" @change="getCity()">
-              <option value="" selected>请选择省份</option>
-              <option v-for="(item, index) in provinces" :value="item.id" :key="index" selected>{{item.name}}</option>
-            </select>
-            <select v-model="city">
-              <option value="" selected>请选择城市</option>
-              <option v-for="(item, index) in citys" :value="item.id" :key="index" selected>{{item.name}}</option>
-            </select>
+        <div class="code">
+          <div class="num">
+            <span>验证码</span>
+            <input type="text" class="num" placeholder="输入验证码" v-model="verify">
           </div>
-          <button class="btn" @click="nextTwo">下一步</button>
+          <button @click="getVerify" ref="num">发送验证码</button>
         </div>
-        <div class="cont3" v-show="step3">
-          <p class="title t3">注册路飞学城</p>
-          <p class="error" ref="error3"></p>
-          <datetime
-            :min-year="1970"
-            :max-year="2019"
-            v-model="birthday"
-            title="选择出生年月日"
-            class="time">
-          </datetime>
-          <div class="city">
-            <select v-model="industry" @change="getProfession()">
-              <option value="" selected>请选择行业</option>
-              <option v-for="(item,index) in industrys" :value="item.id" :key="index">{{item.name}}</option>
-            </select>
-            <select v-model="profession">
-              <option value="" selected>请选择职业</option>
-              <option v-for="(item,index) in professions" :value="item.id" :key="index">{{item.name}}</option>
-            </select>
-          </div>
-          <div class="interested">
-            <p>感兴趣的技术</p>
-            <div class="int_span">
-              <span v-for="(item,index) in interest" :key="index" :id="item.id" @click="selectInterest($event)">{{item.name}}</span>
-            </div>
-          </div>
-          <button class="accomplish" @click="Ok">完成</button>
+        <button class="btn" @click="nextOne">下一步</button>
+        <p class="gologin" @click="goLogin">已有账号，<span>直接登录</span></p>
+      </div>
+      <div class="cont2" v-show="step2">
+        <p class="title">注册路飞学城</p>
+        <p class="error" ref="error2"></p>
+        <input type="text" placeholder="用户名一旦确认不可更改" v-model="name">
+        <input type="password" placeholder="密码至少6位且不能全数字" v-model="pwd1">
+        <input type="password" placeholder="确认密码" v-model="pwd2">
+        <div class="city">
+          <select v-model="province" @change="getCity()">
+            <option value="" selected>请选择省份</option>
+            <option v-for="(item, index) in provinces" :value="item.id" :key="index" selected>{{item.name}}</option>
+          </select>
+          <select v-model="city">
+            <option value="" selected>请选择城市</option>
+            <option v-for="(item, index) in citys" :value="item.id" :key="index" selected>{{item.name}}</option>
+          </select>
         </div>
+        <button class="btn" @click="nextTwo">下一步</button>
+      </div>
+      <div class="cont3" v-show="step3">
+        <p class="title t3">注册路飞学城</p>
+        <p class="error" ref="error3"></p>
+        <datetime
+          :min-year="1970"
+          :max-year="2019"
+          v-model="birthday"
+          title="选择出生年月日"
+          class="time">
+        </datetime>
+        <div class="city">
+          <select v-model="industry" @change="getProfession()">
+            <option value="" selected>请选择行业</option>
+            <option v-for="(item,index) in industrys" :value="item.id" :key="index">{{item.name}}</option>
+          </select>
+          <select v-model="profession">
+            <option value="" selected>请选择职业</option>
+            <option v-for="(item,index) in professions" :value="item.id" :key="index">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="interested">
+          <p>感兴趣的技术</p>
+          <div class="int_span">
+            <span v-for="(item,index) in interest" :key="index" :id="item.id" @click="selectInterest($event)">{{item.name}}</span>
+          </div>
+        </div>
+        <button class="accomplish" @click="Ok">完成</button>
       </div>
     </div>
-  <!-- </transition> -->
+  </div>
 </template>
 
 <script>
@@ -125,16 +123,10 @@ export default {
   mounted () {
     $(function(){
       $(document).find("input").on("focus",function(){
-        // $(this).css('border','1px solid #4CD964')
         $('.error').html('')
-      }).on('blur',function(){
-        $(this).css('border','none')
       })
       $(document).find("select").on("focus",function(){
-        // $(this).css('border','1px solid #4CD964')
         $('.error').html('')
-      }).on('blur',function(){
-        $(this).css('border','none')
       })
     })
     this.getProvince()

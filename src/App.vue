@@ -84,13 +84,13 @@ html{
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: "Microsoft YaHei";
+  font-family: 'FontAwesome'
 }
 body{
   position: relative;
   height: 100%;
   overflow-x: hidden;
-  font-family: "Microsoft YaHei";
+  font-family: 'FontAwesome'
 }
 .z_app{
   transition: 0.3s;

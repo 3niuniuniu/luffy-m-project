@@ -74,6 +74,7 @@ export default {
             color: #131F3C;
             letter-spacing: 0;
             padding-bottom: .07rem;
+            font-family: PingFangSC-Regular;
           }
           p:nth-of-type(2) {
             font-size: .12rem;

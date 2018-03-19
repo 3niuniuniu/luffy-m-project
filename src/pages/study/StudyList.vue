@@ -76,6 +76,7 @@ export default {
     width: 100%;
     height: auto;
     margin-top: .15rem;
+    font-family: PingFangSC-Regular;
     .weui-dialog .weui-dialog__btn_primary {
       color: #72D9BA !important;
     }

@@ -34,6 +34,7 @@ export default {
       padding-bottom: .1rem;
       font-size: .14rem;
       color: #4A4A4A;
+      font-family: PingFangSC-Regular;
     }
     p:nth-of-type(2) {
       font-size: .12rem;

@@ -7,7 +7,7 @@
         <p>
           <span v-show="!NotLogin" class="NotLogin" @click="goLogin">点击登录</span>
           <span v-show="NotLogin" class="name">{{name}}</span><br>
-          <span v-show="NotLogin" class="num">贝里余额1个</span>
+          <span v-show="NotLogin" class="num">贝里余额{{balance}}个</span>
         </p>
       </div>
       <div class="myMessage">
@@ -55,6 +55,7 @@ export default {
       userInfo: JSON.parse(localStorage.getItem('user')),
       url: localStorage.getItem("userimg"),
       name: localStorage.getItem("username"),
+      balance: localStorage.getItem("balance")
     }
   },
   mounted () {

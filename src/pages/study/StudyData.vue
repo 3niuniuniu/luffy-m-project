@@ -39,6 +39,7 @@ export default {
     display: flex;
     border-bottom: 1px solid rgba(0,0,0,0.10);
     margin-top: .44rem;
+    font-family: PingFangSC-Regular;
     li {
       height: 100%;
       flex: 1;

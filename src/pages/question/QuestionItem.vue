@@ -2,7 +2,7 @@
   <div class="CourseProblem">
     <header-item message="常见问题"></header-item>
     <div class="cont">
-      <p class="title">{{QuestionList[this.$route.query.id].headline}}</p>
+      <p class="title">{{QuestionList[this.$route.query.id].doubt}}</p>
       <ul>
         <li v-for="(item,index) in QuestionList[this.$route.query.id].question" :key="index">
           <p>{{item.name}}</p>
@@ -25,8 +25,6 @@ export default {
     return {
       QuestionList: QuestionList
     }
-  },
-  mounted () {
   }
 }
 </script>

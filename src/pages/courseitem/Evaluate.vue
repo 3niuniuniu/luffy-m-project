@@ -79,6 +79,7 @@ export default {
           padding-top: .27rem;
           padding-bottom: .17rem;
           border-bottom: 1px solid #DBDFE2;
+          font-family: PingFangSC-Regular;
           span {
             display: inline-block;
           }

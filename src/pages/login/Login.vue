@@ -122,6 +122,7 @@ export default {
             localStorage.setItem('token', data.access_token, data.expires_in)
             localStorage.setItem('username', data.username, data.expires_in )
             localStorage.setItem('userimg', data.avatar, data.expires_in )
+            localStorage.setItem('balance', data.balance, data.expires_in )
             if(this.yes){
               localStorage.setItem('user',JSON.stringify(info))
             }

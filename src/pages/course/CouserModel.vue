@@ -111,6 +111,8 @@ export default {
       left: 0;
       top:.44rem;
       z-index: 999;
+      font-size: .14rem;
+      font-family: PingFangSC-Regular;
       span {
         display: inline-block;
         margin: 0 .2rem;

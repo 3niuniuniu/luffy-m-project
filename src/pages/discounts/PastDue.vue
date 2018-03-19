@@ -56,6 +56,7 @@ export default {
         border-right: 1px dashed #d0d0d0;
         text-align: center;
         color: #9b9b9b;
+        font-family: PingFangSC-Regular;
         p:nth-of-type(1) {
           font-size: .12rem;
           span {

@@ -191,6 +191,7 @@ export default {
     color: #4A4A4A;
     padding: .14rem .17rem;
     background: #fff;
+    font-family: PingFangSC-Regular;
   }
   .catalog {
     height: auto;

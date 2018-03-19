@@ -114,6 +114,7 @@ export default {
         padding-bottom: .12rem;
         margin-left: .2rem;
         margin-right: .2rem;
+        font-family: PingFangSC-Regular;
         span {
           font-size: .16rem;
           color: #FA6240;
@@ -148,6 +149,7 @@ export default {
       padding-left: .2rem;
       padding-top: .2rem;
       padding-bottom: .15rem;
+      font-family: PingFangSC-Regular;
     }
     .cont {
       padding-left: .2rem;
@@ -171,6 +173,7 @@ export default {
         text-align: center;
         padding-top: .22rem;
         padding-bottom: .15rem;
+        font-family: PingFangSC-Regular;
       }
       .serviceCont {
         height: 4.36rem;
@@ -220,6 +223,7 @@ export default {
         text-align: center;
         padding-top: 1rem;
         padding-bottom: .2rem;
+        font-family: PingFangSC-Regular;
       }
       .PROJECT:last-child{
         margin-bottom: 0;
@@ -228,6 +232,7 @@ export default {
         background: #fff;
         padding-left: .29rem;
         margin-bottom: .2rem;
+        font-family: PingFangSC-Medium;
         p:nth-of-type(1) {
           font-size: .14rem;
           color: #9B9B9B;
@@ -264,7 +269,7 @@ export default {
         padding: 0 .12rem;
         padding-bottom: .24rem;
         line-height: .2rem;
-        text-align: left;
+        text-align: center;
       }
       p:nth-of-type(3) {
         font-size: .16rem;
@@ -304,6 +309,7 @@ export default {
         color: #333333;
         padding-top: .3rem;
         padding-bottom: .2rem;
+        font-family: PingFangSC-Regular;
       }
       img {
         width: 1rem;
@@ -314,6 +320,7 @@ export default {
         font-size: .18rem;
         color: #4A4A4A;
         padding: .12rem;
+        font-family: PingFangSC-Regular;
       }
       p:nth-of-type(3) {
         font-size: .12rem;
