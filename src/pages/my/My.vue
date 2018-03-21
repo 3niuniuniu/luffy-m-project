@@ -2,12 +2,12 @@
   <div class="my">
     <div class="title">
       <div class="user">
-        <img src="../../assets/img/pageimgs/defaulthead.png" alt="" v-if="!NotLogin">
-        <img :src="url" alt="" v-if="NotLogin">
+        <img src="../../assets/img/pageimgs/defaulthead.png" alt="" v-show="!userInfo.token">
+        <img :src="userInfo.userImg" alt="" v-show="userInfo.token">
         <p>
-          <span v-show="!NotLogin" class="NotLogin" @click="goLogin">点击登录</span>
-          <span v-show="NotLogin" class="name">{{name}}</span><br>
-          <span v-show="NotLogin" class="num">贝里余额{{balance}}个</span>
+          <span v-show="!userInfo.token" class="NotLogin" @click="goLogin">点击登录</span>
+          <span v-show="userInfo.token" class="name">{{userInfo.username}}</span><br>
+          <span v-show="userInfo.token" class="num">贝里余额{{userInfo.balance}}个</span>
         </p>
       </div>
       <div class="myMessage">
@@ -26,7 +26,7 @@
             <img src="../../assets/img/icon/优惠券.png" alt="">
             <p>优惠券</p>
             <span v-if="this.$store.state.available_coupon_num == 0">可兑换</span>
-            <span v-else-if="NotLogin" class="sp">{{this.$store.state.available_coupon_num}}张可用</span>
+            <span v-else-if="userInfo.token" class="sp">{{this.$store.state.available_coupon_num}}张可用</span>
             <img src="../../assets/img/pageimgs/Shape2.png" alt="">
           </router-link>
         </ul>
@@ -45,26 +45,42 @@
 </template>
 
 <script>
-import { userInfo } from 'os';
-import Cookies from '../../assets/js/Cookie'
+import { mapState } from 'vuex'
 
 export default {
-  data () {
+  data() {
     return {
-      NotLogin: Cookies.get('access_token'),
-      userInfo: JSON.parse(localStorage.getItem('user')),
-      url: localStorage.getItem("userimg"),
-      name: localStorage.getItem("username"),
-      balance: localStorage.getItem("balance")
-    }
+      userInfo: {
+        token: '',
+        username: '',
+        balance: '',
+      },
+    };
   },
-  mounted () {
-
+  watch: {
+    $route() {
+      this.getUserInfo();
+    },
+  },
+  mounted() {
+    this.getUserInfo();
   },
   methods: {
     goLogin () {
       this.$router.push({path: '/login'})
-    }
+    },
+    getUserInfo() {
+      const info = window.localStorage.getItem('userInfo');
+      if (info != '') {
+        this.userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+      } else {
+        this.userInfo = {
+          token: '',
+          username: '',
+          balance: '',
+        };
+      }
+    },
   },
 }
 </script>

@@ -1,7 +1,8 @@
 import {
   GET_ITEMBUY,
   GET_VALIDPERIODLD,
-  GET_COURSEID
+  GET_COURSEID,
+  GET_USERINFO
 } from './mutation-types.js'
 
 export default {
@@ -26,5 +27,8 @@ export default {
   },
   [GET_COURSEID] (state, id) {
     state.course_id = id
+  },
+  [GET_USERINFO] (state, user_info, time) {
+    Object.assign(state.user_info, user_info)
   }
 }

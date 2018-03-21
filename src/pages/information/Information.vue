@@ -57,7 +57,7 @@
   Vue.use(LoadingPlugin)
   import HeaderItem from '@/components/header'
   import { ConfirmPlugin, LoadingPlugin, Confirm, TransferDomDirective as TransferDom } from 'vux'
-  import { mapState } from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
 
   export default {
     directives: {
@@ -79,9 +79,12 @@
       })
     },
     methods: {
+      ...mapMutations(['GET_USERINFO']),
       onConfirm () {
         this.$http.get('/api/v1/account/logout/')
         .then((res) =>{
+          // this.GET_USERINFO({})
+          window.localStorage.setItem('userInfo', '');
           if(res.data.error_no == 0){
             this.$vux.loading.show({
               transition: '',

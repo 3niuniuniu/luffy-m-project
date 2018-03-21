@@ -25,6 +25,11 @@ const state = {
   img_url: '',
   register_token: '',
   reload: false,
+  user_info: {
+    token: '',
+    username: '',
+    userImg: '',
+  },
 }
 
 /* Store实例 */

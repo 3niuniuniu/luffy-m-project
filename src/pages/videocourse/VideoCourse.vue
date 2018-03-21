@@ -54,7 +54,7 @@ export default {
       videoDirectory: '',
       loading: true,
       onShow: false,
-      errorhint: '服务器发生错误',
+      errorhint: '糟糕 发生错误了',
       error: false,
       videoLink: '',
     }

@@ -58,7 +58,7 @@ export default {
       loading: true,
       empty: false,
       emptyCont: '暂无课程列表',
-      errorhint: '服务器发生错误',
+      errorhint: '糟糕 发生错误了',
       error: false,
     }
   },

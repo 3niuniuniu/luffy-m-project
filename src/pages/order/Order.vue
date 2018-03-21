@@ -50,7 +50,7 @@
       return {
         orderList: '',
         emptyCont: '暂无订单',
-        errorhint: '服务器发生错误',
+        errorhint: '糟糕 发生错误了',
         loading: true,
         empty: false,
         error:  false,

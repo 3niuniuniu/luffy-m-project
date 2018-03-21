@@ -5,6 +5,9 @@ export const GET_VALIDPERIODLD = 'GET_VALIDPERIODLD'
 
 export const GET_COURSEID = 'GET_COURSEID'
 
+export const GET_USERINFO = 'GET_USERINFO'
+
+
 
 
 

@@ -1,3 +1,3 @@
 export default {
-	// item_buylist: state=>state.item_buylist,
+	user_info: state=>state.user_info,
 }

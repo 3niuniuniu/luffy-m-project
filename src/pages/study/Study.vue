@@ -1,15 +1,15 @@
 <template>
   <div class="study">
-    <cell @click.native="showModuleAuto" v-show="onShow"></cell>
-    <div v-show="NotLogin">
+    <cell @click.native="showModuleAuto" v-if="onShow"></cell>
+    <div v-if="isHaveUserInfo">
       <header-item message="爬虫开发实战"></header-item>
       <study-date></study-date>
       <study-course @studyCourse="studyCourse"></study-course>
-      <loading v-show="loading"></loading>
-      <error-five v-show="error" class="error" :errorhint="errorhint"></error-five>
+      <loading v-if="loading"></loading>
+      <error-five v-if="error" class="error" :errorhint="errorhint"></error-five>
       <study-list :courseModule="courseModule" :loading="loading"></study-list>
     </div>
-    <study-login v-show="!NotLogin"></study-login>
+    <study-login v-if="!isHaveUserInfo"></study-login>
   </div>
 </template>
 
@@ -36,17 +36,24 @@ export default {
   },
   data () {
     return {
-      NotLogin: Cookies.get('access_token'),
       levelId: 5,
-      courseModule: '',
-      loading: true,
-      onShow: false,
       error: false,
-      errorhint: '服务器发生错误'
+      onShow: false,
+      loading: true,
+      courseModule: '',
+      errorhint: '糟糕 发生错误了',
+      isHaveUserInfo: false,
     }
   },
+  watch: {
+    $route() {
+      this.CourseData();
+      this.getUserInfo();
+    },
+  },
   mounted () {
-    this.CourseData()
+    this.CourseData();
+    this.getUserInfo();
   },
   methods: {
     CourseData () {
@@ -69,12 +76,16 @@ export default {
     showModule () {
       AlertModule.show({
         title: '抱歉',
-        content: '服务器发生错误',
+        content: '糟糕 发生错误了',
       })
     },
     showModuleAuto () {
       this.showModule()
     },
+    getUserInfo() {
+      const info = window.localStorage.getItem('userInfo');
+      this.isHaveUserInfo = info ? true : false;
+    }
   }
 }
 </script>

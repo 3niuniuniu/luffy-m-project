@@ -32,6 +32,7 @@
 import Vue from 'vue'
 import Cookies from '../../assets/js/Cookie'
 import { setTimeout } from 'timers';
+import { mapMutations, mapActions } from 'vuex'
 import '../../assets/js/gt'
 
 export default {
@@ -75,6 +76,8 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['userInfo']),
+    ...mapMutations(['GET_USERINFO']),
     goForget () {
       this.$router.push({path: '/forget'})
     },
@@ -119,10 +122,9 @@ export default {
               userImg: data.avatar,
               phone: data.phone
             }
-            localStorage.setItem('token', data.access_token, data.expires_in)
-            localStorage.setItem('username', data.username, data.expires_in )
-            localStorage.setItem('userimg', data.avatar, data.expires_in )
-            localStorage.setItem('balance', data.balance, data.expires_in )
+            window.localStorage.setItem('userInfo', JSON.stringify(info));
+            // this.GET_USERINFO(info, data.expires_in)
+            this.userInfo(info)
             if(this.yes){
               localStorage.setItem('user',JSON.stringify(info))
             }
