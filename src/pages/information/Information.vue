@@ -12,37 +12,37 @@
     <ul class="cont">
       <li>
         <span class="type">头像</span>
-        <img :src="img_host + userInfo.head_img" alt="">
+        <img :src="img_host + userInfos.head_img" alt="" v-if="userInfo">
       </li>
       <li>
         <span class="type">用户名</span>
-        <span class="user">{{userInfo.username}}</span>
+        <span class="user" v-if="userInfo">{{userInfos.username}}</span>
       </li>
       <li>
         <span class="type">性别</span>
-        <span class="user">{{userInfo.gender}}</span>
+        <span class="user" v-if="userInfo">{{userInfos.gender}}</span>
       </li>
       <li>
         <span class="type">生日</span>
-        <span class="user">{{userInfo.birthday}}</span>
+        <span class="user" v-if="userInfo">{{userInfos.birthday}}</span>
       </li>
     </ul>
     <ul class="cont">
       <li>
         <span class="type">Q Q</span>
-        <span class="user">{{userInfo.qq}}</span>
+        <span class="user" v-if="userInfo">{{userInfos.qq}}</span>
       </li>
       <li>
         <span class="type">微信</span>
-        <span class="user">{{userInfo.weixin}}</span>
+        <span class="user" v-if="userInfo">{{userInfos.weixin}}</span>
       </li>
       <li>
         <span class="type">现居</span>
-        <span class="user">{{userInfo.city}}</span>
+        <span class="user" v-if="userInfo">{{userInfos.city}}</span>
       </li>
       <li>
         <span class="type">学历</span>
-        <span class="user">{{userInfo.degree}}</span>
+        <span class="user" v-if="userInfo">{{userInfos.degree}}</span>
       </li>
     </ul>
     <div class="exit" @click="exit">
@@ -69,21 +69,47 @@
     },
     data () {
       return {
-        userInfo: '',
+        userInfos: '',
+        userInfo: {
+          token: '',
+          username: '',
+          balance: '',
+        },
         show: false
       }
     },
+    watch: {
+      $route() {
+        this.getUserInfo()
+      }
+    },
     mounted () {
-      this.$http.get('/api/v1/personal/').then(res => {
-        this.userInfo = res.data.data
-      })
+      this.getUserInfo();
     },
     methods: {
       ...mapMutations(['GET_USERINFO']),
+      getUser () {
+        this.$http.get('/api/v1/personal/').then(res => {
+          this.userInfos = res.data.data
+        })
+      },
+      getUserInfo() {
+        const info = window.localStorage.getItem('userInfo');
+        if (info != '') {
+          this.userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+          this.getUser()
+        } else {
+          this.userInfos = ''
+          this.userInfo = {
+            token: '',
+            username: '',
+            balance: '',
+          };
+        }
+      },
       onConfirm () {
         this.$http.get('/api/v1/account/logout/')
         .then((res) =>{
-          // this.GET_USERINFO({})
           window.localStorage.setItem('userInfo', '');
           if(res.data.error_no == 0){
             this.$vux.loading.show({

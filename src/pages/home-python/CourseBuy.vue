@@ -108,6 +108,8 @@ export default {
           this.GET_ITEMBUY(res.data.data)
           this.GET_VALIDPERIODLD(this.validPeriodId)
           this.$router.push({path: '/Buy', query: {id: this.$route.query.id}})
+        } else if (res.data.error_no == 2) {
+          this.$router.push({path: '/login', query: {redirect: `/course/courseitem?id=${this.$route.query.id}`}})
         }
       })
     },

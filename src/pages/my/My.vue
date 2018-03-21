@@ -7,7 +7,7 @@
         <p>
           <span v-show="!userInfo.token" class="NotLogin" @click="goLogin">点击登录</span>
           <span v-show="userInfo.token" class="name">{{userInfo.username}}</span><br>
-          <span v-show="userInfo.token" class="num">贝里余额{{userInfo.balance}}个</span>
+          <span v-show="userInfo.token" class="num">贝里余额 {{userInfo.balance}}个</span>
         </p>
       </div>
       <div class="myMessage">

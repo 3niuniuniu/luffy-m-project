@@ -30,6 +30,7 @@ const state = {
     username: '',
     userImg: '',
   },
+  item_id: '',
 }
 
 /* Store实例 */

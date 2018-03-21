@@ -114,25 +114,34 @@ export default {
         this.$http.post('/api/v1/account/login/', {
           ...params
         }).then(res => {
+
           if (res.data.error_no==0){
             var data = res.data.data
             const info = {
               token: data.access_token,
               username: data.username,
               userImg: data.avatar,
-              phone: data.phone
+              phone: data.phone,
+              balance: data.balance,
             }
             window.localStorage.setItem('userInfo', JSON.stringify(info));
-            // this.GET_USERINFO(info, data.expires_in)
             this.userInfo(info)
             if(this.yes){
               localStorage.setItem('user',JSON.stringify(info))
             }
-            if (res.data.data.redirect_url == '' || res.data.data.redirect_url == undefined) {
+            if (!this.$route.query.redirect) {
               this.$router.push({path: '/home'})
             } else {
-              window.location.href = res.data.data.redirect_url
+              if (this.$route.query.redirect == '/my/information' ||
+                  this.$route.query.redirect == '/my/order' ||
+                  this.$route.query.redirect == '/my/discounts')
+                {
+                  this.$router.push({path: '/my'})
+                } else {
+                  this.$router.push({path: this.$route.query.redirect})
+                }
             }
+
           } else {
             if (this.pwd.length < 6) {
               this.$refs.error.innerHTML = '密码至少6位'

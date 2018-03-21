@@ -1,8 +1,8 @@
 {
-  "name": "db_market",
+  "name": "luffycity",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "Awheat <395212731@qq.com>",
+  "description": "luffycity",
+  "author": "san",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",

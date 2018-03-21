@@ -1,29 +1,37 @@
 <template>
   <div class="StudyCourse">
-    <div class="sel">
+    <div class="sel" v-if="this.courseLevel.length != 0">
       <select name="" id="" @change="getDataId" v-model="levelId">
         <option v-for="(item,index) in courseLevel" :key="index" :value="item.degree_courseid">{{item.degree_coursename}}</option>
       </select>
       <span></span>
     </div>
+    <div class="course pad" v-else>学位课程</div>
     <div class="course">专题课程</div>
   </div>
 </template>
 
 <script>
+import Empty from '@/components/empty'
+
 export default {
+  components: {
+    Empty
+  },
   data () {
     return {
       list: false,
       courseName: 'Python开发入门14天集训营',
       courseLevel: '',
       levelId: 5,
+      emptyCont: '您还未购买过课程'
     }
   },
   mounted () {
     this.$http.get('/api/v1/myenroll/degreeCourse/').then(res => {
       if (res.data.error_no == 0) {
         this.courseLevel = res.data.data
+        this.$emit('courseLength',this.courseLevel.length)
       }
     })
   },
@@ -122,6 +130,9 @@ export default {
       margin-right: .11rem;
       text-align: center;
       font-size: .14rem;
+    }
+    .pad {
+      margin-left: .11rem;
     }
   }
 </style>

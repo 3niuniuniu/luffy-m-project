@@ -95,12 +95,12 @@ export default {
           e.target.innerHTML = '已领取'
           this.error_msg = res.data.data.msg
           this.Alert()
-        } else {
-          if(res.data.error_msg == '抱歉, 您已领取该优惠券') {
-            e.target.innerHTML = '已领取'
-            this.error_msg = res.data.error_msg
-            this.Alert()
-          }
+        }else if(res.data.error_msg == '抱歉, 您已领取该优惠券') {
+          e.target.innerHTML = '已领取'
+          this.error_msg = res.data.error_msg
+          this.Alert()
+        } else if (res.data.error_no == 2) {
+          this.$router.push({path: '/login', query: {redirect: `/course/courseitem?id=${this.$route.query.id}`}})
         }
       })
     },
@@ -127,6 +127,8 @@ export default {
           this.GET_ITEMBUY(res.data.data)
           this.GET_VALIDPERIODLD(this.validPeriodId)
           this.$router.push({path: '/Buy', query: {id: this.$route.query.id}})
+        } else if (res.data.error_no == 2) {
+          this.$router.push({path: '/login', query: {redirect: `/course/courseitem?id=${this.$route.query.id}`}})
         }
       })
     },
