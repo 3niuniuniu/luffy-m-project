@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "jedate": "^1.0.0",
-    "jquery": "^2.2.3",
+    "jquery": "^3.3.1",
     "less": "^2.7.3",
     "less-loader": "^2.2.3",
     "autoprefixer": "^6.7.2",
