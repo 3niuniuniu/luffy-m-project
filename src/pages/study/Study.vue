@@ -87,7 +87,6 @@ export default {
     },
     showModule () {
       AlertModule.show({
-        title: '抱歉',
         content: '糟糕 发生错误了',
       })
     },

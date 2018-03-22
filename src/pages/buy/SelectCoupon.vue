@@ -24,7 +24,8 @@
       <p class="title">订单优惠券</p>
       <div class="list">
         <div>
-          <div class="coupon" v-for="(item,index) in get_allcoupons" :key="index">
+          <p class="p1" v-if="get_allcoupons.length == 0">暂无订单优惠券</p>
+          <div class="coupon" v-for="(item,index) in get_allcoupons" :key="index" v-else>
             <div class="discount">
               <p>￥<span>{{item.faceVal}}</span></p>
               <p>{{item.couponContent}}</p>

@@ -79,8 +79,8 @@
       <p>{{CourseItemCont.career_improvement}}</p>
       <p>课程先修要求</p>
       <p>{{CourseItemCont.prerequisite}}</p>
-      <p>推荐课程</p>
-      <p v-for="(item,index) in CourseItemCont.recommend_coursesinfo" class="p1">{{item.coursename}}</p>
+      <p v-if="CourseItemCont.recommend_coursesinfo.length != 0">推荐课程</p>
+      <p v-for="(item,index) in CourseItemCont.recommend_coursesinfo" class="p1" :key="index">{{item.coursename}}</p>
     </div>
     <div class="teacher" v-for="(item,index) in CourseItemCont.teachersinfo" :key="index">
       <p>爬虫开发讲师，路飞学城讲师</p>

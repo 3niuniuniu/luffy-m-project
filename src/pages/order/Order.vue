@@ -1,7 +1,7 @@
 <template>
   <div class="order">
     <header-item message="我的订单"></header-item>
-    <toast v-model="showSuccess" type="text" width="2.4rem" position="top" class="toast">{{text}}</toast>
+    <toast v-model="showSuccess" type="text" width="2.4rem" position="middle" class="toast">{{text}}</toast>
     <loading v-show="loading" class="loading"></loading>
     <error-five :errorhint="errorhint" v-show="error" class="error"></error-five>
     <div v-show="!loading">
